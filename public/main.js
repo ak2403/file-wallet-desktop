@@ -12,7 +12,6 @@ function createWindow() {
 
   mainWindow.loadURL('http://localhost:3000')
 
-  console.log('Try to connect');
   // const socketClient = net.connect({host:'http://10.0.0.18', port:5000},  () => {
   //   // 'connect' listener
   //   console.log('connected to server!');
@@ -29,14 +28,14 @@ function createWindow() {
   // socketClient.on('end', () => {
   //   console.log('disconnected from server');
   // });
-  const socket = io('http://10.0.0.18/5000')
+  // const socket = io('http://10.0.0.18/5000')
 
-  socket.on('connect', function(){
-    console.log("hi")
-  });
-  socket.on('tweet', (tweet) => {
-    console.log('tweet', tweet);
-  });
+  // socket.on('connect', function(){
+  //   console.log("hi")
+  // });
+  // socket.on('tweet', (tweet) => {
+  //   console.log('tweet', tweet);
+  // });
 
 }
 
