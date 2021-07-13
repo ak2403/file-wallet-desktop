@@ -1,23 +1,12 @@
-import logo from './logo.svg';
-import io from 'socket.io-client'
+import React from 'react'
 import './App.css';
 
 function App() {
-  const socket = io('http://10.0.0.18:5000', { transports : ['websocket'] })
-
-  socket.on('connect', function(){
-    console.log("hi")
-  });
-  socket.on('tweet', (tweet) => {
-    console.log('tweet', tweet);
-  });
-
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reloa
+          Edit <code>src/App.js</code> and learn react
         </p>
         <a
           className="App-link"
