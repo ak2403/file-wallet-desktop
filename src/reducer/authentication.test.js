@@ -1,14 +1,10 @@
 import {Authentication} from '../type'
-import AuthenticationReducer from "./authentication";
+import AuthenticationReducer, {initialState} from "./authentication";
 
 describe('Logged App in AuthenticationReducer', () => {
   let state;
   beforeEach(() => {
-    state = {
-      isAppLoaded: false,
-      isUserLogged: false,
-      isDeviceRegistered: false,
-    }
+    state = initialState
   })
   
   it('should return no logged user state.', () => {
@@ -114,6 +110,31 @@ describe('Logged App in AuthenticationReducer', () => {
     expect(callAuthentication).toEqual(expect.objectContaining({
       isUserLoggedError: true,
       isUserLogged: false
+    }))
+  })
+
+  it("should handle expected for Register Device", () => {
+    const action = {
+      type: Authentication.REGISTER_DEVICE,
+      payload: true
+    }
+    const callAuthentication = AuthenticationReducer(state, action)
+
+    expect(callAuthentication).toEqual(expect.objectContaining({
+      isDeviceRegistered: true,
+      isDeviceRegisteredError: false
+    }))
+  })
+
+  it("should handle expected for Register Device Error", () => {
+    const action = {
+      type: Authentication.REGISTER_DEVICE_ERROR,
+    }
+    const callAuthentication = AuthenticationReducer(state, action)
+
+    expect(callAuthentication).toEqual(expect.objectContaining({
+      isDeviceRegistered: false,
+      isDeviceRegisteredError: true
     }))
   })
 })

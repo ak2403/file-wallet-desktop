@@ -2,7 +2,7 @@ import React from 'react'
 import {render, fireEvent} from '@testing-library/react'
 import Button from '.'
 
-describe('Login Component with all props', () => {
+describe('Button Component with all props', () => {
   
   it('should render the button.', () => {
     const {queryByTestId} = render(<Button title="Login" />)

@@ -69,7 +69,7 @@ describe('registerDevice()', () => {
     
     expect(store.getActions()).toContainEqual({
       type: Authentication.REGISTER_DEVICE,
-      payload: '123'
+      payload: true
     })
   })
 

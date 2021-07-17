@@ -1,10 +1,11 @@
 import {Authentication} from '../type'
 import {ToBool} from '../utils/common'
 
-const initialState = {
+export const initialState = {
   isAppLoaded: false,
   isUserLogged: false,
   isDeviceRegistered: false,
+  isDeviceRegisteredError: false,
   isUserLoggedError: false,
 }
 
@@ -28,6 +29,17 @@ function AuthenticationReducer(state = initialState, action) {
         ...state,
         isUserLogged: false,
         isUserLoggedError: true,
+      }
+    case Authentication.REGISTER_DEVICE:
+      return {
+        ...state,
+        isDeviceRegistered: ToBool(action?.payload) || false,
+      }
+    case Authentication.REGISTER_DEVICE_ERROR:
+      return {
+        ...state,
+        isDeviceRegistered: false,
+        isDeviceRegisteredError: true
       }
     default:
       return state;

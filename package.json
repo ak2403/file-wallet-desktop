@@ -39,7 +39,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron:serve": "concurrently -k \"cross-env BROWSER=none yarn start\" \"yarn electron:start\"",
-    "electron:start": "nodemon --watch . --exec 'electron .'",
+    "electron:start": "wait-on tcp:3002 && nodemon --watch . --exec 'electron .'",
     "jest": "NODE_ENV=test jest --runInBand --detectOpenHandles --coverage --coverageReporters='text-summary' --config jest.config.json"
   },
   "eslintConfig": {

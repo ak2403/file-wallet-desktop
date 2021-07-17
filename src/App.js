@@ -3,16 +3,18 @@ import Navigation from './navigation'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {loadApp} from './action/user'
+import {removeItem} from './utils/localStorage'
 
 class App extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     this.props.loadApp()
   }
   
   render() {
-    const {isAppLoaded, isUserLogged} = this.props;
+    const {isAppLoaded, isUserLogged, isDeviceRegistered} = this.props;
+    
     return (isAppLoaded ? 
-    <Navigation isUserLogged={isUserLogged} /> : 
+    <Navigation isUserLogged={isUserLogged} isSetupCompleted={isDeviceRegistered} /> : 
     <div>
       <p>Loading...</p>
     </div>
@@ -29,6 +31,7 @@ const mapStateToProps = props => {
   return {
     isAppLoaded: authentication.isAppLoaded,
     isUserLogged: authentication.isUserLogged,
+    isDeviceRegistered: authentication.isDeviceRegistered,
   }
 }
 

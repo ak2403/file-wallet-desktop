@@ -5,8 +5,9 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import LoginComponent from '../screen/login'
-import SetupComponent from '../screen/setup'
+import Login from '../screen/login'
+import Setup from '../screen/setup'
+import Dashboard from '../screen/dashboard'
 
 class Navigation extends Component {
   constructor() {
@@ -16,17 +17,27 @@ class Navigation extends Component {
   }
 
   render() {
-    const {isUserLogged} = this.props;
+    const {isUserLogged, isSetupCompleted} = this.props;
+    let defaultRoute = 'login';
+
+    if (isUserLogged) {
+      defaultRoute = 'setup';
+    }
+    if (isSetupCompleted) {
+      defaultRoute = 'dashboard';
+    }
 
     return (
       <Router>
           <Switch>
             <Route exact path="/">
-              <Redirect to={isUserLogged ? "/setup" : "/login"} />
+              <Redirect to={`/${defaultRoute}`} />
             </Route>
-            <Route path="/login" render={() => <LoginComponent />} />
+            <Route path="/login" render={() => <Login />} />
 
-            <Route path="/setup" render={() => <SetupComponent />} />
+            <Route path="/setup" render={() => <Setup />} />
+
+            <Route path="/dashboard" render={() => <Dashboard />} />
           </Switch>
       </Router>
     );

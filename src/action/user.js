@@ -43,6 +43,8 @@ export const processLogin = data => {
 
 export const registerDevice = data => {
   return async dispatch => {
+    data.device_id = await window.electron.getSysInfo();
+    data.token = 'default'; //TODO: should use this for the push notification
     const registerDevice = await post(ENDPOINTS.REGISTER_DEVICE, data)
 
     if (registerDevice.status === 200 && registerDevice?.data?.id) {
@@ -51,7 +53,7 @@ export const registerDevice = data => {
       if (isDeviceIDSaved) {
         dispatch({
           type: Authentication.REGISTER_DEVICE,
-          payload: registerDevice.data.id
+          payload: isDeviceIDSaved
         })
       }
     }
