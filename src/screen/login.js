@@ -1,45 +1,52 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {FRONTEND_URL} from '../config/api'
 import Button from '../ui/button'
 import {openURL} from '../utils/electron'
-import {saveItem} from '../utils/localStorage'
+import {processLogin} from '../action/user'
 
 class LoginComponent extends Component {
   constructor() {
     super()
     this.state = {
       redirectLoginInProgress: false,
-      errorOccurred: false,
       loginSuccess: false,
+      redirectedToSetup: false,
     }
     this.onLoginClick = this.onLoginClick.bind(this);
     this.handleAuthToken = this.handleAuthToken.bind(this);
   }
 
   componentDidMount() {
-    console.log(window.shell)
     window.electron.on('login-success', this.handleAuthToken)
   }
 
-  async handleAuthToken(event, data) {
-    try {
-      const splitToken = data.data.split('access_token=')
-      await saveItem('access_token', splitToken[1])
-      
-      this.props.history.push('/setup');
-    }
-    catch(err) {
-      this.setState({
-        errorOccurred: true,
-      })
-    }
+  handleAuthToken(_, data) {
+    this.props.processLogin(data?.data)
   }
 
   async onLoginClick(){
     this.setState({
       redirectLoginInProgress: true
     })
-    await openURL('http://localhost:3001/')
+    await openURL(FRONTEND_URL)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const {redirectedToSetup} =this.state
+    const {isUserLogged} = this.props;
+
+    if (isUserLogged && !redirectedToSetup) {
+      console.log("hii")
+      this.props.history.push({
+        pathname: '/setup'
+      })
+      this.setState({
+        redirectedToSetup: true
+      })
+    }
   }
 
   render() {
@@ -49,4 +56,15 @@ class LoginComponent extends Component {
   }
 }
 
-export default withRouter(LoginComponent)
+const mapDispatchToProps = dispatch => bindActionCreators({
+  processLogin,
+}, dispatch)
+
+const mapStateToProps = props => {
+  const {authentication} = props;
+  return {
+    isUserLogged: authentication.isUserLogged
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginComponent))

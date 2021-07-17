@@ -3,36 +3,30 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
 } from "react-router-dom";
-import ProtectedRoute from './protected'
 import LoginComponent from '../screen/login'
 import SetupComponent from '../screen/setup'
-import {getItem} from '../utils/localStorage'
-
 
 class Navigation extends Component {
   constructor() {
     super();
     this.state = {
-      isLoginCompleted: false,
-    }
-  }
-  async componentDidMount() {
-    const isTokenPresent = await getItem('access_token')
-
-    if (isTokenPresent) {
-      this.setState({
-        isLoginCompleted: true,
-      })
     }
   }
 
   render() {
-    const {isLoginCompleted} = this.state;
+    const {isUserLogged} = this.props;
+
     return (
       <Router>
           <Switch>
-            <Route path="/" render={() => (isLoginCompleted ? <SetupComponent /> : <LoginComponent />)} />
+            <Route exact path="/">
+              <Redirect to={isUserLogged ? "/setup" : "/login"} />
+            </Route>
+            <Route path="/login" render={() => <LoginComponent />} />
+
+            <Route path="/setup" render={() => <SetupComponent />} />
           </Switch>
       </Router>
     );

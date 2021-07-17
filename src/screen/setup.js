@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {getSystemInfo} from '../utils/electron'
 
 class SetupComponent extends Component {
   constructor() {
@@ -8,12 +7,8 @@ class SetupComponent extends Component {
     }
   }
 
-  async componentDidMount() {
-    console.log(await getSystemInfo())
-  }
-
   render() {
-    console.log("hi")
+    
     return <div>
       <p>Setup</p>
     </div>

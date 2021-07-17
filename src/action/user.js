@@ -16,6 +16,31 @@ export const loadApp = () => {
   }
 }
 
+export const processLogin = data => {
+  return async dispatch => {
+    try {
+      const formatData = data.split('access_token=')
+      const isTokenSaved = await setItem('access_token', formatData[1])
+  
+      if(isTokenSaved) {
+        dispatch({
+          type: Authentication.LOGGED_IN,
+          payload: isTokenSaved
+        })
+      }
+  
+      dispatch({
+        type: Authentication.LOGGED_IN_ERROR,
+      })
+    }
+    catch(err) {
+      dispatch({
+        type: Authentication.LOGGED_IN_ERROR,
+      })
+    }
+  }
+}
+
 export const registerDevice = data => {
   return async dispatch => {
     const registerDevice = await post(ENDPOINTS.REGISTER_DEVICE, data)

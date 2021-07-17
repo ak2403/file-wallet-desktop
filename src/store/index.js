@@ -1,5 +1,5 @@
-import {createStore, applyMiddleware} from 'react-redux'
-import thunk from 'react-thunk'
+import {createStore, applyMiddleware} from 'redux'
+import thunk from 'redux-thunk'
 import Reducers from '../reducer'
 
 const thunkMiddleware = applyMiddleware(thunk);

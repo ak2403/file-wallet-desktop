@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk';
 import {getItem, setItem} from '../utils/localStorage'
 import {post} from '../api'
-import {loadApp, registerDevice} from './user'
+import {loadApp, registerDevice, processLogin} from './user'
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -99,6 +99,45 @@ describe('registerDevice()', () => {
     
     expect(store.getActions()).toContainEqual({
       type: Authentication.REGISTER_DEVICE_ERROR,
+    })
+  })
+})
+
+describe('processLogin()', () => {
+  let store;
+
+  beforeEach(() => {
+    store = mockStore()
+  })
+
+  it('should return success result.', async () => {
+    setItem.mockImplementation(() => true)
+
+    await store.dispatch(processLogin('saccess_token=122'))
+    
+    expect(store.getActions()).toContainEqual({
+      type: Authentication.LOGGED_IN,
+      payload: true
+    })
+  })
+
+  it('should return failure result.', async () => {
+    setItem.mockImplementation(() => false)
+
+    await store.dispatch(processLogin('saccess_token=122'))
+    
+    expect(store.getActions()).toContainEqual({
+      type: Authentication.LOGGED_IN_ERROR,
+    })
+  })
+
+  it('should return unexpected result.', async () => {
+    setItem.mockImplementation(() => true)
+
+    await store.dispatch(processLogin('access_token=122'))
+    
+    expect(store.getActions()).toContainEqual({
+      type: Authentication.LOGGED_IN_ERROR,
     })
   })
 })

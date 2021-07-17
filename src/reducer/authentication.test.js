@@ -78,4 +78,42 @@ describe('Logged App in AuthenticationReducer', () => {
       isUserLogged: false
     }))
   })
+
+  it("should handle success for Logged In", () => {
+    const action = {
+      type: Authentication.LOGGED_IN,
+      payload: "true"
+    }
+    const callAuthentication = AuthenticationReducer(state, action)
+
+    expect(callAuthentication).toEqual(expect.objectContaining({
+      isUserLoggedError: false,
+      isUserLogged: true
+    }))
+  })
+
+  it("should handle unexpected for Logged In", () => {
+    const action = {
+      type: Authentication.LOGGED_IN,
+      payload: "true12"
+    }
+    const callAuthentication = AuthenticationReducer(state, action)
+
+    expect(callAuthentication).toEqual(expect.objectContaining({
+      isUserLoggedError: false,
+      isUserLogged: false
+    }))
+  })
+
+  it("should handle expected for Logged In Error", () => {
+    const action = {
+      type: Authentication.LOGGED_IN_ERROR,
+    }
+    const callAuthentication = AuthenticationReducer(state, action)
+
+    expect(callAuthentication).toEqual(expect.objectContaining({
+      isUserLoggedError: true,
+      isUserLogged: false
+    }))
+  })
 })
