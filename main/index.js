@@ -1,31 +1,43 @@
+const path = require('path')
 const {app, BrowserWindow} = require('electron')
-const io = require('socket.io-client')
-const {readFolder} = require('./utils/file_system')
+// const io = require('socket.io-client')
+// const {readFolder} = require('./utils/file_system')
+
+global.electron = require('electron');
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 500,
+    width: 1600,
+    height: 900,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      preload: path.join(__dirname,'preload.js'),
     }
   })
 
-  mainWindow.loadURL('http://localhost:3000')
+  mainWindow.loadURL('http://localhost:3002')
 
-  const socket = io('http://10.0.0.18:5000', { transports : ['websocket'] })
+  app.setAsDefaultProtocolClient('com.sharespace.app')
+
+  // const socket = io('http://10.0.0.18:5000', { transports : ['websocket'] })
 
   mainWindow.webContents.openDevTools()
 
-  socket.on('connect', function(){
-    console.log("hi")
-  });
+  app.on('open-url', function (event, data) {
+    mainWindow.webContents.send('login-success', {
+      data
+    })
+  })
 
-  socket.on('tweet', async (tweet) => {
-    console.log('tweet1');
-    const getFodler = await readFolder();
-    socket.emit("message", {data: getFodler})
-  });
+  // socket.on('connect', function(){
+  //   console.log("hi")
+  // });
+
+  // socket.on('tweet', async (tweet) => {
+  //   console.log('tweet1');
+  //   // const getFodler = await readFolder();
+  //   // socket.emit("message", {data: getFodler})
+  // });
 
 }
 
