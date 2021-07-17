@@ -54,6 +54,9 @@ describe('registerDevice()', () => {
 
   beforeEach(() => {
     store = mockStore()
+    window.electron = {
+      getSysInfo: jest.fn().mockImplementation(() => 1223)
+    }
   })
 
   it("should return expected success result.", async () => {
@@ -65,7 +68,7 @@ describe('registerDevice()', () => {
     }))
     setItem.mockImplementation(() => true)
 
-    await store.dispatch(registerDevice())
+    await store.dispatch(registerDevice({}))
     
     expect(store.getActions()).toContainEqual({
       type: Authentication.REGISTER_DEVICE,
@@ -82,7 +85,7 @@ describe('registerDevice()', () => {
     }))
     setItem.mockImplementation(() => false)
 
-    await store.dispatch(registerDevice())
+    await store.dispatch(registerDevice({}))
     
     expect(store.getActions()).toContainEqual({
       type: Authentication.REGISTER_DEVICE_ERROR,
@@ -95,7 +98,7 @@ describe('registerDevice()', () => {
     }))
     setItem.mockImplementation(() => true)
 
-    await store.dispatch(registerDevice())
+    await store.dispatch(registerDevice({}))
     
     expect(store.getActions()).toContainEqual({
       type: Authentication.REGISTER_DEVICE_ERROR,
