@@ -7,6 +7,7 @@ describe('Logged App in AuthenticationReducer', () => {
     state = {
       isAppLoaded: false,
       isUserLogged: false,
+      isDeviceRegistered: false,
     }
   })
   
@@ -18,27 +19,44 @@ describe('Logged App in AuthenticationReducer', () => {
 
     expect(callAuthentication).toEqual(expect.objectContaining({
       isAppLoaded: true,
-      isUserLogged: false
+      isUserLogged: false,
+      isDeviceRegistered: false,
     }))
   })
 
   it('should return logged user state.', () => {
     const action = {
       type: Authentication.LOADED_APP,
-      payload: true
+      userLogged: true
     }
     const callAuthentication = AuthenticationReducer(state, action)
 
     expect(callAuthentication).toEqual(expect.objectContaining({
       isAppLoaded: true,
-      isUserLogged: true
+      isUserLogged: true,
+      isDeviceRegistered: false,
+    }))
+  })
+
+  it('should return logged user/device state.', () => {
+    const action = {
+      type: Authentication.LOADED_APP,
+      userLogged: true,
+      deviceLogged: true,
+    }
+    const callAuthentication = AuthenticationReducer(state, action)
+
+    expect(callAuthentication).toEqual(expect.objectContaining({
+      isAppLoaded: true,
+      isUserLogged: true,
+      isDeviceRegistered: true,
     }))
   })
 
   it('should handle string input.', () => {
     const action = {
       type: Authentication.LOADED_APP,
-      payload: "true"
+      userLogged: "true"
     }
     const callAuthentication = AuthenticationReducer(state, action)
 
@@ -51,7 +69,7 @@ describe('Logged App in AuthenticationReducer', () => {
   it('should handle unexpected input.', () => {
     const action = {
       type: Authentication.LOADED_APP,
-      payload: "true1"
+      userLogged: "true1"
     }
     const callAuthentication = AuthenticationReducer(state, action)
 

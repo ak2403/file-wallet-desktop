@@ -4,6 +4,7 @@ import {ToBool} from '../utils/common'
 const initialState = {
   isAppLoaded: false,
   isUserLogged: false,
+  isDeviceRegistered: false,
 }
 
 function AuthenticationReducer(state = initialState, action) {
@@ -12,7 +13,8 @@ function AuthenticationReducer(state = initialState, action) {
       return {
         ...state,
         isAppLoaded: true,
-        isUserLogged: ToBool(action?.payload) || false
+        isUserLogged: ToBool(action?.userLogged) || false,
+        isDeviceRegistered: ToBool(action?.deviceLogged) || false
       }
     default:
       return state;

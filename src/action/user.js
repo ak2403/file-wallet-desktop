@@ -6,10 +6,12 @@ import {getItem, setItem} from '../utils/localStorage'
 export const loadApp = () => {
   return async dispatch => {
     const getTokenIfPresent = await getItem('access_token')
+    const getDeviceIdIfPresent = await getItem('device_id')
 
     dispatch({
       type: Authentication.LOADED_APP,
-      payload: getTokenIfPresent ? true : false
+      userLogged: getTokenIfPresent ? true : false,
+      deviceLogged: getDeviceIdIfPresent ? true : false,
     })
   }
 }
@@ -28,7 +30,7 @@ export const registerDevice = data => {
         })
       }
     }
-    
+
     dispatch({
       type: Authentication.REGISTER_DEVICE_ERROR,
     })
