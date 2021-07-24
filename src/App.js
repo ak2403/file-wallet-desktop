@@ -3,7 +3,6 @@ import Navigation from './navigation'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {loadApp} from './action/user'
-import {removeItem} from './utils/localStorage'
 
 class App extends Component {
   async componentDidMount() {

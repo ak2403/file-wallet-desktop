@@ -11,8 +11,9 @@ class SetupComponent extends Component {
     super()
     this.state = {
       formData: {
-        username: '',
-        password: ''
+        device_name: '',
+        password: '',
+        type: 'desktop'
       },
       redirectedToDashboard: false
     }
@@ -55,7 +56,7 @@ class SetupComponent extends Component {
   render() {
     return <div>
       <p>Setup</p>
-      <Input onChange={val => this.onInputChange('username', val)} />
+      <Input onChange={val => this.onInputChange('device_name', val)} />
       <Input type="password" onChange={val => this.onInputChange('password', val)} />
       <Button title="Setup" onClick={this.onSetupClick} />
     </div>

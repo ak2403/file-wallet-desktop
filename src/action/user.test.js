@@ -1,9 +1,9 @@
 import {Authentication} from '../type'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk';
-import {getItem, setItem} from '../utils/localStorage'
-import {post} from '../api'
-import {loadApp, registerDevice, processLogin} from './user'
+import {getItem, removeItem, setItem} from '../utils/localStorage'
+import {post, get} from '../api'
+import {loadApp, registerDevice, processLogin, userLogout} from './user'
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -11,10 +11,12 @@ const mockStore = configureMockStore(middlewares);
 jest.mock('../utils/localStorage', () => ({
   getItem: jest.fn(),
   setItem: jest.fn(),
+  removeItem: jest.fn(),
 }))
 
 jest.mock('../api', () => ({
-  post: jest.fn()
+  post: jest.fn(),
+  get: jest.fn(),
 }))
 
 describe('loadApp()', () => {
@@ -47,6 +49,20 @@ describe('loadApp()', () => {
       deviceLogged: true,
     })
   })
+
+  it("should handle 500 when get errors.", async () => {
+    getItem.mockImplementation(() => true)
+    get.mockImplementation(() => ({
+      status: 500,
+    }))
+    await store.dispatch(loadApp())
+    
+    expect(store.getActions()).toContainEqual({
+      type: Authentication.LOADED_APP,
+      userLogged: false,
+      deviceLogged: true,
+    })
+  })
 })
 
 describe('registerDevice()', () => {
@@ -66,6 +82,9 @@ describe('registerDevice()', () => {
         id: '123'
       }
     }))
+    get.mockImplementation(() => ({
+      status: 200,
+    }))
     setItem.mockImplementation(() => true)
 
     await store.dispatch(registerDevice({}))
@@ -82,6 +101,9 @@ describe('registerDevice()', () => {
       data: {
         id: '123'
       }
+    }))
+    get.mockImplementation(() => ({
+      status: 200,
     }))
     setItem.mockImplementation(() => false)
 
@@ -141,6 +163,34 @@ describe('processLogin()', () => {
     
     expect(store.getActions()).toContainEqual({
       type: Authentication.LOGGED_IN_ERROR,
+    })
+  })
+})
+
+describe('userLogout()', () => {
+  let store;
+
+  beforeEach(() => {
+    store = mockStore()
+  })
+
+  it('should return success result.', async () => {
+    removeItem.mockImplementation(() => true)
+
+    await store.dispatch(userLogout())
+    
+    expect(store.getActions()).toContainEqual({
+      type: Authentication.LOGGED_OUT,
+    })
+  })
+
+  it('should return failure result.', async () => {
+    removeItem.mockImplementation(() => false)
+
+    await store.dispatch(userLogout())
+    
+    expect(store.getActions()).toContainEqual({
+      type: Authentication.LOGGED_OUT_ERROR,
     })
   })
 })

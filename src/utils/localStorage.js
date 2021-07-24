@@ -1,9 +1,10 @@
 import { handleError } from "./error"
+const { get, set, remove } = window.store
 
 export const setItem = async (key, value) => {
   try {
     console.log('setItem : ', value)
-    await localStorage.setItem(key, value)
+    await set(key, value)
     
     return true
   }
@@ -15,7 +16,7 @@ export const setItem = async (key, value) => {
 
 export const getItem = async (key) => {
   try {
-    const getVal = await localStorage.getItem(key)
+    const getVal = await get(key)
     
     return getVal
   }
@@ -27,10 +28,13 @@ export const getItem = async (key) => {
 
 export const removeItem = async (key) => {
   try {
-    console.log('removeItem : ', key)
-    await localStorage.removeItem(key)
+    const getIfItemPresent = get(key);
 
-    console.log('removeItem get: ', await getItem(key))
+    if (!getIfItemPresent) {
+      return true
+    }
+    
+    await remove(key)
     
     return true
   }

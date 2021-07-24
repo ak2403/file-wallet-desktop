@@ -137,4 +137,34 @@ describe('Logged App in AuthenticationReducer', () => {
       isDeviceRegisteredError: true
     }))
   })
+
+  it("should handle expected for Logout", () => {
+    const action = {
+      type: Authentication.LOGGED_OUT,
+    }
+    state.isUserLogged = true
+    state.isDeviceRegistered = true
+    const callAuthentication = AuthenticationReducer(state, action)
+
+    expect(callAuthentication).toEqual(expect.objectContaining({
+      isUserLogout: true,
+      isUserLogoutError: false,
+      isUserLogged: false,
+      isDeviceRegistered: false,
+    }))
+  })
+
+  it("should handle expected for Logout Error", () => {
+    const action = {
+      type: Authentication.LOGGED_OUT_ERROR,
+    }
+    state.isUserLogged = true
+    const callAuthentication = AuthenticationReducer(state, action)
+
+    expect(callAuthentication).toEqual(expect.objectContaining({
+      isUserLogout: false,
+      isUserLogoutError: true,
+      isUserLogged: true,
+    }))
+  })
 })

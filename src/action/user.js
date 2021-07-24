@@ -1,12 +1,26 @@
 import {post} from '../api'
 import {Authentication} from '../type'
 import {ENDPOINTS} from '../config/api'
-import {getItem, setItem} from '../utils/localStorage'
+import {get} from '../api'
+import {getItem, setItem, removeItem} from '../utils/localStorage'
 
 export const loadApp = () => {
   return async dispatch => {
     const getTokenIfPresent = await getItem('access_token')
     const getDeviceIdIfPresent = await getItem('device_id')
+
+    const checkUserStatus = getTokenIfPresent && await get(ENDPOINTS.USER_CHECK)
+    
+    if (!getTokenIfPresent || checkUserStatus?.status === 500) {
+      await removeItem('access_token')
+      await removeItem('device_id')
+      
+      dispatch({
+        type: Authentication.LOADED_APP,
+        userLogged: false,
+        deviceLogged: getDeviceIdIfPresent ? true : false,
+      })  
+    }
 
     dispatch({
       type: Authentication.LOADED_APP,
@@ -60,6 +74,23 @@ export const registerDevice = data => {
 
     dispatch({
       type: Authentication.REGISTER_DEVICE_ERROR,
+    })
+  }
+}
+
+export const userLogout = () => {
+  return async dispatch => {
+    const removeToken = await removeItem('access_token')
+    const removeDevice = await removeItem('device_id')
+
+    if(removeToken && removeDevice) {
+      dispatch({
+        type: Authentication.LOGGED_OUT
+      })
+    }
+
+    dispatch({
+      type: Authentication.LOGGED_OUT_ERROR
     })
   }
 }

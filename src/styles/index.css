@@ -1,0 +1,19 @@
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  margin: 0px !important;
+  display: flex;
+}
+#root {
+  flex: 1;
+}
+.ss-login-view {
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

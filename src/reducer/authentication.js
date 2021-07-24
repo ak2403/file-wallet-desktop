@@ -7,6 +7,8 @@ export const initialState = {
   isDeviceRegistered: false,
   isDeviceRegisteredError: false,
   isUserLoggedError: false,
+  isUserLogout: false,
+  isUserLogoutError: false,
 }
 
 function AuthenticationReducer(state = initialState, action) {
@@ -40,6 +42,20 @@ function AuthenticationReducer(state = initialState, action) {
         ...state,
         isDeviceRegistered: false,
         isDeviceRegisteredError: true
+      }
+    case Authentication.LOGGED_OUT:
+      return {
+        ...state,
+        isUserLogout: true,
+        isUserLogoutError: false,
+        isUserLogged: false,
+        isDeviceRegistered: false,
+      }
+    case Authentication.LOGGED_OUT_ERROR:
+      return {
+        ...state,
+        isUserLogout: false,
+        isUserLogoutError: true
       }
     default:
       return state;

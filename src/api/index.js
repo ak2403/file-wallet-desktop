@@ -24,3 +24,25 @@ export const post = async (endpoint, inputData) => {
     }
   }
 }
+
+export const get = async (endpoint) => {
+  const headerParams = await getHeaders()
+  const getEndpoint = `${API_URL}${endpoint}`
+
+  try {
+    const {status, data} = await axios.get(
+      getEndpoint, 
+      headerParams)
+    
+    return {
+      status,
+      data,
+    }
+  }
+  catch (err) {
+    return {
+      status: err.status || 500,
+      data: err.data || ''
+    }
+  }
+}

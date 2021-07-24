@@ -39,7 +39,6 @@ class LoginComponent extends Component {
     const {isUserLogged} = this.props;
 
     if (isUserLogged && !redirectedToSetup) {
-      console.log("hii")
       this.props.history.push({
         pathname: '/setup'
       })
@@ -50,7 +49,7 @@ class LoginComponent extends Component {
   }
 
   render() {
-    return <div>
+    return <div className="ss-login-view">
       <Button title="Login" onClick={this.onLoginClick} />
     </div>
   }
