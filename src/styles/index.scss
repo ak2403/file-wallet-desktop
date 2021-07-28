@@ -1,0 +1,81 @@
+@import './fonts/index.css';
+
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  margin: 0px !important;
+  display: flex;
+}
+#root {
+  flex: 1;
+}
+.ss-main-view {
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .ss-login-button{
+    width: 300px;
+    height: 60px;
+    border-radius: 30px;
+    background-color: #1E7BF6;
+    border-width: 0px;
+    font-family: Roboto-Bold;
+    color: #fff;
+    font-size: 24px;
+    position: relative;
+    text-align: center;
+    .ss-button-rightImg{
+      position: absolute;
+      width: 40px;
+      margin-left: 10px;
+      bottom: 10px;
+    }
+  }
+}
+.ss-input-field{
+  width: 350px;
+  height: 50px;
+  margin: 20px 0;
+  border-radius: 25px;
+  padding-left: 25px;
+  font-size: 24px;
+  font-family: Roboto;
+  border-width: 1px;
+  background-color: #EFF1F7;
+  border-style: solid;
+  border-color: #e0e0e0;
+  &:focus{
+    outline: none !important;
+    border:1px solid #1E7BF6;
+    box-shadow: 0 0 10px #719ECE;
+  }
+}
+.ss-input-error {
+  background-color: rgba(255, 121, 121,0.3);
+  outline: none !important;
+  border:1px solid #eb4d4b;
+  box-shadow: 0 0 10px #eb4d4b;
+}
+.ss-setup-view {
+  .ss-setup-header {
+    font-family: Roboto-Bold;
+    font-size: 26px;
+  }
+  .ss-setup-button {
+    width: 100%;
+    height: 50px;
+    margin-top: 15px;
+    border-radius: 25px;
+    background-color: rgba(104, 109, 224,1.0);
+    color: #fff;
+    font-family: Roboto-Bold;
+    border-style: solid;
+    border-style: none;
+    font-size: 22px;
+  }
+}

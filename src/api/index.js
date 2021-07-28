@@ -18,9 +18,14 @@ export const post = async (endpoint, inputData) => {
     }
   }
   catch (err) {
+    const {response: {
+      status,
+      data
+    }} = err
+
     return {
-      status: err.status || 500,
-      data: err.data || ''
+      status: status || 500,
+      data: data || ''
     }
   }
 }

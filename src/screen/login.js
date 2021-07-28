@@ -6,6 +6,7 @@ import {FRONTEND_URL} from '../config/api'
 import Button from '../ui/button'
 import {openURL} from '../utils/electron'
 import {processLogin} from '../action/user'
+import GoogleImg from '../assets/images/google.png'
 
 class LoginComponent extends Component {
   constructor() {
@@ -49,8 +50,13 @@ class LoginComponent extends Component {
   }
 
   render() {
-    return <div className="ss-login-view">
-      <Button title="Login" onClick={this.onLoginClick} />
+    return <div className="ss-main-view">
+      <Button 
+        className="ss-login-button" 
+        title="Sign in with Google" 
+        // rightImg={GoogleImg} 
+        // rightImgClass="ss-button-rightImg" 
+        onClick={this.onLoginClick} />
     </div>
   }
 }

@@ -9,6 +9,8 @@ export const initialState = {
   isUserLoggedError: false,
   isUserLogout: false,
   isUserLogoutError: false,
+  deviceInfo: {},
+  setupError: {},
 }
 
 function AuthenticationReducer(state = initialState, action) {
@@ -37,11 +39,17 @@ function AuthenticationReducer(state = initialState, action) {
         ...state,
         isDeviceRegistered: ToBool(action?.payload) || false,
       }
+    case Authentication.FETCH_DEVICE_INFO:
+      return {
+        ...state,
+        deviceInfo: action.payload,
+      }
     case Authentication.REGISTER_DEVICE_ERROR:
       return {
         ...state,
         isDeviceRegistered: false,
-        isDeviceRegisteredError: true
+        isDeviceRegisteredError: true,
+        setupError: action.payload
       }
     case Authentication.LOGGED_OUT:
       return {

@@ -10,12 +10,6 @@ import Setup from '../screen/setup'
 import Dashboard from '../screen/dashboard'
 
 class Navigation extends Component {
-  constructor() {
-    super();
-    this.state = {
-    }
-  }
-
   render() {
     const {isUserLogged, isSetupCompleted} = this.props;
     let defaultRoute = 'login';

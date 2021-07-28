@@ -15,7 +15,7 @@ module.exports = {
   target: 'electron-renderer',
   module: {
     rules: [{
-      test: /\.css$/,
+      test: /\.(css|scss)$/,
       use: [
         // Creates `style` nodes from JS strings
         'style-loader',

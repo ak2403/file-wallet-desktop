@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Input = ({type, title, onChange, value}) => {
+const Input = ({type, title, onChange, value, isError}) => {
   const inputType = type || 'text';
   
   return <div>
@@ -8,6 +8,7 @@ const Input = ({type, title, onChange, value}) => {
       {title}
     </div>}
     <input 
+      className={`ss-input-field ${isError && 'ss-input-error'}`}
       data-testid="ss-input" 
       type={inputType} 
       value={value}
