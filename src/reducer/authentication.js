@@ -6,9 +6,11 @@ export const initialState = {
   isUserLogged: false,
   isDeviceRegistered: false,
   isDeviceRegisteredError: false,
+  deviceAlreadyRegistered: false,
   isUserLoggedError: false,
   isUserLogout: false,
   isUserLogoutError: false,
+  alreadyRegisteredDevice: {},
   deviceInfo: {},
   setupError: {},
 }
@@ -40,9 +42,18 @@ function AuthenticationReducer(state = initialState, action) {
         isDeviceRegistered: ToBool(action?.payload) || false,
       }
     case Authentication.FETCH_DEVICE_INFO:
+      let {deviceAlreadyRegistered, payload, device, alreadyRegisteredDevice} = action
+
+      if (payload.id === 'DEVICE_ALREADY_REGISTERED') {
+        deviceAlreadyRegistered = true
+        alreadyRegisteredDevice = payload?.data
+      }
+      //TODO: just get the name of the device from the server
       return {
         ...state,
-        deviceInfo: action.payload,
+        deviceInfo: device,
+        deviceAlreadyRegistered,
+        alreadyRegisteredDevice
       }
     case Authentication.REGISTER_DEVICE_ERROR:
       return {

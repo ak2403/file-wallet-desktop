@@ -18,7 +18,7 @@ export const loadApp = () => {
       dispatch({
         type: Authentication.LOADED_APP,
         userLogged: false,
-        deviceLogged: getDeviceIdIfPresent ? true : false,
+        deviceLogged: false,
       })  
     }
 
@@ -55,9 +55,9 @@ export const processLogin = data => {
   }
 }
 
-export const registerDevice = data => {
+export const registerDevice = (data, isDeviceRegistered) => {
   return async dispatch => {
-    const registerDevice = await post(ENDPOINTS.REGISTER_DEVICE, data)
+    const registerDevice = await post(isDeviceRegistered ? ENDPOINTS.LOGIN_DEVICE : ENDPOINTS.REGISTER_DEVICE, data)
 
     if (registerDevice.status === 200 && registerDevice?.data?.id) {
       const isDeviceIDSaved = await setItem('device_id', registerDevice?.data?.id)
@@ -81,10 +81,20 @@ export const getDeviceInfo = () => {
   return async dispatch => {
     const getInfoFromNode = await window.electron.getSysInfo()
 
-    dispatch({
-      type: Authentication.FETCH_DEVICE_INFO,
-      payload: getInfoFromNode
-    })
+    if (getInfoFromNode) {
+      const checkIfDeviceRegistered = await post(ENDPOINTS.CHECK_DEVICE, {
+        deviceId: getInfoFromNode.machineId
+      })
+
+      if (checkIfDeviceRegistered.status === 200) {
+        dispatch({
+          type: Authentication.FETCH_DEVICE_INFO,
+          device: getInfoFromNode,
+          payload: checkIfDeviceRegistered.data
+        })
+      }
+    }
+    //TODO: need to handle the error side
   }
 }
 

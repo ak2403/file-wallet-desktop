@@ -9,7 +9,8 @@ export const getHeaders = async () => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${getToken || ''}`,
-        deviceId: getDeviceId
+        deviceId: getDeviceId || '',
+        'X-Forward-Type': 'desktop'
       }
     }
   }

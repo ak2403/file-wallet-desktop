@@ -1,0 +1,53 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.spec.js"
+        ],
+        "env": {
+          "jest": true
+        },
+        "plugins": ["jest"],
+        "rules": {
+          "jest/no-disabled-tests": "warn",
+          "jest/no-focused-tests": "error",
+          "jest/no-identical-title": "error",
+          "jest/prefer-to-have-length": "warn",
+          "jest/valid-expect": "error"
+        }
+      }
+    ],
+    "rules": {
+      "prettier/prettier": "off",
+      "no-return-assign": "off",
+      "no-empty-pattern": "off",
+      "no-underscore-dangle": "off",
+      "camelcase": ["off", { 
+        "ignoreDestructuring": true
+      }],
+      "no-return-await": "warn",
+      "no-useless-catch": "off",
+      //off this
+      "react/prop-types": "off",
+      "no-unused-vars": "off",
+      "no-case-declarations": "off"
+    }
+}

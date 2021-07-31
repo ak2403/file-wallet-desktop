@@ -2,11 +2,10 @@ import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {FRONTEND_URL} from '../config/api'
+import {FRONTEND_URL} from '../../config/api'
 import Button from '../ui/button'
-import {openURL} from '../utils/electron'
-import {processLogin} from '../action/user'
-import GoogleImg from '../assets/images/google.png'
+import {openURL} from '../../utils/electron'
+import {processLogin} from '../../action/user'
 
 class LoginComponent extends Component {
   constructor() {
@@ -50,13 +49,11 @@ class LoginComponent extends Component {
   }
 
   render() {
-    return <div className="ss-main-view">
+    return <div className="ss-login-view">
       <Button 
-        className="ss-login-button" 
-        title="Sign in with Google" 
-        // rightImg={GoogleImg} 
-        // rightImgClass="ss-button-rightImg" 
-        onClick={this.onLoginClick} />
+          className="ss-login-button" 
+          title="Sign in with Google" 
+          onClick={this.onLoginClick} />
     </div>
   }
 }

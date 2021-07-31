@@ -2,13 +2,15 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {withRouter} from 'react-router-dom'
-import Button from '../ui/button'
-import {userLogout} from '../action/user'
+import Button from '../../ui/button'
+import Users from './user'
+import {userLogout} from '../../../action/user'
 
 class DashboardComponent extends Component {
   constructor() {
     super()
     this.state = {
+      selectedView: 'users',
       isLogoutRedirected: false,
     }
     this.logout = this.logout.bind(this)
@@ -21,7 +23,7 @@ class DashboardComponent extends Component {
   componentDidUpdate() {
     const {isLogoutRedirected} =this.state
     const {isUserLogout} = this.props;
-    console.log('componentDidUpdate : ', isUserLogout, !isLogoutRedirected)
+    
     if (isUserLogout && !isLogoutRedirected) {
       this.props.history.push({
         pathname: '/login'
@@ -35,9 +37,15 @@ class DashboardComponent extends Component {
   }
 
   render() {
-    return <div>
-      <p>Dashboard</p>
-      <Button title="Logout" onClick={this.logout} />
+    return <div className="ss-dashboard-view">
+      <div className="ss-dashboard-menu">
+
+      </div>
+      <div className="ss-dashboard-content">
+        <Users />
+        <p>Dashboard</p>
+        <Button title="Logout" onClick={this.logout} />
+      </div>
     </div>
   }
 }

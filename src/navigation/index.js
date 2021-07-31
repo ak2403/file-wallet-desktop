@@ -5,9 +5,10 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import Login from '../screen/login'
-import Setup from '../screen/setup'
-import Dashboard from '../screen/dashboard'
+import Startup from './startup'
+import Login from '../views/screen/login'
+import Setup from '../views/screen/setup'
+import Dashboard from '../views/screen/dashboard'
 
 class Navigation extends Component {
   render() {
@@ -27,11 +28,17 @@ class Navigation extends Component {
             <Route exact path="/">
               <Redirect to={`/${defaultRoute}`} />
             </Route>
-            <Route path="/login" render={() => <Login />} />
+            <Route exact path={["/login", "/setup"]}>
+              <Startup>
+                <Switch>
+              <Route exact path="/login" component={Login} />
 
-            <Route path="/setup" render={() => <Setup />} />
+              <Route exact path="/setup" component={Setup} />
+              </Switch>
+              </Startup>
+            </Route>
 
-            <Route path="/dashboard" render={() => <Dashboard />} />
+            <Route exact path="/dashboard" component={Dashboard} />
           </Switch>
       </Router>
     );

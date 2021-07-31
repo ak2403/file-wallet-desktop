@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import Store from './store'
 import App from './App';
-import './styles/index.scss'
+import './views/styles/index.scss'
 
 const wrappedApp = <Provider store={Store}>
 <React.StrictMode>

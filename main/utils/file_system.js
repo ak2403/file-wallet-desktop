@@ -14,10 +14,12 @@ const readFolder = async (path = '') => {
         bigint: true
       })
 
-      getFoldersInfo.push({
-        name: file,
-        type: getFileStat.isDirectory() ? 'folder' : 'file',
-      })
+      if(file && file[0] !== '.') {
+        getFoldersInfo.push({
+          name: file,
+          type: getFileStat.isDirectory() ? 'folder' : 'file',
+        })
+      }
     }
 
     const sortedArr = getFoldersInfo.sort((a,b) => b.type.localeCompare(a.type) || a.name.localeCompare(b.name))
@@ -39,7 +41,7 @@ const readFile = async (file_path) => {
 
     return {
       type: getType,
-      buffer: getBuffer.toString('base64'),
+      buffer: getBuffer,
     }
   }
   catch(err) {
