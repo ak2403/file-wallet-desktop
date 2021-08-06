@@ -1,7 +1,7 @@
 const io = require('socket.io-client')
 const {get} = require('./api')
 const { getItem, setItem } = require("./store");
-const {readFolder, readFile, createFolder} = require('./file_system')
+const {readFolder, readFile, createFolder, writeFile} = require('./file_system')
 
 class SocketConnection {
   constructor() {
@@ -15,21 +15,27 @@ class SocketConnection {
 
       connectionChannel.on('connect', function(){
         console.log(`connection of ${ID} is alive`)
+        const output = {
+          status: true,
+          message: 'alive'
+        }
+        connectionChannel.emit('redirectConnectionStatus', output)
+      });
+
+      connectionChannel.on('confirmConnectionStatus', function(params){
+        const output = {
+          type: params.type,
+          status: true,
+          message: 'alive'
+        }
+        connectionChannel.emit('redirectConnectionStatus', output)
       });
 
       connectionChannel.on('redirectRequestInformation', async (params) => {
-        console.log('redirectRequestInformation : ', params)
-        const {type, path, name} = params
+        const {type, path, name, file} = params
         let output = {}
 
         switch(type) {
-          case 'CHECK_CONNECTION':
-            output = {
-              type,
-              status: true,
-              message: 'alive'
-            }
-            break;
           case 'FETCH_FOLDERS':
             output = {
               type,
@@ -43,6 +49,15 @@ class SocketConnection {
             if (createdFolder) {
               output.status = true
               output.data = await readFolder(path)
+            } else {
+              output.status = false
+            }
+            break
+          case 'ADD_FILE':
+            const createdFile = await writeFile(`${path}/${file.name}`, file.data)
+            output.type= type
+            if (createdFile) {
+              output.status = true
             } else {
               output.status = false
             }
@@ -83,7 +98,6 @@ class SocketConnection {
       if (params.id === getId) {
         const getConnections = await get('/connection')
 
-        console.log("here: ", getConnections.data)
         if (getConnections.status === 200 && getConnections?.data?.connections) {
           let getSavedConnections = await getItem('existingConnections')
           getSavedConnections = getSavedConnections ? JSON.parse(getSavedConnections) : []
@@ -102,31 +116,3 @@ class SocketConnection {
 }
 
 module.exports = SocketConnection
-
-// socketConnection.on("operation", async (params) => {
-//   const {type, path, name} = params
-//   let outputRes;
-
-//   if (type === 'create') {
-//     outputRes = await createFolder(path, name)
-//   }
-
-//   if (outputRes) {
-//     const getFolders = await readFolder(path)
-
-//     return {data: getFolders, type: 'operation'}
-//   }
-//   return false;
-// })
-
-// this.mainSocket.on('tweet1', async (data) => {
-//   let getData;
-
-//   if (data.type === 'folder') {
-//     getData = await readFolder(data.path);
-//   } else {
-//     getData = await readFile(data.path);
-//   }
-//   // console.log(getData)
-//   this.mainSocket.emit('returntweet', {data: getData, type: 'read'})
-// });

@@ -1,5 +1,5 @@
 const path = require('path')
-const {app, BrowserWindow, screen} = require('electron')
+const {app, BrowserWindow, screen, Tray} = require('electron')
 const Socket = require('./utils/socket_connection')
 
 global.electron = require('electron');
@@ -18,10 +18,16 @@ function createWindow() {
   })
 
   mainWindow.loadURL('http://localhost:3002')
+  // mainWindow.loadFile(path.resolve(
+  //   __dirname,
+  //   '..',
+  //   'public',
+  //   'index.html'
+  //  ))
 
   app.setAsDefaultProtocolClient('com.sharespace.app')
 
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   const socket = new Socket()
   socket.openCommunication()
@@ -32,6 +38,20 @@ function createWindow() {
       data
     })
   })
+
+  app.on('open-url', function (event, data) {
+    mainWindow.webContents.send('login-success', {
+      data
+    })
+  })
+
+  app.on('window-all-closed', () => {
+    app.dock.hide()
+    console.log("hi closed")
+    // any other logic
+  })
+
+  new Tray(path.join(__dirname, 'assets/logo.png'))
 }
 
 app.on('ready', createWindow)

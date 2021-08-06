@@ -7,11 +7,6 @@
     "verbose": true
   },
   "dependencies": {
-    "@babel/preset-env": "^7.14.7",
-    "@babel/preset-react": "^7.14.5",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "concurrently": "^6.2.0",
     "cross-env": "^7.0.3",
@@ -19,9 +14,6 @@
     "electron-store": "^8.0.0",
     "jest-dom": "^4.0.0",
     "node-machine-id": "^1.1.12",
-    "node-sass": "4.14.1",
-    "nodemon": "^2.0.10",
-    "prettier": "^2.3.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
@@ -32,18 +24,18 @@
     "redux-mock-store": "^1.5.4",
     "redux-thunk": "^2.3.0",
     "socket.io": "^4.1.2",
-    "socket.io-client": "^4.1.2",
-    "wait-on": "^6.0.0"
+    "socket.io-client": "^4.1.2"
   },
   "main": "main/index.js",
   "scripts": {
     "start": "PORT=3002 react-scripts start",
     "watch": "webpack --config webpack.react.config.js --watch",
-    "build": "react-scripts build",
+    "build": "NODE_ENV='production' webpack --config webpack.react.config.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron:serve": "concurrently -k \"cross-env BROWSER=none yarn start\" \"yarn electron:start\"",
     "electron:start": "wait-on tcp:3002 && nodemon --watch . --exec 'electron .'",
+    "electron": "electron .",
     "jest": "NODE_ENV=test jest --runInBand --detectOpenHandles --coverage --coverageReporters='text-summary' --config jest.config.json"
   },
   "eslintConfig": {
@@ -65,7 +57,19 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/runtime": "^7.14.8",
     "eslint": "^7.32.0",
-    "eslint-plugin-react": "^7.24.0"
+    "eslint-plugin-react": "^7.24.0",
+    "webpack-cli": "^4.7.2",
+    "node-sass": "4.14.1",
+    "nodemon": "^2.0.10",
+    "prettier": "^2.3.2",
+    "@babel/preset-env": "^7.14.7",
+    "@babel/preset-react": "^7.14.5",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "wait-on": "^6.0.0"
   }
 }

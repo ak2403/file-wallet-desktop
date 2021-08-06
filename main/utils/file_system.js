@@ -117,11 +117,32 @@ const deleteFile = async (path) => {
   }
 }
 
+const writeFile = async (path, data) => {
+  try {
+    const isPathExists = await fileExists(path)
+
+    console.log('isPathExists : ', isPathExists, path)
+    if (isPathExists) {
+      return false
+    }
+
+    await fs.writeFileSync(`${ROOT_PATH}/${path}`, data, {
+      encoding: 'base64'
+    })
+
+    return true
+  }
+  catch(err) {
+    return false
+  }
+}
+
 module.exports = {
   readFolder,
   readFile,
   fileExists,
   createFolder,
   deleteFolder,
-  deleteFile
+  deleteFile,
+  writeFile
 }
