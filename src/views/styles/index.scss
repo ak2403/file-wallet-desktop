@@ -26,21 +26,6 @@ body {
     flex-direction: column;
     justify-content: center;
     position: relative;
-    h4 {
-      font-family: Roboto-Bold;
-      font-size: 36px;
-      color: #fff;
-      margin-bottom: 0px;
-      letter-spacing: 1.5px;
-      padding-left: 50px;
-    }
-    p {
-      padding-left: 50px;
-      font-family: Roboto;
-      font-size: 18px;
-      color: #808191;
-      margin-bottom: 0px;
-    }
     .ss-version {
       font-family: Roboto;
       font-size: 14px;
@@ -54,42 +39,11 @@ body {
     .ss-list-journey {
       margin-top: 50px;
       padding-left: 50px;
-      ul li {
-        position: relative; /* so that pseudoelements are positioned relatively to their "li"s*/
-        /* use padding-bottom instead of margin-bottom.*/
-        margin-bottom: 0; /* This overrides previously specified margin-bottom */
-        padding-bottom: 4.5em;
-        font-family: Roboto-Bold;
-        font-size: 15px;
-        color: #808191;
-      }
-
-      ul li:after {
-        /* bullets */
-        content: url('../assets/icons/dot.png');
-        position: absolute;
-        left: -20px; /*adjust manually*/
-        top: 0px;
-      }
-
-      ul li:before {
-        /* lines */
-        content: '';
-        position: absolute;
-        left: -16px; /* adjust manually */
-        border-left: 1px solid #808191;
-        height: 100%;
-        width: 1px;
-      }
-
-      ul li:first-child:before {
-        /* first li's line */
-        top: 6px; /* moves the line down so that it disappears under the bullet. Adjust manually */
-      }
-
-      ul li:last-child:before {
-        /* last li's line */
-        height: 6px; /* shorten the line so it goes only up to the bullet. Is equal to first-child:before's top */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .ss-bg-image{
+        width: 70%;
       }
     }
   }
@@ -97,6 +51,22 @@ body {
     flex: 0.6;
     height: 100%;
     background-color: #1f1f1f;
+    padding-left: 20px;
+    padding-right: 20px;
+    .ss-ui-content {
+      h4 {
+        font-family: Roboto-Bold;
+        font-size: 24px;
+        color: #fff;
+        margin-bottom: 0px;
+      }
+      p {
+        font-family: Roboto;
+        font-size: 14px;
+        color: #808191;
+        margin-bottom: 0px;
+      }
+    }
   }
 }
 .ss-login-view {

@@ -1,5 +1,5 @@
-const os = require('os')
-const {machineIdSync} = require('node-machine-id');
+import os from 'os'
+import {machineIdSync} from 'node-machine-id';
 
 const getSystemInfo = async () => {
   try {
@@ -16,6 +16,6 @@ const getSystemInfo = async () => {
   }
 }
 
-module.exports = {
+export {
   getSystemInfo
 }

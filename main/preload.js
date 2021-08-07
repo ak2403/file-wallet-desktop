@@ -1,6 +1,6 @@
-const { contextBridge, shell, ipcRenderer } = require("electron");
-const { getSystemInfo } = require("./utils/system_information");
-const { removeItem, getItem, setItem } = require("./utils/store");
+import { contextBridge, shell, ipcRenderer } from "electron";
+import { getSystemInfo } from "./utils/system_information";
+import { removeItem, getItem, setItem } from "./utils/store";
 
 contextBridge.exposeInMainWorld("shell", shell);
 contextBridge.exposeInMainWorld("ipcRenderer", ipcRenderer);
@@ -31,8 +31,9 @@ contextBridge.exposeInMainWorld("store", {
     }
   }
 });
-
+console.log("inside electron wondow")
 contextBridge.exposeInMainWorld('electron', {
+  
   on (eventName, callback) {
     ipcRenderer.on(eventName, callback)
   },

@@ -1,5 +1,9 @@
 import { handleError } from "./error"
-const { get, set, remove } = window.store
+const { get, set, remove } = {
+  get: () => {},
+  remove: () => {},
+  set: () => {},
+}
 
 export const setItem = async (key, value) => {
   try {

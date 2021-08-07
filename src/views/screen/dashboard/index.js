@@ -6,6 +6,15 @@ import Button from '../../ui/button'
 import Users from './user'
 import {userLogout} from '../../../action/user'
 
+const renderComponent = key => {
+  switch(key) {
+    case 'users':
+      return <Users />
+    default:
+      return ''
+  }
+}
+
 class DashboardComponent extends Component {
   constructor() {
     super()
@@ -37,13 +46,25 @@ class DashboardComponent extends Component {
   }
 
   render() {
+    const {selectedView} = this.state
+    const navigationOptions = [{
+      name: 'users',
+      title: 'Users',
+    }, {
+      name: 'settings',
+      title: 'Settings',
+    }]
+
     return <div className="ss-dashboard-view">
       <div className="ss-dashboard-menu">
-
+        <div className="ss-dashboard-navigation">
+          <ul>
+            {navigationOptions.map(item => <li key={item.name}>{item.title}</li>)}
+          </ul>
+        </div>
       </div>
       <div className="ss-dashboard-content">
-        <Users />
-        <p>Dashboard</p>
+        {renderComponent(selectedView)}
         <Button title="Logout" onClick={this.logout} />
       </div>
     </div>

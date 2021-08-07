@@ -19,6 +19,7 @@ class SetupComponent extends Component {
       },
       errors: {},
       isSetupLoaded: false,
+      isDeviceAlreadyRegistered: false,
       redirectedToDashboard: false,
     };
     this.onInputChange = this.onInputChange.bind(this);
@@ -63,7 +64,7 @@ class SetupComponent extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { redirectedToDashboard, formData, isSetupLoaded } = this.state;
+    let { redirectedToDashboard, formData, isSetupLoaded, isDeviceAlreadyRegistered } = this.state;
     const { isDeviceRegistered, deviceInfo, alreadyRegisteredDevice } = this.props;
 
     if (!isSetupLoaded && deviceInfo?.machineId) {
@@ -72,9 +73,11 @@ class SetupComponent extends Component {
       //TODO: reframe the logic here
       if (alreadyRegisteredDevice?.deviceName) {
         formData.deviceName = alreadyRegisteredDevice?.deviceName;
+        isDeviceAlreadyRegistered = true
       }
       this.setState({
         isSetupLoaded: true,
+        isDeviceAlreadyRegistered,
         formData,
       });
     }
@@ -91,12 +94,15 @@ class SetupComponent extends Component {
   }
 
   render() {
-    const { errors, formData } = this.state;
+    const { errors, formData, isDeviceAlreadyRegistered } = this.state;
     const { isDeviceRegisteredError, deviceAlreadyRegistered } = this.props;
 
     return (
       <div className="ss-setup-view">
-        <Header title="Setup your system" className="ss-setup-header" />
+        <Header 
+          title="Setup your system" 
+          className="ss-setup-header" />
+        {isDeviceAlreadyRegistered && <p>It looks like the system is already registered. Please enter the password</p>}
         {!deviceAlreadyRegistered && <Input
           value={formData['deviceName']}
           isError={errors['deviceName']}

@@ -1,8 +1,6 @@
-const path = require('path')
-const {app, BrowserWindow, screen, Tray} = require('electron')
-const Socket = require('./utils/socket_connection')
-
-global.electron = require('electron');
+import path from 'path';
+import {app, BrowserWindow, screen, Tray} from 'electron';
+import Socket from './utils/socket_connection';
 
 function createWindow() {
   const {width, height} = screen.getPrimaryDisplay().workAreaSize;
@@ -13,11 +11,12 @@ function createWindow() {
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true,
-      preload: path.join(__dirname,'preload.js'),
+      webSecurity: false,
+      preload: path.join(__dirname, 'preload.js'),
     }
   })
 
-  mainWindow.loadURL('http://localhost:3002')
+  mainWindow.loadURL('http://localhost:4005')
   // mainWindow.loadFile(path.resolve(
   //   __dirname,
   //   '..',
@@ -48,10 +47,9 @@ function createWindow() {
   app.on('window-all-closed', () => {
     app.dock.hide()
     console.log("hi closed")
+    new Tray(path.join(__dirname, 'assets/logo.png'))
     // any other logic
   })
-
-  new Tray(path.join(__dirname, 'assets/logo.png'))
 }
 
 app.on('ready', createWindow)

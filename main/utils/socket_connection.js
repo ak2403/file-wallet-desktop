@@ -1,7 +1,7 @@
-const io = require('socket.io-client')
-const {get} = require('./api')
-const { getItem, setItem } = require("./store");
-const {readFolder, readFile, createFolder, writeFile} = require('./file_system')
+import io from 'socket.io-client'
+import {get} from './api'
+import { getItem, setItem } from "./store"
+import {readFolder, readFile, createFolder, writeFile} from './file_system'
 
 class SocketConnection {
   constructor() {
@@ -115,4 +115,4 @@ class SocketConnection {
   }
 }
 
-module.exports = SocketConnection
+export default SocketConnection

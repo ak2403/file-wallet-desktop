@@ -1,5 +1,5 @@
-const axios = require('axios')
-const { getItem } = require("./store");
+import axios from 'axios'
+import { getItem } from "./store";
 
 const API_URL = 'http://10.0.0.18:5000'
 
@@ -46,6 +46,6 @@ const get = async (endpoint) => {
   }
 }
 
-module.exports = {
+export {
   get,
 }

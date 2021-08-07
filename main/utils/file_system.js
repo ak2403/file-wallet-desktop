@@ -1,6 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const Config =  require('../config');
+import fs from 'fs';
+import path from 'path';
+import Config from '../config';
 
 const ROOT_PATH = `/Users/${Config.ROOT_USER}`
 
@@ -137,7 +137,7 @@ const writeFile = async (path, data) => {
   }
 }
 
-module.exports = {
+export {
   readFolder,
   readFile,
   fileExists,

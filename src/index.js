@@ -13,5 +13,5 @@ const wrappedApp = <Provider store={Store}>
 
 ReactDOM.render(
   wrappedApp,
-  document.getElementById('root')
+  document.body.appendChild(document.createElement("DIV"))
 );

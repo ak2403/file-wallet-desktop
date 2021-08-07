@@ -1,4 +1,4 @@
-const Store = require('electron-store');
+import Store from 'electron-store';
 const store = new Store();
 
 const setItem = (key, value) => {
@@ -31,7 +31,7 @@ const removeItem = (key) => {
   }
 }
 
-module.exports = {
+export {
   setItem,
   removeItem,
   getItem,

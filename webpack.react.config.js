@@ -1,4 +1,5 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const SRC_DIR = path.resolve(__dirname, 'src');
 
@@ -8,20 +9,17 @@ module.exports = {
   mode: 'development',
   entry: './src/index.js',
   output: {
-    filename: 'app.js',
-    path: path.resolve(__dirname, 'public', 'js'),
+    path: path.resolve(__dirname, 'public'),
+    filename: 'js/[name].js',
+    publicPath: './',
+    globalObject: 'self'
   },
-  devtool: 'source-map',
-  target: 'electron-renderer',
   module: {
     rules: [{
       test: /\.(css|scss)$/,
       use: [
-        // Creates `style` nodes from JS strings
         'style-loader',
-        // Translates CSS into CommonJS
         'css-loader',
-        // Compiles Sass to CSS
         'sass-loader',
       ],
     }, {
@@ -38,11 +36,19 @@ module.exports = {
       include: defaultInclude
     }]
   },
-  resolve: {
-    extensions: ['.js'],
-  },
+  target: 'electron-renderer',
+  devtool: 'source-map',
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'html/index.html'
+    }),
+  ],
   devServer: {
-    hot: true,
+    contentBase: path.join(__dirname, 'public'),
     historyApiFallback: true,
+    compress: true,
+    hot: true,
+    port: 4005,
+    publicPath: '/',
   }
 };

@@ -1,8 +1,11 @@
+import {shell} from 'electron'
 import {handleError} from './error'
 
 export const openURL = async (url) => {
   try {
-    await window.shell.openExternal(url)
+    debugger
+    console.log(await window.electron.getSysInfo())
+    await shell.openExternal(url)
     
     return true
   }
@@ -13,7 +16,6 @@ export const openURL = async (url) => {
 
 export const getSystemInfo = async () => {
   try {
-    console.log(await window.electron.getSysInfo())
     return await window.electron.getSysInfo();
   }
   catch(err) {

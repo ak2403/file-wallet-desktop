@@ -9,6 +9,11 @@ const Authentication = {
   FETCH_DEVICE_INFO: 'FETCH_DEVICE_INFO'
 }
 
+const Connection = {
+  FETCH_CONNECTION: 'FETCH_CONNECTION',
+}
+
 export {
-  Authentication
+  Authentication,
+  Connection,
 }

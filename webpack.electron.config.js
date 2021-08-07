@@ -1,6 +1,10 @@
 const path = require('path');
 
-module.exports = {
+const SRC_DIR = path.resolve(__dirname, 'main');
+
+const defaultInclude = [SRC_DIR];
+
+module.exports = [{
   mode: 'development',
   entry: './main/index.js',
   output: {
@@ -13,7 +17,25 @@ module.exports = {
     rules: [{
       test: /\.js?$/,
       use: { loader: 'babel-loader' },
-      exclude: /node_modules/,
+      include: defaultInclude,
     }]
-  }  
-};
+  },
+  externals: [{
+    bufferutil: "bufferutil",
+    "utf-8-validate": "utf-8-validate"
+  }]
+}, {
+  entry: './main/preload.js',
+  target: 'electron-preload',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'preload.js'
+  },
+  module: {
+    rules: [{
+      test: /\.js?$/,
+      use: { loader: 'babel-loader' },
+      include: defaultInclude,
+    }]
+  }
+}];

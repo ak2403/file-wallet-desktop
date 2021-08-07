@@ -102,6 +102,7 @@ export const userLogout = () => {
   return async dispatch => {
     const removeToken = await removeItem('access_token')
     const removeDevice = await removeItem('device_id')
+    await removeItem('existingConnections')
 
     if(removeToken && removeDevice) {
       dispatch({
