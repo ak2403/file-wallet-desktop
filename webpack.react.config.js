@@ -36,7 +36,7 @@ module.exports = {
       include: defaultInclude
     }]
   },
-  target: 'electron-renderer',
+  target: 'web',
   devtool: 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
