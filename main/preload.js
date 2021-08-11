@@ -31,11 +31,15 @@ contextBridge.exposeInMainWorld("store", {
     }
   }
 });
-console.log("inside electron wondow")
+
 contextBridge.exposeInMainWorld('electron', {
   
   on (eventName, callback) {
     ipcRenderer.on(eventName, callback)
+  },
+
+  send (eventName, data) {
+    ipcRenderer.send(eventName, data)
   },
 
   async shellOpenExternal (url) {

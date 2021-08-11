@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {FRONTEND_URL} from '../../config/api'
-import Button from '../ui/button'
+import Button from '../ui/Button'
 import {openURL} from '../../utils/electron'
 import {processLogin} from '../../action/user'
 

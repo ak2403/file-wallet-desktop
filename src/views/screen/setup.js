@@ -3,9 +3,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { registerDevice, getDeviceInfo } from '../../action/user';
-import Input from '../ui/input';
-import Button from '../ui/button';
-import Header from '../ui/header';
+import Input from '../ui/Input';
+import Button from '../ui/Button';
+import Header from '../ui/Header';
 
 class SetupComponent extends Component {
   constructor() {

@@ -8,7 +8,7 @@ const Input = ({type, title, onChange, value, isError}) => {
       {title}
     </div>}
     <input 
-      className={`ss-input-field ${isError && 'ss-input-error'}`}
+      className={`ss-input-field`}
       data-testid="ss-input" 
       type={inputType} 
       value={value}

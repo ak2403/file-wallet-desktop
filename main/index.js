@@ -1,5 +1,5 @@
 import path from 'path';
-import {app, BrowserWindow, screen, Tray} from 'electron';
+import {app, BrowserWindow, screen, Tray, ipcMain} from 'electron';
 import Socket from './utils/socket_connection';
 
 function createWindow() {
@@ -44,9 +44,19 @@ function createWindow() {
     })
   })
 
+  ipcMain.on('establish-connection', (event, args) => {
+    socket.checkAndOpenConnection(args)
+  })
+
+  ipcMain.on('disconnect-all', async (event, args) => {
+    await socket.checkAndCloseConnection(args)
+    
+    mainWindow.webContents.send('disconnect-completed')
+  })
+
   app.on('window-all-closed', () => {
     app.dock.hide()
-    console.log("hi closed")
+    
     new Tray(path.join(__dirname, 'assets/logo.png'))
     // any other logic
   })

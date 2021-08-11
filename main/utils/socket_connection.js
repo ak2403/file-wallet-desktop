@@ -85,6 +85,31 @@ class SocketConnection {
     }
   }
 
+  checkAndOpenConnection(connections = []) {
+    connections.forEach(item => {
+      const socketConnection = io(`${this.socketURI}${item}`, { transports : ['websocket'] })
+      
+      if (!socketConnection.connected) {
+        this.openConnectionChannel(item)
+      }
+    })
+  }
+
+  async checkAndCloseConnection() {
+    let  getSavedConnections = await getItem('existingConnections')
+    getSavedConnections = getSavedConnections ? JSON.parse(getSavedConnections) : []
+    //TODO: check all connection disconnect
+    getSavedConnections.forEach(item => {
+      const socketConnection = io(`${this.socketURI}${item}`, { transports : ['websocket'] })
+
+      socketConnection.on('connect', function(){
+        socketConnection.emit('disconnect-all')
+      })
+    })
+
+    return true
+  }
+
   openCommunication() {
     const socketConnection = io(`${this.socketURI}${this.communicationChannel}`, { transports : ['websocket'] })
 

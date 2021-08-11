@@ -13,10 +13,12 @@ export const getConnections = () => {
       
       const getNewConnections = data.connections.filter(item => !parseSavedConnections.includes(item._id))
       
+      window.electron.send('establish-connection', parseSavedConnections)
       if (getNewConnections.length) {
         const getOnlyID = getNewConnections.map(item => item._id)
         const mergeConnections = parseSavedConnections.concat(getOnlyID)
         await setItem('existingConnections', JSON.stringify(mergeConnections))
+        window.electron.send('establish-connection', mergeConnections)
       }
       
       dispatch({

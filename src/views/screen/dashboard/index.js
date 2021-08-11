@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {withRouter} from 'react-router-dom'
-import Button from '../../ui/button'
+import Button from '../../ui/Button'
+import NavBar from '../../ui/NavBar'
 import Users from './user'
 import {userLogout} from '../../../action/user'
 
@@ -22,11 +23,29 @@ class DashboardComponent extends Component {
       selectedView: 'users',
       isLogoutRedirected: false,
     }
+    this.onMenuClick = this.onMenuClick.bind(this)
+    this.onDisconnected = this.onDisconnected.bind(this)
     this.logout = this.logout.bind(this)
   }
 
-  logout() {
+  componentDidMount() {
+    window.electron.on('disconnect-completed', this.onDisconnected)
+  }
+
+  onDisconnected() {
     this.props.userLogout()
+  }
+
+  logout() {
+    window.electron.send('disconnect-all')
+  }
+
+  onMenuClick(name='') {
+    if (name) {
+      this.setState({
+        selectedView: name
+      })
+    }
   }
 
   componentDidUpdate() {
@@ -47,7 +66,7 @@ class DashboardComponent extends Component {
 
   render() {
     const {selectedView} = this.state
-    const navigationOptions = [{
+    const navOptions = [{
       name: 'users',
       title: 'Users',
     }, {
@@ -58,9 +77,10 @@ class DashboardComponent extends Component {
     return <div className="ss-dashboard-view">
       <div className="ss-dashboard-menu">
         <div className="ss-dashboard-navigation">
-          <ul>
-            {navigationOptions.map(item => <li key={item.name}>{item.title}</li>)}
-          </ul>
+          <NavBar 
+            menu={navOptions} 
+            active={selectedView} 
+            onMenuClick={name => this.onMenuClick(name)} />
         </div>
       </div>
       <div className="ss-dashboard-content">
