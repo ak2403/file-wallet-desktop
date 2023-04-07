@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
+import List from '../../ui/List'
+import Header from '../../ui/Header'
 import {getConnections} from '../../../action/connections'
 
 class Users extends Component {
@@ -10,16 +12,21 @@ class Users extends Component {
 
   render() {
     const {connections} = this.props
+    const optionsForList = [{
+      title: 'Disconnect',
+      name: 'disconnect',
+      onClick: () => {},
+    }, {
+      title: 'Remove',
+      name: 'remove',
+      onClick: () => {},
+    }]
 
     return <div>
-      Users
-      {connections.map(item => {
-        const {user} = item
-        
-        return <div key={item._id}>
-          {user.email}
-        </div>
-      })}
+      <Header 
+        className="ss-user-header"
+        title="Users" />
+      <List data={connections} menuOptions={optionsForList} />
     </div>
   }
 }
