@@ -26,7 +26,7 @@ function createWindow() {
 
   app.setAsDefaultProtocolClient('com.sharespace.app');
 
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools();
 
   const socket = new Socket();
   socket.openCommunication();
