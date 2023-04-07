@@ -7,48 +7,54 @@ const defaultInclude = [SRC_DIR];
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'js/[name].js',
     publicPath: './',
-    globalObject: 'self'
+    globalObject: 'self',
   },
   module: {
-    rules: [{
-      test: /\.(css|scss)$/,
-      use: [
-        'style-loader',
-        'css-loader',
-        'sass-loader',
-      ],
-    }, {
-      test: /\.js?$/,
-      use: [{ loader: 'babel-loader' }],
-      include: defaultInclude
-    }, {
-      test: /\.(jpe?g|png|gif)$/,
-      use: [{ loader: 'file-loader?name=img/[name]__[hash:base64:5].[ext]' }],
-      include: defaultInclude
-    }, {
-      test: /\.(eot|svg|ttf|woff|woff2)$/,
-      use: [{ loader: 'url-loader?limit=100000' }],
-      include: defaultInclude
-    }]
+    rules: [
+      {
+        test: /\.(css|scss)$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.(js|ts)x?$/,
+        use: [{ loader: 'babel-loader' }],
+        include: defaultInclude,
+      },
+      {
+        test: /\.(jpe?g|png|gif)$/,
+        use: [{ loader: 'file-loader?name=img/[name]__[hash:base64:5].[ext]' }],
+        include: defaultInclude,
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        use: [{ loader: 'url-loader?limit=100000' }],
+        include: defaultInclude,
+      },
+    ],
   },
   target: 'web',
   devtool: 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'html/index.html'
+      template: 'html/index.html',
     }),
   ],
   devServer: {
-    contentBase: path.join(__dirname, 'public'),
+    static: path.join(__dirname, 'public'),
     historyApiFallback: true,
     compress: true,
     hot: true,
     port: 4005,
-    publicPath: '/',
-  }
+    devMiddleware: {
+      publicPath: '/',
+    },
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.jsx', '.js'],
+  },
 };
