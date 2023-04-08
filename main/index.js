@@ -1,6 +1,6 @@
 import path from 'path';
 import { app, BrowserWindow, screen, Tray, ipcMain } from 'electron';
-import Socket from './utils/socket_connection';
+import SocketConnection from './utils/socket_connection';
 
 function createWindow() {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
@@ -28,15 +28,9 @@ function createWindow() {
 
   mainWindow.webContents.openDevTools();
 
-  const socket = new Socket();
-  socket.openCommunication();
+  const socket = new SocketConnection();
+  socket.openCommunication(mainWindow);
   socket.openExistingConnections();
-
-  app.on('open-url', function (event, data) {
-    mainWindow.webContents.send('login-success', {
-      data,
-    });
-  });
 
   app.on('open-url', function (event, data) {
     mainWindow.webContents.send('login-success', {
