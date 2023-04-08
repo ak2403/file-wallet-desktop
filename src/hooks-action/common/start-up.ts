@@ -1,8 +1,10 @@
 import { useDispatch } from 'react-redux';
 
-import { getItem } from '../../utils/localStorage';
+import { getItem, removeItem } from '../../utils/localStorage';
 
 import { Authentication } from '../../type';
+import { post } from '../../api';
+import { ENDPOINTS } from '../../config/api';
 
 export function useStartUp() {
   const dispatch = useDispatch();
@@ -11,11 +13,30 @@ export function useStartUp() {
     const accessToken = await getItem('access_token');
     const relationId = await getItem('relation_id');
 
+    const checkValidity = await post(ENDPOINTS.CHECK_DEVICE, {
+      relationId,
+    });
+
+    if (checkValidity.status === 200) {
+      dispatch({
+        type: Authentication.LOADED_APP,
+        userLogged: accessToken ? true : false,
+        connectionEstablished: relationId ? true : false,
+      });
+
+      return true;
+    }
+
+    await removeItem('access_token');
+    await removeItem('relation_id');
+
     dispatch({
       type: Authentication.LOADED_APP,
-      userLogged: accessToken ? true : false,
-      connectionEstablished: relationId ? true : false,
+      userLogged: false,
+      connectionEstablished: false,
     });
+
+    return true;
   };
 
   return startUp;

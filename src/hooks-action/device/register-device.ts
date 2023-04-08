@@ -7,7 +7,7 @@ import { getItem, setItem } from '../../utils/localStorage';
 export const useRegisterDevice = () => {
   const dispatch = useDispatch();
 
-  const registerDevice = async (deviceName: string) => {
+  const registerDevice = async () => {
     //@ts-ignore
     const deviceInfo = await window.electron.getSysInfo();
 
@@ -15,7 +15,6 @@ export const useRegisterDevice = () => {
 
     const registerDevice = await post(ENDPOINTS.REGISTER_DEVICE, {
       device_id: deviceInfo.machineId,
-      name: deviceName,
       token,
     });
 
