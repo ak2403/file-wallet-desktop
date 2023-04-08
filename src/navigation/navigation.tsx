@@ -1,21 +1,19 @@
 import React from 'react';
 import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } from 'react-router-dom';
-import Startup from './startup';
+
 import { LoginComponent } from '../views/screen/login';
-import Setup from '../views/screen/setup';
-import Dashboard from '../views/screen/dashboard';
+import { SetupComponent } from '../views/screen/setup';
+import { DashboardComponent } from '../views/screen/dashboard';
 
 export const Navigation = () => {
-  let defaultRoute = 'login';
-
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/">
-        <Route index Component={LoginComponent} />
+        <Route path="" element={<LoginComponent />} />
 
-        {/* <Route path="setup" element={Setup} />
+        <Route path="setup" element={<SetupComponent />} />
 
-        <Route path="dashboard" element={Dashboard} /> */}
+        <Route path="dashboard" element={<DashboardComponent />} />
       </Route>,
     ),
   );

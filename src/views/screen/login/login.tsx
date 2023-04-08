@@ -6,11 +6,17 @@ import { Button } from '../../../ui-components/button';
 import { LoginLayout } from './login.styles';
 
 import { useLoginUser } from '../../../hooks-action/users';
-import { redirect } from 'react-router-dom';
+import { Navigate, redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export const LoginComponent = () => {
+  const authentication = useSelector((state: any) => state.authentication);
   const [email, setEmail] = useState('');
   const loginUser = useLoginUser();
+
+  if (authentication.isUserLogged) {
+    return <Navigate to="/setup" />;
+  }
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -28,7 +34,7 @@ export const LoginComponent = () => {
     <LoginLayout>
       <Input value={email} placeholder="Please enter your email" onChange={onChange} />
 
-      <Button label="Proceed" onClick={onClick} />
+      <Button onClick={onClick}>Proceed</Button>
     </LoginLayout>
   );
 };

@@ -4,8 +4,8 @@ import { ToBool } from '../utils/common';
 export const initialState = {
   isAppLoaded: false,
   isUserLogged: false,
-  isDeviceRegistered: false,
-  isDeviceRegisteredError: false,
+  connectionEstablished: false,
+  connectionEstablishedError: false,
   deviceAlreadyRegistered: false,
   isUserLoggedError: false,
   isUserLogout: false,
@@ -22,7 +22,7 @@ function AuthenticationReducer(state = initialState, action) {
         ...state,
         isAppLoaded: true,
         isUserLogged: ToBool(action?.userLogged) || false,
-        isDeviceRegistered: ToBool(action?.deviceLogged) || false,
+        connectionEstablished: ToBool(action?.connectionEstablished) || false,
       };
     case Authentication.LOGGED_IN:
       return {
@@ -39,7 +39,7 @@ function AuthenticationReducer(state = initialState, action) {
     case Authentication.REGISTER_DEVICE:
       return {
         ...state,
-        isDeviceRegistered: ToBool(action?.payload) || false,
+        connectionEstablished: ToBool(action?.payload) || false,
       };
     case Authentication.FETCH_DEVICE_INFO:
       let { deviceAlreadyRegistered, payload, device, alreadyRegisteredDevice } = action;
@@ -58,8 +58,8 @@ function AuthenticationReducer(state = initialState, action) {
     case Authentication.REGISTER_DEVICE_ERROR:
       return {
         ...state,
-        isDeviceRegistered: false,
-        isDeviceRegisteredError: true,
+        connectionEstablished: false,
+        connectionEstablishedError: true,
         setupError: action.payload,
       };
     case Authentication.LOGGED_OUT:
@@ -68,7 +68,7 @@ function AuthenticationReducer(state = initialState, action) {
         isUserLogout: true,
         isUserLogoutError: false,
         isUserLogged: false,
-        isDeviceRegistered: false,
+        connectionEstablished: false,
       };
     case Authentication.LOGGED_OUT_ERROR:
       return {

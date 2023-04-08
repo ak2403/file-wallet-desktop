@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 
 import { post } from '../../api';
 import { Authentication } from '../../type';
+import { setItem } from '../../utils/localStorage';
 
 export function useLoginUser() {
   const dispatch = useDispatch();
@@ -11,6 +12,10 @@ export function useLoginUser() {
       const response = await post('/user/login', data);
 
       if (response.status === 200) {
+        const { data } = response;
+
+        await setItem('access_token', data.token);
+
         dispatch({
           type: Authentication.LOGGED_IN,
           payload: true,
