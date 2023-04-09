@@ -7,4 +7,6 @@ export const ENDPOINTS = {
   LOGIN_DEVICE: '/device/login',
   USER_CHECK: '/user/check',
   GET_CONNECTIONS: '/connection',
+  PENDING_CONNECTIONS: '/connection/pending',
+  APPROVE_CONNECTIONS: '/connection/approve',
 };
