@@ -6,16 +6,19 @@ import { Button } from '../../../ui-components/button';
 import { LoginLayout } from './login.styles';
 
 import { useLoginUser } from '../../../hooks-action/users';
-import { Navigate, redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-export const LoginComponent = () => {
+export const LoginComponent: React.FC = () => {
   const authentication = useSelector((state: any) => state.authentication);
   const [email, setEmail] = useState('');
   const loginUser = useLoginUser();
+  const navigate = useNavigate();
 
   if (authentication.isUserLogged) {
-    return <Navigate to="/setup" />;
+    navigate('/setup');
+
+    return null;
   }
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,7 +29,9 @@ export const LoginComponent = () => {
     const response = await loginUser({ user: { email } });
 
     if (response) {
-      redirect('/setup');
+      navigate('/setup');
+
+      return;
     }
   };
 
