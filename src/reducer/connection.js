@@ -1,19 +1,25 @@
-import {Connection} from '../type'
+import { Connection } from '../type';
 
 export const initialState = {
-  connections: []
-}
+  pendingActions: [],
+  connections: [],
+};
 
 function ConnectionReducer(state = initialState, action) {
   switch (action.type) {
     case Connection.FETCH_CONNECTION:
       return {
         ...state,
-        connections: action.payload || []
-      }
+        connections: action.payload || [],
+      };
+    case Connection.PENDING_CONNECTION:
+      return {
+        ...state,
+        pendingActions: action.payload || [],
+      };
     default:
       return state;
   }
 }
 
-export default ConnectionReducer
+export default ConnectionReducer;

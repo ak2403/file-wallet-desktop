@@ -6,14 +6,12 @@ const Authentication = {
   REGISTER_DEVICE_ERROR: 'REGISTER_DEVICE_ERROR',
   LOGGED_OUT: 'LOGGED_OUT',
   LOGGED_OUT_ERROR: 'LOGGED_OUT_ERROR',
-  FETCH_DEVICE_INFO: 'FETCH_DEVICE_INFO'
-}
+  FETCH_DEVICE_INFO: 'FETCH_DEVICE_INFO',
+};
 
 const Connection = {
   FETCH_CONNECTION: 'FETCH_CONNECTION',
-}
+  PENDING_CONNECTION: 'PENDING_CONNECTION',
+};
 
-export {
-  Authentication,
-  Connection,
-}
+export { Authentication, Connection };
