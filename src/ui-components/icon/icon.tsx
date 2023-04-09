@@ -5,16 +5,19 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { IconLayout, StyledFontAwesomeIcon } from './icon.styles';
 
 type IconProps = {
+  bgColor?: string;
+  disabled?: boolean;
   icon: IconProp;
   onClick: () => void;
+  opacity?: number;
 };
 
 export const Icon: React.FC<IconProps> = (props) => {
-  const { icon, onClick } = props;
+  const { icon, onClick, opacity, bgColor, disabled } = props;
 
   return (
-    <IconLayout>
-      <StyledFontAwesomeIcon icon={icon} onClick={onClick} />
+    <IconLayout bgColor={bgColor} opacity={opacity} disabled={disabled} onClick={onClick}>
+      <StyledFontAwesomeIcon icon={icon} />
     </IconLayout>
   );
 };
