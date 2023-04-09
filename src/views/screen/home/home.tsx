@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 
@@ -10,9 +10,13 @@ export const HomeComponent = () => {
   const authentication = useSelector((state: any) => state.authentication);
   const navigate = useNavigate();
 
-  if (!authentication.connectionEstablished) {
-    navigate('/');
+  useEffect(() => {
+    if (!authentication.connectionEstablished) {
+      navigate('/');
+    }
+  }, []);
 
+  if (!authentication.connectionEstablished) {
     return null;
   }
 

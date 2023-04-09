@@ -2,7 +2,7 @@ import { Connection } from '../type';
 
 export const initialState = {
   pendingActions: [],
-  connections: [],
+  activeConnections: [],
 };
 
 function ConnectionReducer(state = initialState, action) {
@@ -10,7 +10,7 @@ function ConnectionReducer(state = initialState, action) {
     case Connection.FETCH_CONNECTION:
       return {
         ...state,
-        connections: action.payload || [],
+        activeConnections: action.payload || [],
       };
     case Connection.PENDING_CONNECTION:
       return {

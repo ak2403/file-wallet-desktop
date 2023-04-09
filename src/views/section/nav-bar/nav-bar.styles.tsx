@@ -5,8 +5,15 @@ export const NavLayout = styled.div`
   width: 60px;
   height: 100%;
   display: flex;
-
+  flex-direction: column;
   background-color: ${Colors.appBg};
+`;
+
+export const Top = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
 `;
 
 export const Bottom = styled.div`
