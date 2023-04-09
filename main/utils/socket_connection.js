@@ -5,7 +5,7 @@ import { readFolder, readFile, createFolder, writeFile } from './file_system';
 
 class SocketConnection {
   constructor() {
-    this.socketURI = 'http://localhost:3000/';
+    this.socketURI = 'http://10.0.0.18:3000/';
     this.communicationChannel = 'communications';
   }
 
