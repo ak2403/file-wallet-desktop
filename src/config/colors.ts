@@ -1,4 +1,4 @@
 export const Colors = {
-  appBg: '#4A154B',
+  appBg: '#3F103F',
   whiteBg: '#ebeaeb',
 };

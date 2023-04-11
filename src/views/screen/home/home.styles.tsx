@@ -13,4 +13,5 @@ export const SideBarLayout = styled.div`
 export const ContentLayout = styled.div`
   display: flex;
   flex: 1;
+  margin: 10px;
 `;
