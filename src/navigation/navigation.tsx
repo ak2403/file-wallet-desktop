@@ -19,7 +19,7 @@ const NoMatch = () => {
  *
  */
 
-export const Navigation = () => {
+export const Navigation: React.FC = () => {
   const router = (
     <Router>
       <Routes>

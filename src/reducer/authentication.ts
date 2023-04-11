@@ -1,7 +1,9 @@
 import { Authentication } from '../type';
+import { Authentications, AuthenticationAction } from '../types/reducer';
+
 import { ToBool } from '../utils/common';
 
-export const initialState = {
+export const initialState: Authentications = {
   isAppLoaded: false,
   isUserLogged: false,
   connectionEstablished: false,
@@ -10,12 +12,9 @@ export const initialState = {
   isUserLoggedError: false,
   isUserLogout: false,
   isUserLogoutError: false,
-  alreadyRegisteredDevice: {},
-  deviceInfo: {},
-  setupError: {},
 };
 
-function AuthenticationReducer(state = initialState, action) {
+function AuthenticationReducer(state = initialState, action: AuthenticationAction): Authentications {
   switch (action.type) {
     case Authentication.LOADED_APP:
       return {
@@ -40,27 +39,6 @@ function AuthenticationReducer(state = initialState, action) {
       return {
         ...state,
         connectionEstablished: ToBool(action?.payload) || false,
-      };
-    case Authentication.FETCH_DEVICE_INFO:
-      let { deviceAlreadyRegistered, payload, device, alreadyRegisteredDevice } = action;
-
-      if (payload.id === 'DEVICE_ALREADY_REGISTERED') {
-        deviceAlreadyRegistered = true;
-        alreadyRegisteredDevice = payload?.data;
-      }
-      //TODO: just get the name of the device from the server
-      return {
-        ...state,
-        deviceInfo: device,
-        deviceAlreadyRegistered,
-        alreadyRegisteredDevice,
-      };
-    case Authentication.REGISTER_DEVICE_ERROR:
-      return {
-        ...state,
-        connectionEstablished: false,
-        connectionEstablishedError: true,
-        setupError: action.payload,
       };
     case Authentication.LOGGED_OUT:
       return {

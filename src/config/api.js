@@ -9,4 +9,5 @@ export const ENDPOINTS = {
   GET_CONNECTIONS: '/connection',
   PENDING_CONNECTIONS: '/connection/pending',
   APPROVE_CONNECTIONS: '/connection/approve',
+  CONNECTION_REQUEST: '/connection/request',
 };

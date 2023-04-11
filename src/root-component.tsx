@@ -7,7 +7,7 @@ import { RootLayout } from './root-component.styles';
 
 export const RootComponent: React.FC = () => {
   const startUp = useStartUp();
-  const [isAppLoaded, setAppLoaded] = useState(false);
+  const [isAppLoaded, setAppLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
