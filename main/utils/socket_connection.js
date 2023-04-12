@@ -17,23 +17,6 @@ class SocketConnection {
         console.log(`connection of ${ID} is alive`);
       });
 
-      connectionChannel.on('sendFolderRequest', function (params) {
-        console.log('params : ', params);
-
-        connectionChannel.emit('sendingInfo', {
-          data: [
-            {
-              type: 'Folder',
-            },
-          ],
-        });
-      });
-
-      connectionChannel.on('receiveData', function (params) {
-        console.log('receiveData =====');
-        console.log(params);
-      });
-
       // connectionChannel.on('confirmConnectionStatus', function (params) {
       //   const output = {
       //     type: params.type,
@@ -142,6 +125,23 @@ class SocketConnection {
 
   requestFolderAccess(ID) {
     const connectionChannel = io(`${this.socketURI}${ID}`, { transports: ['websocket'] });
+
+    connectionChannel.on('sendFolderRequest', function (params) {
+      console.log('params : ', params);
+
+      connectionChannel.emit('sendingInfo', {
+        data: [
+          {
+            type: 'Folder',
+          },
+        ],
+      });
+    });
+
+    connectionChannel.on('receiveData', function (params) {
+      console.log('receiveData =====');
+      console.log(params);
+    });
 
     connectionChannel.emit('requestFolderRequest', { requestType: 'access' });
   }
