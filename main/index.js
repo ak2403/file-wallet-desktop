@@ -1,9 +1,7 @@
 import io from 'socket.io-client';
-import { getSystemInfo } from './utils/system_information';
-
 import path from 'path';
 import { app, BrowserWindow, screen, Tray, ipcMain } from 'electron';
-// import SocketConnection from './utils/socket_connection';
+
 import { InitializeSocket } from './services/socket';
 
 async function createWindow() {
@@ -32,31 +30,16 @@ async function createWindow() {
 
   mainWindow.webContents.openDevTools();
 
-  // const socket = new SocketConnection();
-
-  // await socket.openCommunication(mainWindow);
-  // await socket.openExistingConnections();
-
   app.on('open-url', function (event, data) {
     mainWindow.webContents.send('login-success', {
       data,
     });
   });
 
-  ipcMain.on('establish-connection', (event, args) => {
-    // socket.checkAndOpenConnection(args);
-  });
-
   ipcMain.on('access-folder', (event, connectionId) => {
     const connectionChannel = io(`http://10.0.0.18:3000/${connectionId}`, { transports: ['websocket'] });
 
     connectionChannel.emit('requestFile', { requestType: 'access' });
-  });
-
-  ipcMain.on('disconnect-all', async (event, args) => {
-    // await socket.checkAndCloseConnection(args);
-
-    mainWindow.webContents.send('disconnect-completed');
   });
 
   app.on('window-all-closed', () => {
