@@ -27,7 +27,7 @@ export const PendingActionComponent: React.FC = () => {
 
   return (
     <PendingActionLayout>
-      <Header text="Pending Actions" />
+      <Header text="Connection Request" />
 
       <ActionList actions={pendingActions} />
     </PendingActionLayout>

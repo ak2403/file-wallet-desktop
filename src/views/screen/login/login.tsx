@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Input } from '../../../ui-components/input';
 import { Button } from '../../../ui-components/button';
@@ -15,11 +15,13 @@ export const LoginComponent: React.FC = () => {
   const loginUser = useLoginUser();
   const navigate = useNavigate();
 
-  if (authentication.isUserLogged) {
-    navigate('/setup');
+  useEffect(() => {
+    if (authentication.isUserLogged) {
+      navigate('/setup');
 
-    return null;
-  }
+      return;
+    }
+  }, []);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);

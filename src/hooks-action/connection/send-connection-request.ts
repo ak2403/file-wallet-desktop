@@ -1,9 +1,15 @@
 import { post } from '../../api';
 import { ENDPOINTS } from '../../config/api';
+import { ConnectionRequestPayload, ConnectionRequestResponse, SendConnectionRequest } from '../../types/hooks-action';
 
-export const sendConnectionRequest = async (data: any) => {
+type PostResponse = {
+  status: number;
+  data: ConnectionRequestResponse;
+};
+
+export const sendConnectionRequest = async (data: ConnectionRequestPayload): Promise<SendConnectionRequest | null> => {
   try {
-    const response = await post(ENDPOINTS.CONNECTION_REQUEST, data);
+    const response: PostResponse = await post(ENDPOINTS.CONNECTION_REQUEST, data);
 
     if (response.status === 200) {
       return {
@@ -11,8 +17,13 @@ export const sendConnectionRequest = async (data: any) => {
       };
     }
 
-    return response;
+    return {
+      isSuccess: false,
+      errorMessage: response.data.message,
+    };
   } catch (error) {
     console.log(error);
+
+    return null;
   }
 };

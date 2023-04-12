@@ -11,19 +11,19 @@ export const SetupComponent: React.FC = () => {
 
   const registerDevice = useRegisterDevice();
 
-  if (!authentication.isUserLogged) {
-    navigate('/');
-
-    return null;
-  }
-
-  if (authentication.connectionEstablished) {
-    navigate('/home');
-
-    return null;
-  }
-
   useEffect(() => {
+    if (!authentication.isUserLogged) {
+      navigate('/');
+
+      return;
+    }
+
+    if (authentication.connectionEstablished) {
+      navigate('/home');
+
+      return;
+    }
+
     (async () => {
       await registerDevice();
     })();

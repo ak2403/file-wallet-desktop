@@ -16,6 +16,6 @@ export const IconLayout = styled.div<{ opacity: number; bgColor: string; disable
 `;
 
 export const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
-  color: #ebeaeb;
+  color: ${(props) => props.color || '#ebeaeb'};
   font-size: 18px;
 `;
