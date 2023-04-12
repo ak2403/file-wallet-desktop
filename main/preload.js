@@ -54,23 +54,23 @@ const bridge = {
 
 contextBridge.exposeInMainWorld('bridge', bridge);
 
-(async () => {
-  const { machineId } = await getSystemInfo();
+// (async () => {
+//   const { machineId } = await getSystemInfo();
 
-  const machineChannel = io(`http://10.0.0.18:3000/${machineId}`, { transports: ['websocket'] });
+//   const machineChannel = io(`http://10.0.0.18:3000/${machineId}`, { transports: ['websocket'] });
 
-  machineChannel.on('need-info', function (communicationId) {
-    console.log('---need-info---', machineId);
-    machineChannel.emit('send-info', {
-      communicationId,
-      data: {
-        machineId,
-      },
-    });
-  });
+//   machineChannel.on('need-info', function (communicationId) {
+//     console.log('---need-info---', machineId);
+//     machineChannel.emit('send-info', {
+//       communicationId,
+//       data: {
+//         machineId,
+//       },
+//     });
+//   });
 
-  machineChannel.on('receive-info', function (data) {
-    console.log('---receive-info---');
-    console.log(data);
-  });
-})();
+//   machineChannel.on('receive-info', function (data) {
+//     console.log('---receive-info---');
+//     console.log(data);
+//   });
+// })();

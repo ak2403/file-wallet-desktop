@@ -1,6 +1,7 @@
 import path from 'path';
 import { app, BrowserWindow, screen, Tray, ipcMain } from 'electron';
-import SocketConnection from './utils/socket_connection';
+// import SocketConnection from './utils/socket_connection';
+import { InitializeSocket } from './services/socket';
 
 async function createWindow() {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
@@ -59,6 +60,10 @@ async function createWindow() {
     new Tray(path.join(__dirname, 'assets/logo.png'));
     // any other logic
   });
+
+  mainWindow.webContents.on('did-finish-load', async function () {
+    await InitializeSocket(mainWindow);
+  });
 }
 
-app.whenReady().then(async () => createWindow());
+app.whenReady().then(() => createWindow());
