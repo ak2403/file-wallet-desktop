@@ -2,6 +2,7 @@ import io from 'socket.io-client';
 import { get } from './api';
 import { getItem, setItem } from './store';
 import { readFolder, readFile, createFolder, writeFile } from './file_system';
+import { getSystemInfo } from './system_information';
 
 class SocketConnection {
   constructor() {
@@ -126,15 +127,12 @@ class SocketConnection {
   requestFolderAccess(ID) {
     const connectionChannel = io(`${this.socketURI}${ID}`, { transports: ['websocket'] });
 
-    connectionChannel.on('sendFolderRequest', function (params) {
+    connectionChannel.on('sendFolderRequest', async function (params) {
       console.log('params : ', params);
+      const sysData = await getSystemInfo();
 
       connectionChannel.emit('sendingInfo', {
-        data: [
-          {
-            type: 'Folder',
-          },
-        ],
+        data: sysData,
       });
     });
 
