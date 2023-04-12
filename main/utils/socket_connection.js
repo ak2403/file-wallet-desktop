@@ -110,36 +110,23 @@ class SocketConnection {
     return true;
   }
 
-  openCommunication(window) {
+  async openCommunication(window) {
     const socketConnection = io(`${this.socketURI}${this.communicationChannel}`, { transports: ['websocket'] });
 
     socketConnection.on('connect', function () {
       console.log(`The common connection of channel is alive`);
     });
 
+    const { connections } = await get('/connection');
+
+    const connectionIds = connections.map(({ id }) => id);
+
+    await setItem('existingConnections', JSON.stringify(connectionIds));
+
+    console.log(connectionIds);
+
     socketConnection.on('onIncomingMessage', async (params) => {
-      console.log('params : ', params);
-
       window.webContents.send('accessRequest', params);
-
-      // const getId = await getItem('device_id');
-
-      // if (params.id === getId) {
-      //   const getConnections = await get('/connection');
-
-      //   if (getConnections.status === 200 && getConnections?.data?.connections) {
-      //     let getSavedConnections = await getItem('existingConnections');
-      //     getSavedConnections = getSavedConnections ? JSON.parse(getSavedConnections) : [];
-
-      //     getConnections.data.connections.forEach((item) => {
-      //       if (!getSavedConnections.includes(item._id)) {
-      //         getSavedConnections.push(item._id);
-      //       }
-      //     });
-
-      //     await setItem('existingConnections', JSON.stringify(getSavedConnections));
-      //   }
-      // }
     });
   }
 }

@@ -2,7 +2,7 @@ import path from 'path';
 import { app, BrowserWindow, screen, Tray, ipcMain } from 'electron';
 import SocketConnection from './utils/socket_connection';
 
-function createWindow() {
+async function createWindow() {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
 
   const mainWindow = new BrowserWindow({
@@ -29,8 +29,9 @@ function createWindow() {
   mainWindow.webContents.openDevTools();
 
   const socket = new SocketConnection();
-  socket.openCommunication(mainWindow);
-  socket.openExistingConnections();
+
+  await socket.openCommunication(mainWindow);
+  await socket.openExistingConnections();
 
   app.on('open-url', function (event, data) {
     mainWindow.webContents.send('login-success', {
@@ -56,4 +57,4 @@ function createWindow() {
   });
 }
 
-app.on('ready', createWindow);
+app.whenReady().then(async () => createWindow());

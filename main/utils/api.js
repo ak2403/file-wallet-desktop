@@ -1,51 +1,42 @@
-import axios from 'axios'
-import { getItem } from "./store";
+import axios from 'axios';
+import { getItem } from './store';
 
-const API_URL = 'http://10.0.0.18:5000'
+const API_URL = 'http://10.0.0.18:3000';
 
 const getHeaders = async () => {
   try {
-    
-    const getToken = await getItem('access_token')
-    const getDeviceId = await getItem('device_id')
+    const token = await getItem('access_token');
+    const relationId = await getItem('relation_id');
 
     return {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${getToken || ''}`,
-        deviceId: getDeviceId,
-        'X-Forward-Type': 'desktop'
-      }
-    }
+        Authorization: `Bearer ${token || ''}`,
+        'Relation-Id': relationId,
+        'X-Forward-Type': 'desktop',
+      },
+    };
+  } catch (err) {
+    console.log(err);
+    return false;
   }
-  catch (err) {
-    console.log(err)
-    return false
-  }
-}
+};
 
 const get = async (endpoint) => {
-  const headerParams = await getHeaders()
-  const getEndpoint = `${API_URL}${endpoint}`
+  const headerParams = await getHeaders();
+  const getEndpoint = `${API_URL}${endpoint}`;
 
   try {
-    const {status, data} = await axios.get(
-      getEndpoint, 
-      headerParams)
-    
-    return {
-      status,
-      data,
-    }
-  }
-  catch (err) {
+    const { data } = await axios.get(getEndpoint, headerParams);
+
+    return data;
+  } catch (err) {
+    console.log(err);
     return {
       status: err.status || 500,
-      data: err.data || ''
-    }
+      data: err.data || '',
+    };
   }
-}
+};
 
-export {
-  get,
-}
+export { get };
