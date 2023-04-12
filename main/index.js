@@ -1,3 +1,6 @@
+import io from 'socket.io-client';
+import { getSystemInfo } from './utils/system_information';
+
 import path from 'path';
 import { app, BrowserWindow, screen, Tray, ipcMain } from 'electron';
 // import SocketConnection from './utils/socket_connection';
@@ -45,7 +48,9 @@ async function createWindow() {
   });
 
   ipcMain.on('access-folder', (event, connectionId) => {
-    // socket.requestFolderAccess(connectionId);
+    const connectionChannel = io(`http://10.0.0.18:3000/${connectionId}`, { transports: ['websocket'] });
+
+    connectionChannel.emit('requestFile', { requestType: 'access' });
   });
 
   ipcMain.on('disconnect-all', async (event, args) => {
