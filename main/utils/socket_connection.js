@@ -15,64 +15,76 @@ class SocketConnection {
 
       connectionChannel.on('connect', function () {
         console.log(`connection of ${ID} is alive`);
-        const output = {
-          status: true,
-          message: 'alive',
-        };
-        connectionChannel.emit('redirectConnectionStatus', output);
       });
 
-      connectionChannel.on('confirmConnectionStatus', function (params) {
-        const output = {
-          type: params.type,
-          status: true,
-          message: 'alive',
-        };
-        connectionChannel.emit('redirectConnectionStatus', output);
+      connectionChannel.on('sendFolderRequest', function (params) {
+        console.log('params : ', params);
+
+        connectionChannel.emit('sendingInfo', {
+          data: [
+            {
+              type: 'Folder',
+            },
+          ],
+        });
       });
 
-      connectionChannel.on('redirectRequestInformation', async (params) => {
-        const { type, path, name, file } = params;
-        let output = {};
-
-        switch (type) {
-          case 'FETCH_FOLDERS':
-            output = {
-              type,
-              status: true,
-              data: await readFolder(path),
-            };
-            break;
-          case 'ADD_FOLDER':
-            const createdFolder = await createFolder(path, name);
-            output.type = type;
-            if (createdFolder) {
-              output.status = true;
-              output.data = await readFolder(path);
-            } else {
-              output.status = false;
-            }
-            break;
-          case 'ADD_FILE':
-            const createdFile = await writeFile(`${path}/${file.name}`, file.data);
-            output.type = type;
-            if (createdFile) {
-              output.status = true;
-            } else {
-              output.status = false;
-            }
-            break;
-          case 'FETCH_FILE':
-            const retrieveFile = await readFile(path);
-            output.type = type;
-            output.data = retrieveFile;
-            break;
-          default:
-            return;
-        }
-
-        connectionChannel.emit('captureResponse', output);
+      connectionChannel.on('receiveData', function (params) {
+        console.log('receiveData =====');
+        console.log(params);
       });
+
+      // connectionChannel.on('confirmConnectionStatus', function (params) {
+      //   const output = {
+      //     type: params.type,
+      //     status: true,
+      //     message: 'alive',
+      //   };
+      //   connectionChannel.emit('redirectConnectionStatus', output);
+      // });
+
+      // connectionChannel.on('redirectRequestInformation', async (params) => {
+      //   const { type, path, name, file } = params;
+      //   let output = {};
+
+      //   switch (type) {
+      //     case 'FETCH_FOLDERS':
+      //       output = {
+      //         type,
+      //         status: true,
+      //         data: await readFolder(path),
+      //       };
+      //       break;
+      //     case 'ADD_FOLDER':
+      //       const createdFolder = await createFolder(path, name);
+      //       output.type = type;
+      //       if (createdFolder) {
+      //         output.status = true;
+      //         output.data = await readFolder(path);
+      //       } else {
+      //         output.status = false;
+      //       }
+      //       break;
+      //     case 'ADD_FILE':
+      //       const createdFile = await writeFile(`${path}/${file.name}`, file.data);
+      //       output.type = type;
+      //       if (createdFile) {
+      //         output.status = true;
+      //       } else {
+      //         output.status = false;
+      //       }
+      //       break;
+      //     case 'FETCH_FILE':
+      //       const retrieveFile = await readFile(path);
+      //       output.type = type;
+      //       output.data = retrieveFile;
+      //       break;
+      //     default:
+      //       return;
+      //   }
+
+      //   connectionChannel.emit('captureResponse', output);
+      // });
     }
   }
 
@@ -111,23 +123,27 @@ class SocketConnection {
   }
 
   async openCommunication(window) {
-    const socketConnection = io(`${this.socketURI}${this.communicationChannel}`, { transports: ['websocket'] });
+    // const socketConnection = io(`${this.socketURI}${this.communicationChannel}`, { transports: ['websocket'] });
 
-    socketConnection.on('connect', function () {
-      console.log(`The common connection of channel is alive`);
-    });
+    // socketConnection.on('connect', function () {
+    //   console.log(`The common connection of channel is alive`);
+    // });
 
-    const { connections } = await get('/connection');
+    const { connections } = await get('/connection/active');
 
     const connectionIds = connections.map(({ id }) => id);
 
     await setItem('existingConnections', JSON.stringify(connectionIds));
 
-    console.log(connectionIds);
+    // socketConnection.on('onIncomingMessage', async (params) => {
+    //   window.webContents.send('accessRequest', params);
+    // });
+  }
 
-    socketConnection.on('onIncomingMessage', async (params) => {
-      window.webContents.send('accessRequest', params);
-    });
+  requestFolderAccess(ID) {
+    const connectionChannel = io(`${this.socketURI}${ID}`, { transports: ['websocket'] });
+
+    connectionChannel.emit('requestFolderRequest', { requestType: 'access' });
   }
 }
 

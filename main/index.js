@@ -43,6 +43,10 @@ async function createWindow() {
     socket.checkAndOpenConnection(args);
   });
 
+  ipcMain.on('access-folder', (event, connectionId) => {
+    socket.requestFolderAccess(connectionId);
+  });
+
   ipcMain.on('disconnect-all', async (event, args) => {
     await socket.checkAndCloseConnection(args);
 

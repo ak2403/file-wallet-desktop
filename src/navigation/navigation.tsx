@@ -7,6 +7,7 @@ import { SetupComponent } from '../views/screen/setup';
 import { DashboardComponent } from '../views/screen/dashboard';
 import { NotificationComponent } from '../views/screen/notification';
 import { PendingActionComponent } from '../views/screen/pending-action';
+import { ConnectionComponent } from '../views/screen/connection';
 
 const NoMatch = () => {
   return <>No match found</>;
@@ -32,11 +33,12 @@ export const Navigation: React.FC = () => {
 
           <Route path="pending-action" element={<PendingActionComponent />} />
           <Route path="notification" element={<NotificationComponent />} />
+          <Route path="connection" element={<ConnectionComponent />} />
 
           <Route path="*" element={<DashboardComponent />} />
         </Route>
 
-        <Route path="*" element={<NoMatch />} />
+        <Route path="*" element={<HomeComponent />} />
       </Routes>
     </Router>
   );
