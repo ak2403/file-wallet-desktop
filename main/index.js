@@ -28,10 +28,10 @@ async function createWindow() {
 
   mainWindow.webContents.openDevTools();
 
-  const socket = new SocketConnection();
+  // const socket = new SocketConnection();
 
-  await socket.openCommunication(mainWindow);
-  await socket.openExistingConnections();
+  // await socket.openCommunication(mainWindow);
+  // await socket.openExistingConnections();
 
   app.on('open-url', function (event, data) {
     mainWindow.webContents.send('login-success', {
@@ -40,15 +40,15 @@ async function createWindow() {
   });
 
   ipcMain.on('establish-connection', (event, args) => {
-    socket.checkAndOpenConnection(args);
+    // socket.checkAndOpenConnection(args);
   });
 
   ipcMain.on('access-folder', (event, connectionId) => {
-    socket.requestFolderAccess(connectionId);
+    // socket.requestFolderAccess(connectionId);
   });
 
   ipcMain.on('disconnect-all', async (event, args) => {
-    await socket.checkAndCloseConnection(args);
+    // await socket.checkAndCloseConnection(args);
 
     mainWindow.webContents.send('disconnect-completed');
   });
