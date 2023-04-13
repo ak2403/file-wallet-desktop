@@ -48,7 +48,7 @@ contextBridge.exposeInMainWorld('electron', {
 });
 
 const bridge = {
-  accessRequest: (callback) => ipcRenderer.on('accessRequest', callback),
+  doActionForNotification: (callback) => ipcRenderer.on('do-action-for-notification', callback),
 };
 
 contextBridge.exposeInMainWorld('bridge', bridge);

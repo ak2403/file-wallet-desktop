@@ -16,6 +16,11 @@ export const NavBar: React.FC = () => {
   const getConnections = useGetConnections();
   const connections = useSelector((state: any) => state.connection);
 
+  //@ts-ignore
+  window.bridge.doActionForNotification((event: any, listener: any) => {
+    console.log('listener : ', listener);
+  });
+
   useEffect(() => {
     (async () => await getConnections())();
   }, []);
