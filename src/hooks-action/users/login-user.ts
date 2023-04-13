@@ -3,17 +3,16 @@ import { useDispatch } from 'react-redux';
 import { post } from '../../api';
 import { Authentication } from '../../type';
 import { setItem } from '../../utils/localStorage';
+import { AuthenticateUserResponse, UserLoginPayload } from '../../types/hooks-action';
 
 export function useLoginUser() {
   const dispatch = useDispatch();
 
-  const authenticateUser = async (data: any) => {
+  const authenticateUser = async (userLogin: UserLoginPayload): Promise<AuthenticateUserResponse> => {
     try {
-      const response = await post('/user/login', data);
+      const { data, status } = await post('/user/login', userLogin);
 
-      if (response.status === 200) {
-        const { data } = response;
-
+      if (status === 200) {
         await setItem('access_token', data.token);
 
         dispatch({
@@ -21,14 +20,15 @@ export function useLoginUser() {
           payload: true,
         });
 
-        return true;
+        return {
+          success: true,
+        };
       }
 
-      dispatch({
-        type: Authentication.LOGGED_IN_ERROR,
-      });
-
-      return false;
+      return {
+        success: false,
+        errors: data?.errors || [],
+      };
     } catch (error) {
       console.log(error);
 
@@ -36,7 +36,9 @@ export function useLoginUser() {
         type: Authentication.LOGGED_IN_ERROR,
       });
 
-      return false;
+      return {
+        success: false,
+      };
     }
   };
 
