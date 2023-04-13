@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { CardLayout } from './card.styles';
+
 type CardType = {
   children: React.ReactNode;
 };
@@ -7,5 +9,5 @@ type CardType = {
 export const Card: React.FC<CardType> = (props) => {
   const { children } = props;
 
-  return <>{children}</>;
+  return <CardLayout>{children}</CardLayout>;
 };

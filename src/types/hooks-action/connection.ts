@@ -5,8 +5,3 @@ export type ConnectionRequestPayload = {
 export type ConnectionRequestResponse = {
   message: string;
 };
-
-export type SendConnectionRequest = {
-  isSuccess: boolean;
-  errorMessage?: string;
-};

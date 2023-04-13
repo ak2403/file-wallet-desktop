@@ -7,6 +7,10 @@ export const InitializeSocket = async (window) => {
   console.log(machineId);
   const machineChannel = io(`http://10.0.0.18:3000/${machineId}`, { transports: ['websocket'] });
 
+  machineChannel.on('notification-from-server', function (notify) {
+    console.log(notify);
+  });
+
   machineChannel.on('request-information-from-server', async function (communicationId) {
     console.log('---request-information-from-server---', machineId);
 

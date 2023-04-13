@@ -1,29 +1,26 @@
 import { post } from '../../api';
 import { ENDPOINTS } from '../../config/api';
-import { ConnectionRequestPayload, ConnectionRequestResponse, SendConnectionRequest } from '../../types/hooks-action';
+import { ApiDispatchResponse, ConnectionRequestPayload } from '../../types/hooks-action';
 
-type PostResponse = {
-  status: number;
-  data: ConnectionRequestResponse;
-};
-
-export const sendConnectionRequest = async (data: ConnectionRequestPayload): Promise<SendConnectionRequest | null> => {
+export const sendConnectionRequest = async (
+  connectionRequest: ConnectionRequestPayload,
+): Promise<ApiDispatchResponse> => {
   try {
-    const response: PostResponse = await post(ENDPOINTS.CONNECTION_REQUEST, data);
+    const { status, data } = await post(ENDPOINTS.CONNECTION_REQUEST, connectionRequest);
 
-    if (response.status === 200) {
+    if (status === 200) {
       return {
-        isSuccess: true,
+        success: true,
       };
     }
 
     return {
-      isSuccess: false,
-      errorMessage: response.data.message,
+      success: false,
+      errors: data.errors || [],
     };
   } catch (error) {
-    console.log(error);
-
-    return null;
+    return {
+      success: false,
+    };
   }
 };

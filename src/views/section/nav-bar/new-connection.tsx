@@ -9,26 +9,31 @@ import { Button } from '../../../ui-components/button';
 import { ConnectionForm } from './new-connection.styles';
 import { sendConnectionRequest } from '../../../hooks-action/connection';
 import { Card, NotificationCard } from '../../../ui-components/card';
+import { ErrorMessage } from '../../../types/hooks-action';
 
-export const NewConnection = () => {
-  const [displayModal, setDisplayModal] = useState(false);
-  const [deviceName, setDeviceName] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+export const NewConnection: React.FC = () => {
+  const [displayModal, setDisplayModal] = useState<boolean>(false);
+  const [deviceName, setDeviceName] = useState<string>('');
+  const [waitForCompletion, setWaitForCompletion] = useState<boolean>(false);
+  const [errors, setErrors] = useState<ErrorMessage[]>([]);
 
   const onClick = async () => {
-    const response = await sendConnectionRequest({
+    setWaitForCompletion(true);
+
+    sendConnectionRequest({
       deviceName,
+    }).then(({ success, errors = [{ message: 'Internal Error' }] }) => {
+      if (success) {
+        setDisplayModal(false);
+        setWaitForCompletion(false);
+        setErrors([]);
+
+        return;
+      }
+
+      setErrors([...errors]);
+      setWaitForCompletion(false);
     });
-
-    if (response?.isSuccess) {
-      setDisplayModal(false);
-
-      setErrorMessage('');
-
-      return;
-    }
-
-    setErrorMessage(response?.errorMessage || 'Internal Error');
   };
 
   return (
@@ -38,9 +43,7 @@ export const NewConnection = () => {
       <Modal header="New Connection" show={displayModal} onClose={() => setDisplayModal(!displayModal)}>
         <ConnectionForm>
           <Card>
-            <p>
-              <b>Note:</b> To request a new connection, please use the device name that you want to connect.
-            </p>
+            <p>💡 To request a new connection, please use the device name that you want to connect.</p>
           </Card>
           <Input
             value={deviceName}
@@ -48,9 +51,13 @@ export const NewConnection = () => {
             onChange={(event) => setDeviceName(event.target.value)}
           />
 
-          <Button onClick={onClick}>Connect</Button>
+          <Button loading={waitForCompletion} onClick={onClick}>
+            Connect
+          </Button>
 
-          {errorMessage ? <NotificationCard type="error" message={errorMessage} /> : null}
+          {errors.map(({ message }) => (
+            <NotificationCard type="error" message={message} />
+          ))}
         </ConnectionForm>
       </Modal>
     </>
