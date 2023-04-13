@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { Input } from '../../../ui-components/input';
 import { Button } from '../../../ui-components/button';
 
-import { LoginLayout, LoginAppHeader } from './login.styles';
+import { LoginLayout } from './login.styles';
 
 import { useLoginUser } from '../../../hooks-action/users';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ErrorMessage } from '../../../types/hooks-action';
 import { NotificationCard } from '../../../ui-components/card';
+import { LoginHeader } from '../../../ui-components/header';
 
 export const LoginComponent: React.FC = () => {
   const authentication = useSelector((state: any) => state.authentication);
@@ -52,7 +53,7 @@ export const LoginComponent: React.FC = () => {
 
   return (
     <LoginLayout>
-      <LoginAppHeader>File Sync .</LoginAppHeader>
+      <LoginHeader text="File Sync ." />
 
       <Input value={email} placeholder="Please enter your email" onChange={onChange} disabled={waitForCompletion} />
 

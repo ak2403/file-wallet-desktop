@@ -3,39 +3,44 @@ import { Authentication } from '../../type';
 import { ENDPOINTS } from '../../config/api';
 import { post } from '../../api';
 import { getItem, setItem } from '../../utils/localStorage';
+import { ApiDispatchResponse } from '../../types/hooks-action';
 
 export const useRegisterDevice = () => {
   const dispatch = useDispatch();
 
-  const registerDevice = async (deviceName: string) => {
+  const registerDevice = async (deviceName: string): Promise<ApiDispatchResponse> => {
     //@ts-ignore
     const deviceInfo = await window.electron.getSysInfo();
 
     const token = await getItem('access_token');
 
-    const registerDevice = await post(ENDPOINTS.REGISTER_DEVICE, {
+    const { status, data } = await post(ENDPOINTS.REGISTER_DEVICE, {
       deviceId: deviceInfo.machineId,
       deviceName,
       token,
     });
 
-    if (registerDevice.status === 200) {
-      await setItem('relation_id', registerDevice?.data?.id);
+    if (status === 200) {
+      await setItem('relation_id', data?.id);
 
       dispatch({
         type: Authentication.REGISTER_DEVICE,
         payload: true,
       });
 
-      return true;
+      return {
+        success: true,
+      };
     }
 
-    dispatch({
-      type: Authentication.REGISTER_DEVICE_ERROR,
-      payload: 'registerDevice.message',
-    });
-
-    return false;
+    return {
+      success: false,
+      errors: data?.errors || [
+        {
+          message: data.message,
+        },
+      ],
+    };
   };
 
   return registerDevice;

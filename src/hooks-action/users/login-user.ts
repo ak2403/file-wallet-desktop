@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import { post } from '../../api';
 import { Authentication } from '../../type';
 import { setItem } from '../../utils/localStorage';
-import { AuthenticateUserResponse, UserLoginPayload } from '../../types/hooks-action';
+import { ApiDispatchResponse, UserLoginPayload } from '../../types/hooks-action';
 
 export function useLoginUser() {
   const dispatch = useDispatch();
 
-  const authenticateUser = async (userLogin: UserLoginPayload): Promise<AuthenticateUserResponse> => {
+  const authenticateUser = async (userLogin: UserLoginPayload): Promise<ApiDispatchResponse> => {
     try {
       const { data, status } = await post('/user/login', userLogin);
 
