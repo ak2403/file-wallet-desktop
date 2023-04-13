@@ -6,10 +6,11 @@ type InputProps = {
   placeholder?: string;
   type?: string;
   value: string;
+  disabled?: boolean;
 };
 
 export const Input: React.FC<InputProps> = (props: InputProps) => {
-  const { type = 'text', placeholder = '', onChange = () => {}, value } = props;
+  const { type = 'text', placeholder = '', onChange = () => {}, value, disabled } = props;
 
-  return <StyledInput type={type} placeholder={placeholder} onChange={onChange} value={value} />;
+  return <StyledInput type={type} placeholder={placeholder} onChange={onChange} value={value} disabled={disabled} />;
 };
