@@ -6,7 +6,7 @@ import { NavBar } from '../../../views/section/nav-bar';
 
 import { HomeLayout, SideBarLayout, ContentLayout } from './home.styles';
 
-export const HomeComponent = () => {
+export const HomeComponent: React.FC = () => {
   const authentication = useSelector((state: any) => state.authentication);
   const navigate = useNavigate();
 
