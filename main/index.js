@@ -36,10 +36,12 @@ async function createWindow() {
     });
   });
 
-  ipcMain.on('access-folder', (event, connectionId) => {
+  ipcMain.on('access-target-folder', (event, data) => {
+    const { connectionId, path } = data;
+
     const connectionChannel = io(`http://10.0.0.18:3000/${connectionId}`, { transports: ['websocket'] });
 
-    connectionChannel.emit('requestFile', { requestType: 'access' });
+    connectionChannel.emit('request-file-from-target', { requestType: 'read', path });
   });
 
   app.on('window-all-closed', () => {

@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '../../../ui-components/button';
 import { useLocation } from 'react-router-dom';
 
 export const ConnectionComponent: React.FC = (props) => {
   const { state } = useLocation();
+  const [folderStructure, setFolderStructure] = useState([]);
 
-  const connectionId = state?.id || 'dc0d1556-661d-4283-a9d2-cc9d26a9848d';
+  const connectionId = state?.id;
 
   const onClick = () => {
     //@ts-ignore
-    window.electron.send('access-folder', connectionId);
+    window.electron.send('access-target-folder', { connectionId, path: '' });
   };
+
+  //@ts-ignore
+  window.bridge.targetDataReceived(async (_: any, data: any) => {
+    console.log(data);
+  });
+
+  useEffect(() => {
+    //@ts-ignore
+    // window.electron.send('access-target-folder', { connectionId, path: '' });
+  }, []);
 
   return (
     <div>

@@ -49,6 +49,7 @@ contextBridge.exposeInMainWorld('electron', {
 
 const bridge = {
   doActionForNotification: (callback) => ipcRenderer.on('do-action-for-notification', callback),
+  targetDataReceived: (callback) => ipcRenderer.on('target-data-received', callback),
 };
 
 contextBridge.exposeInMainWorld('bridge', bridge);
