@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from '../../../ui-components/button';
 import { useLocation } from 'react-router-dom';
+
+import { FolderView } from '../../section/folder-view';
+import { ConnectionLayout } from './connection.styles';
 
 export const ConnectionComponent: React.FC = (props) => {
   const { state } = useLocation();
@@ -8,25 +10,25 @@ export const ConnectionComponent: React.FC = (props) => {
 
   const connectionId = state?.id;
 
-  const onClick = () => {
-    //@ts-ignore
-    window.electron.send('access-target-folder', { connectionId, path: '' });
-  };
-
   //@ts-ignore
   window.bridge.targetDataReceived(async (_: any, data: any) => {
-    console.log(data);
+    setFolderStructure(data);
   });
 
   useEffect(() => {
     //@ts-ignore
-    // window.electron.send('access-target-folder', { connectionId, path: '' });
+    window.electron.send('access-target-folder', { connectionId, path: '' });
   }, []);
 
+  const folderClick = (path: any) => {
+    //@ts-ignore
+    window.electron.send('access-target-folder', { connectionId, path });
+  };
+
   return (
-    <div>
+    <ConnectionLayout>
       Connection
-      <Button onClick={onClick}>Get Info</Button>
-    </div>
+      <FolderView connectionId={connectionId} folders={folderStructure} onFolderClick={folderClick} />
+    </ConnectionLayout>
   );
 };
