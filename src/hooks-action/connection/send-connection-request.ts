@@ -16,7 +16,11 @@ export const sendConnectionRequest = async (
 
     return {
       success: false,
-      errors: data.errors || [],
+      errors: data.errors || [
+        {
+          message: data.message,
+        },
+      ],
     };
   } catch (error) {
     return {

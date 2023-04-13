@@ -7,12 +7,12 @@ export const useFetchPendingConnections = () => {
   const dispatch = useDispatch();
 
   const fetchPendingConnections = async () => {
-    const response = await get(ENDPOINTS.PENDING_CONNECTIONS);
+    const { status, data } = await get(ENDPOINTS.PENDING_CONNECTIONS);
 
-    if (response.status === 200) {
+    if (status === 200) {
       dispatch({
         type: Connection.PENDING_CONNECTION,
-        payload: response.data.pendingConnections,
+        payload: data.pendingConnections,
       });
     }
   };

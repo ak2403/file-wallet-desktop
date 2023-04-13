@@ -10,16 +10,12 @@ import { useGetConnections } from '../../../hooks-action/connection';
 import { useSelector } from 'react-redux';
 import { ConnectionList } from './connection-list';
 import { NewConnection } from './new-connection';
+import { Notification } from './notification';
 
 export const NavBar: React.FC = () => {
   const navigate = useNavigate();
   const getConnections = useGetConnections();
   const connections = useSelector((state: any) => state.connection);
-
-  //@ts-ignore
-  window.bridge.doActionForNotification((event: any, listener: any) => {
-    console.log('listener : ', listener);
-  });
 
   useEffect(() => {
     (async () => await getConnections())();
@@ -38,6 +34,7 @@ export const NavBar: React.FC = () => {
         <Icon icon={faHandshake} onClick={() => navigate('pending-action')} />
         <Icon icon={faBell} onClick={() => navigate('notification')} />
       </Bottom>
+      <Notification />
     </NavLayout>
   );
 };
