@@ -4,7 +4,7 @@ import { readFolder } from '../../utils/file_system';
 
 export const InitializeSocket = async (window) => {
   const { machineId } = await getSystemInfo();
-  console.log(machineId);
+
   const machineChannel = io(`http://10.0.0.18:3000/${machineId}`, { transports: ['websocket'] });
 
   // triggered when server send an notification action
@@ -15,7 +15,6 @@ export const InitializeSocket = async (window) => {
   // triggered when server request for folder informations
   machineChannel.on('request-information-from-server', async function (data) {
     const { requestSource, path } = data;
-    console.log('---request-information-from-server---', machineId);
 
     const response = await readFolder(path);
 
@@ -27,8 +26,6 @@ export const InitializeSocket = async (window) => {
 
   // triggered when server sends the requested folder informations
   machineChannel.on('receive-information-from-server', function (data) {
-    console.log('---receive-information-from-server---');
-    console.log(data);
     window.webContents.send('target-data-received', data);
   });
 };
