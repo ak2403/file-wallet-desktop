@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path, { extname } from 'path';
-import { randomUUID } from 'crypto';
+import { v4 as uuid } from 'uuid';
 
 import Config from '../config';
 
@@ -18,7 +18,7 @@ const readFolder = async (path = '') => {
 
       if (file && file[0] !== '.') {
         getFoldersInfo.push({
-          id: randomUUID(),
+          id: uuid(),
           name: file,
           ext: extname(file),
           type: getFileStat.isDirectory() ? 'folder' : 'file',
