@@ -2,7 +2,9 @@ import React from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faFolder, faFile, faFilePdf, faCode } from '@fortawesome/free-solid-svg-icons';
+import { faFolder, faFile, faFilePdf, faCode, faFileImage } from '@fortawesome/free-solid-svg-icons';
+
+import { faFileWord } from '@fortawesome/free-regular-svg-icons';
 
 import { FolderLayout } from './folder.styles';
 
@@ -23,11 +25,21 @@ export const Folder: React.FC<FolderType> = (props) => {
       break;
     case '.pdf':
       icon = faFilePdf;
+      break;
     case '.html':
     case '.css':
     case '.py':
     case '.js':
       icon = faCode;
+      break;
+    case '.png':
+    case '.jpg':
+      icon = faFileImage;
+      break;
+    case '.docx':
+    case '.doc':
+      icon = faFileWord;
+      break;
     default:
       icon = faFile;
   }

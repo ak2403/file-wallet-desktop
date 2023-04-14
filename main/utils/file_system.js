@@ -20,7 +20,7 @@ const readFolder = async (path = '') => {
         getFoldersInfo.push({
           id: uuid(),
           name: file,
-          ext: extname(file),
+          ext: getFileStat.isDirectory() ? 'folder' : extname(file),
           type: getFileStat.isDirectory() ? 'folder' : 'file',
         });
       }
@@ -119,7 +119,6 @@ const writeFile = async (path, data) => {
   try {
     const isPathExists = await fileExists(path);
 
-    console.log('isPathExists : ', isPathExists, path);
     if (isPathExists) {
       return false;
     }
