@@ -7,7 +7,7 @@ export const initialState: ConnectionState = {
   activeConnections: [],
 };
 
-function ConnectionReducer(state = initialState, action: ConnectionAction): ConnectionState {
+export function ConnectionReducer(state = initialState, action: ConnectionAction): ConnectionState {
   switch (action.type) {
     case Connection.FETCH_CONNECTION:
       return {
@@ -23,5 +23,3 @@ function ConnectionReducer(state = initialState, action: ConnectionAction): Conn
       return state;
   }
 }
-
-export default ConnectionReducer;

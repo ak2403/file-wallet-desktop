@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import authentication from './authentication';
-import connection from './connection';
+import { AuthenticationReducer } from './authentication';
+import { ConnectionReducer } from './connection';
+import { FolderStructureReducer } from './folder-structure';
 
 export const Reducer = combineReducers({
-  authentication,
-  connection,
+  authentication: AuthenticationReducer,
+  connection: ConnectionReducer,
+  folderStructure: FolderStructureReducer,
 });

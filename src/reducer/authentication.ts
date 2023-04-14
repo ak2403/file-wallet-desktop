@@ -14,7 +14,7 @@ export const initialState: Authentications = {
   isUserLogoutError: false,
 };
 
-function AuthenticationReducer(state = initialState, action: AuthenticationAction): Authentications {
+export function AuthenticationReducer(state = initialState, action: AuthenticationAction): Authentications {
   switch (action.type) {
     case Authentication.LOADED_APP:
       return {
@@ -58,5 +58,3 @@ function AuthenticationReducer(state = initialState, action: AuthenticationActio
       return state;
   }
 }
-
-export default AuthenticationReducer;
