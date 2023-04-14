@@ -23,7 +23,13 @@ export const ConnectionComponent: React.FC = () => {
   }, []);
 
   const folderClick = (path: string) => {
-    const updatedPath = [...selectedPath, path];
+    let updatedPath = selectedPath;
+
+    if (path === 'home') {
+      updatedPath = [];
+    } else {
+      updatedPath = [...selectedPath, path];
+    }
 
     updateSelectedPath([...updatedPath]);
 
@@ -34,7 +40,7 @@ export const ConnectionComponent: React.FC = () => {
   return (
     <ConnectionLayout>
       Connection
-      <BreadCrumb path={selectedPath} />
+      <BreadCrumb path={selectedPath} onClick={folderClick} />
       <FolderView connectionId={connectionId} folders={folderStructure} onFolderClick={folderClick} />
     </ConnectionLayout>
   );

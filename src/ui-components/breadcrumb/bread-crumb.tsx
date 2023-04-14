@@ -8,16 +8,19 @@ import { BreadCrumbLayout, Path } from './bread-crumb.styles';
 
 type BreadCrumbType = {
   path: string[];
+  onClick: (path: string) => void;
 };
 
 export const BreadCrumb: React.FC<BreadCrumbType> = (props) => {
-  const { path } = props;
+  const { path, onClick } = props;
 
   return (
     <BreadCrumbLayout>
-      <FontAwesomeIcon icon={faHouse} fontSize={'12px'} />
+      <FontAwesomeIcon icon={faHouse} fontSize={'12px'} onClick={() => onClick('home')} />
       {path.map((flow) => (
-        <Path key={uuid()}>{flow}</Path>
+        <Path key={uuid()} onClick={() => onClick(flow)}>
+          {flow}
+        </Path>
       ))}
     </BreadCrumbLayout>
   );
