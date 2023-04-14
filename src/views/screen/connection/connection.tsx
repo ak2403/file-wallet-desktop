@@ -3,10 +3,12 @@ import { useLocation } from 'react-router-dom';
 
 import { FolderView } from '../../section/folder-view';
 import { ConnectionLayout } from './connection.styles';
+import { BreadCrumb } from '../../../ui-components/breadcrumb';
 
-export const ConnectionComponent: React.FC = (props) => {
+export const ConnectionComponent: React.FC = () => {
   const { state } = useLocation();
   const [folderStructure, setFolderStructure] = useState([]);
+  const [selectedPath, updateSelectedPath] = useState<string[]>([]);
 
   const connectionId = state?.id;
 
@@ -20,14 +22,19 @@ export const ConnectionComponent: React.FC = (props) => {
     window.electron.send('access-target-folder', { connectionId, path: '' });
   }, []);
 
-  const folderClick = (path: any) => {
+  const folderClick = (path: string) => {
+    const updatedPath = [...selectedPath, path];
+
+    updateSelectedPath([...updatedPath]);
+
     //@ts-ignore
-    window.electron.send('access-target-folder', { connectionId, path });
+    window.electron.send('access-target-folder', { connectionId, path: updatedPath.join('/') });
   };
 
   return (
     <ConnectionLayout>
       Connection
+      <BreadCrumb path={selectedPath} />
       <FolderView connectionId={connectionId} folders={folderStructure} onFolderClick={folderClick} />
     </ConnectionLayout>
   );

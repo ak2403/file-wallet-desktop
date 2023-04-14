@@ -3,12 +3,12 @@ import styled from 'styled-components';
 export const FolderLayout = styled.div`
   display: flex;
   flex-direction: column;
-  width: 120px;
+  width: 80px;
   height: 80px;
-  margin: 10px;
+  margin: 5px 10px;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 12px;
   font-family: 'Lato', sans-serif;
   padding: 5px;
   cursor: pointer;

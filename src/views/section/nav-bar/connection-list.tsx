@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuid } from 'uuid';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 import { Icon } from '../../../ui-components/icon';
@@ -24,7 +25,7 @@ export const ConnectionList: React.FC<ConnectionListProps> = (props) => {
     <ConnectionListLayout>
       {connections.map((connection: any) => {
         return (
-          <Connection>
+          <Connection key={uuid()}>
             <Icon icon={faUser} onClick={() => onClick(connection)} />
           </Connection>
         );
