@@ -16,7 +16,7 @@ export const ConnectionList: React.FC<ConnectionListProps> = (props) => {
   const { connections } = props;
 
   const onClick = (connection: any) => {
-    navigate(`/home/connection`, { state: connection });
+    navigate('/home/connection', { state: connection });
 
     return;
   };

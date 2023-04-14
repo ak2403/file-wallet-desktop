@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Colors } from '../../config/colors';
 
 export const FolderLayout = styled.div`
   display: flex;
@@ -13,6 +14,7 @@ export const FolderLayout = styled.div`
   padding: 5px;
   cursor: pointer;
   border-radius: 5px;
+  color: ${Colors.appBlack}
 
   &:hover {
     background-color: #eaf5f9;

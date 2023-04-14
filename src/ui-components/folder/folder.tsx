@@ -2,11 +2,12 @@ import React from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faFolder, faFile, faFilePdf, faCode, faFileImage } from '@fortawesome/free-solid-svg-icons';
+import { faFolder, faFile, faFilePdf, faCode, faFileImage, faFileZipper } from '@fortawesome/free-solid-svg-icons';
 
 import { faFileWord } from '@fortawesome/free-regular-svg-icons';
 
 import { FolderLayout } from './folder.styles';
+import { Colors } from '../../config/colors';
 
 type FolderType = {
   name: string;
@@ -40,13 +41,20 @@ export const Folder: React.FC<FolderType> = (props) => {
     case '.doc':
       icon = faFileWord;
       break;
+    case '.zip':
+    case '.zipx':
+    case '.gz':
+    case '.tar':
+    case '.z':
+      icon = faFileZipper;
+      break;
     default:
       icon = faFile;
   }
 
   return (
     <FolderLayout onClick={onClick}>
-      <FontAwesomeIcon icon={icon} fontSize="38px" />
+      <FontAwesomeIcon icon={icon} color={Colors.appBlack} fontSize="38px" />
       {name}
     </FolderLayout>
   );

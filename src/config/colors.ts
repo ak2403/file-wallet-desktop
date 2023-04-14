@@ -1,5 +1,6 @@
 export const Colors = {
-  appBg: '#3F103F',
+  appBlack: '#1d1c1d;',
+  appBg: '#3f103f',
   appWhite: '#ebeaeb',
   originalWhite: '#fff',
 };
