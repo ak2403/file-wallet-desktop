@@ -8,7 +8,7 @@ import { ApiDispatchResponse } from '../../types/hooks-action';
 export const useRegisterDevice = () => {
   const dispatch = useDispatch();
 
-  const registerDevice = async (deviceName: string): Promise<ApiDispatchResponse> => {
+  const registerDevice = async (): Promise<ApiDispatchResponse> => {
     //@ts-ignore
     const deviceInfo = await window.electron.getSysInfo();
 
@@ -16,12 +16,11 @@ export const useRegisterDevice = () => {
 
     const { status, data } = await post(ENDPOINTS.REGISTER_DEVICE, {
       deviceId: deviceInfo.machineId,
-      deviceName,
       token,
     });
 
     if (status === 200) {
-      await setItem('relation_id', data?.id);
+      await setItem('connection_id', data?.id);
 
       dispatch({
         type: Authentication.REGISTER_DEVICE,

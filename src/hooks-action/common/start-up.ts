@@ -11,34 +11,37 @@ export function useStartUp() {
 
   const startUp = async () => {
     const accessToken = await getItem('access_token');
-    const relationId = await getItem('relation_id');
+    const connectionId = await getItem('connection_id');
 
-    if (!accessToken || !relationId) {
+    if (!accessToken || !connectionId) {
+      await removeItem('access_token');
+      await removeItem('connection_id');
+
       dispatch({
         type: Authentication.LOADED_APP,
         userLogged: accessToken ? true : false,
-        connectionEstablished: relationId ? true : false,
+        connectionEstablished: connectionId ? true : false,
       });
 
       return;
     }
 
     const checkValidity = await post(ENDPOINTS.CHECK_DEVICE, {
-      relationId,
+      connectionId,
     });
 
     if (checkValidity.status === 200) {
       dispatch({
         type: Authentication.LOADED_APP,
         userLogged: accessToken ? true : false,
-        connectionEstablished: relationId ? true : false,
+        connectionEstablished: connectionId ? true : false,
       });
 
       return true;
     }
 
     await removeItem('access_token');
-    await removeItem('relation_id');
+    await removeItem('connection_id');
 
     dispatch({
       type: Authentication.LOADED_APP,

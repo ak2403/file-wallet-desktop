@@ -9,10 +9,6 @@ import { NotificationComponent } from '../views/screen/notification';
 import { PendingActionComponent } from '../views/screen/pending-action';
 import { ConnectionComponent } from '../views/screen/connection';
 
-const NoMatch = () => {
-  return <>No match found</>;
-};
-
 /**
  * HashRouter is used instead of BrowserRouter due to the refresh issue.
  *
