@@ -25,6 +25,7 @@ export const SetupComponent: React.FC = () => {
       return;
     }
 
+    //TODO: handle errors
     registerDevice().then(({ success, errors = [] }) => {
       if (success) {
         navigate('/home');

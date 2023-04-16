@@ -9,7 +9,7 @@ export const getHeaders = async () => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token || ''}`,
-        'Relation-Id': connectionId,
+        'Connection-Id': connectionId,
         'X-Forward-Type': 'desktop',
       },
     };
