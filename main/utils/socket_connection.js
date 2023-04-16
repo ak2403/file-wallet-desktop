@@ -113,7 +113,7 @@ class SocketConnection {
     //   console.log(`The common connection of channel is alive`);
     // });
 
-    const { connections } = await get('/connection/active');
+    const { connections } = await get('/connections/active');
 
     const connectionIds = connections.map(({ id }) => id);
 

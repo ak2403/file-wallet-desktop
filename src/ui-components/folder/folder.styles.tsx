@@ -6,9 +6,8 @@ export const FolderLayout = styled.div`
   flex-direction: column;
   width: 80px;
   height: 80px;
-  margin: 5px 10px;
+  margin: 5px;
   align-items: center;
-  justify-content: center;
   padding: 5px;
   cursor: pointer;
   border-radius: 5px;
@@ -25,12 +24,13 @@ export const FolderLayout = styled.div`
 
 export const FolderText = styled.p`
   color: ${Colors.appBlack};
-  margin-top: 5px;
+  margin: 5px 0 0 0;
   font-size: 12px;
   font-family: 'Lato', sans-serif;
   display: -webkit-box;
   text-overflow: ellipsis;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3; /* this can be any value you want */
+  -webkit-line-clamp: 2;
+  overflow-wrap: anywhere;
 `;

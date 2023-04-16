@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { v4 as uuid } from 'uuid';
 
 import { faCircleCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -34,7 +35,7 @@ export const ActionList: React.FC<ActionListProps> = (props) => {
     <ActionListLayout>
       {actions.map((action: any) => {
         return (
-          <ListLayout>
+          <ListLayout key={uuid()}>
             <Content>
               <b>{`${action.requestedBy}`}</b> has requested accsess from device <b>{`${action.fromDevice}`}</b>
             </Content>

@@ -7,9 +7,7 @@ import { useSelector } from 'react-redux';
 
 export const SetupComponent: React.FC = () => {
   const authentication = useSelector((state: any) => state.authentication);
-
   const navigate = useNavigate();
-
   const registerDevice = useRegisterDevice();
 
   useEffect(() => {
