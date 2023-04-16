@@ -3,6 +3,7 @@ import { FolderStructureState, FolderStructureAction, FolderStructureTypes } fro
 export const initialState: FolderStructureState = {
   connectionId: '',
   selectedPath: [],
+  folders: [],
 };
 
 export function FolderStructureReducer(state = initialState, action: FolderStructureAction): FolderStructureState {
@@ -11,6 +12,10 @@ export function FolderStructureReducer(state = initialState, action: FolderStruc
       return { ...state, selectedPath: action.payload };
     case FolderStructureTypes.UpdateConnectionId:
       return { ...state, connectionId: action.connectionId || '', selectedPath: [] };
+    case FolderStructureTypes.UpdateFolders:
+      const updatedFolders = action.folders || state.folders;
+
+      return { ...state, folders: updatedFolders };
     default:
       return state;
   }
