@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -10,16 +10,8 @@ import { Options } from './options';
 
 export const ConnectionComponent: React.FC = () => {
   const { state } = useLocation();
-  const [folderStructure, setFolderStructure] = useState([]);
   const dispatch = useDispatch();
-
   const connectionId = state?.id;
-
-  //@ts-ignore
-  window.bridge.targetDataReceived(async (_: any, data: any) => {
-    console.log('targetDataReceived : ', data);
-    setFolderStructure(data);
-  });
 
   useEffect(() => {
     dispatch({
@@ -35,7 +27,7 @@ export const ConnectionComponent: React.FC = () => {
     <ConnectionLayout>
       Connection
       <Options />
-      <FolderView connectionId={connectionId} folders={folderStructure} />
+      <FolderView />
     </ConnectionLayout>
   );
 };

@@ -9,12 +9,10 @@ export const FolderLayout = styled.div`
   margin: 5px 10px;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  font-family: 'Lato', sans-serif;
   padding: 5px;
   cursor: pointer;
   border-radius: 5px;
-  color: ${Colors.appBlack}
+  overflow: hidden;
 
   &:hover {
     background-color: #eaf5f9;
@@ -23,4 +21,16 @@ export const FolderLayout = styled.div`
   &:active {
     background-color: #489acc;
   }
+`;
+
+export const FolderText = styled.p`
+  color: ${Colors.appBlack};
+  margin-top: 5px;
+  font-size: 12px;
+  font-family: 'Lato', sans-serif;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* this can be any value you want */
 `;

@@ -6,7 +6,7 @@ import { faFolder, faFile, faFilePdf, faCode, faFileImage, faFileZipper } from '
 
 import { faFileWord } from '@fortawesome/free-regular-svg-icons';
 
-import { FolderLayout } from './folder.styles';
+import { FolderLayout, FolderText } from './folder.styles';
 import { Colors } from '../../config/colors';
 
 type FolderType = {
@@ -55,7 +55,7 @@ export const Folder: React.FC<FolderType> = (props) => {
   return (
     <FolderLayout onClick={onClick}>
       <FontAwesomeIcon icon={icon} color={Colors.appBlack} fontSize="38px" />
-      {name}
+      <FolderText>{name}</FolderText>
     </FolderLayout>
   );
 };
