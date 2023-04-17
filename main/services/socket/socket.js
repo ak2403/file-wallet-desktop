@@ -9,7 +9,7 @@ export const InitializeSocket = async (window) => {
 
   // triggered when server send an notification action
   machineChannel.on('active', function (callback) {
-    callback();
+    callback(true);
   });
 
   // triggered when server send an notification action
@@ -34,8 +34,7 @@ export const InitializeSocket = async (window) => {
     window.webContents.send('target-data-received', data);
   });
 
-  // machineChannel.on('target-not-active', function (data) {
-  //   console.log('--------target not active : ', data);
-  //   // window.webContents.send('target-data-received', data);
-  // });
+  machineChannel.on('target-not-active', function (data) {
+    window.webContents.send('received-target-status', data);
+  });
 };
