@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 import path from 'path';
-import { app, BrowserWindow, screen, Tray, ipcMain } from 'electron';
+import { app, BrowserWindow, screen, Tray, ipcMain, powerMonitor } from 'electron';
 
 import { InitializeSocket } from './services/socket';
 
@@ -53,6 +53,14 @@ async function createWindow() {
 
   mainWindow.webContents.on('did-finish-load', async function () {
     await InitializeSocket(mainWindow);
+  });
+
+  powerMonitor.on('suspend', () => {
+    console.log('The system is going to sleep');
+  });
+
+  powerMonitor.on('resume', () => {
+    console.log('The system is going to resume');
   });
 }
 
