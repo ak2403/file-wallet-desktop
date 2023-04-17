@@ -1,8 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { FolderStructureTypes, SelectedPathType } from '../../types/reducer';
+import { useConnectionId } from '../common';
 
 export const useUpdateFolderStructure = () => {
-  const { connectionId } = useSelector((state: any) => state.folderStructure);
+  const connectionId = useConnectionId();
   const dispatch = useDispatch();
 
   return (data: SelectedPathType[]) => {

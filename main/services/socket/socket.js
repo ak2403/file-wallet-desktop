@@ -8,6 +8,11 @@ export const InitializeSocket = async (window) => {
   const machineChannel = io(`http://10.0.0.18:3000/${machineId}`, { transports: ['websocket'] });
 
   // triggered when server send an notification action
+  machineChannel.on('active', function (callback) {
+    callback();
+  });
+
+  // triggered when server send an notification action
   machineChannel.on('notification-from-server', function (notification) {
     window.webContents.send('do-action-for-notification', notification);
   });
@@ -28,4 +33,9 @@ export const InitializeSocket = async (window) => {
   machineChannel.on('receive-information-from-server', function (data) {
     window.webContents.send('target-data-received', data);
   });
+
+  // machineChannel.on('target-not-active', function (data) {
+  //   console.log('--------target not active : ', data);
+  //   // window.webContents.send('target-data-received', data);
+  // });
 };
