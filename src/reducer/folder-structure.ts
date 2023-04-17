@@ -1,9 +1,10 @@
-import { FolderStructureState, FolderStructureAction, FolderStructureTypes } from '../types/reducer';
+import { FolderStructureState, FolderStructureAction, FolderStructureTypes, ConnectionStatus } from '../types/reducer';
 
 export const initialState: FolderStructureState = {
   connectionId: '',
   selectedPath: [],
   folders: [],
+  status: ConnectionStatus.Initialize,
 };
 
 export function FolderStructureReducer(state = initialState, action: FolderStructureAction): FolderStructureState {
@@ -15,7 +16,20 @@ export function FolderStructureReducer(state = initialState, action: FolderStruc
     case FolderStructureTypes.UpdateFolders:
       const updatedFolders = action.folders || state.folders;
 
-      return { ...state, folders: updatedFolders };
+      return { ...state, folders: updatedFolders, status: ConnectionStatus.Active };
+    case FolderStructureTypes.UpdateConnectionStatus:
+      const { connectionId } = state;
+
+      if (connectionId === action.connectionId) {
+        return {
+          ...state,
+          status: ConnectionStatus.Inactive,
+          selectedPath: [],
+          folders: [],
+        };
+      }
+
+      return { ...state };
     default:
       return state;
   }

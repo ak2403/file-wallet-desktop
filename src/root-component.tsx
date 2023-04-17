@@ -21,6 +21,15 @@ export const RootComponent: React.FC = () => {
     });
   });
 
+  //@ts-ignore
+  window.bridge.receivedTargetStatus((_: any, data: any) => {
+    //TODO: The function here is triggered twice for which I cant find a reason why
+    dispatch({
+      type: FolderStructureTypes.UpdateConnectionStatus,
+      connectionId: data.connectionId,
+    });
+  });
+
   useEffect(() => {
     (async () => {
       await startUp();

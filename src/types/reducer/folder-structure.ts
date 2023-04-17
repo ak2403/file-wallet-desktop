@@ -7,10 +7,17 @@ export type FolderStructureAction = {
   folders?: FolderStructure[];
 };
 
+export enum ConnectionStatus {
+  Initialize = 'Initialize',
+  Active = 'active',
+  Inactive = 'inactive',
+}
+
 export type FolderStructureState = {
   connectionId: string;
   selectedPath: SelectedPathType[];
   folders: FolderStructure[];
+  status: ConnectionStatus;
 };
 
 export type SelectedPathType = {
@@ -22,4 +29,5 @@ export const FolderStructureTypes = {
   UpdateSelectedPath: 'UpdateSelectedPath',
   UpdateConnectionId: 'UpdateConnectionId',
   UpdateFolders: 'UpdateFolders',
+  UpdateConnectionStatus: 'UpdateConnectionStatus',
 };

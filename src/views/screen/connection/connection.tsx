@@ -7,6 +7,8 @@ import { FolderStructureTypes } from '../../../types/reducer';
 
 import { ConnectionLayout } from './connection.styles';
 import { Options } from './options';
+import { ConnectionInformation } from './connection-information';
+import { RenderConnection } from './render-connection';
 
 export const ConnectionComponent: React.FC = () => {
   const { state } = useLocation();
@@ -25,9 +27,11 @@ export const ConnectionComponent: React.FC = () => {
 
   return (
     <ConnectionLayout>
-      Connection
-      <Options />
-      <FolderView />
+      <ConnectionInformation />
+      <RenderConnection>
+        <Options />
+        <FolderView />
+      </RenderConnection>
     </ConnectionLayout>
   );
 };
