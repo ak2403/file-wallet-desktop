@@ -16,12 +16,12 @@ export const BreadCrumb: React.FC<BreadCrumbType> = (props) => {
 
   return (
     <BreadCrumbLayout>
-      <FontAwesomeIcon icon={faHouse} fontSize={'12px'} onClick={() => onClick({ name: 'home' })} />
+      <FontAwesomeIcon cursor={'pointer'} icon={faHouse} fontSize={'18px'} onClick={() => onClick({ name: 'home' })} />
 
       {path.map(({ id, name }) => (
         <Path key={uuid()} onClick={() => onClick({ id, name })}>
-          <FontAwesomeIcon icon={faFolder} color="#1d1c1d" fontSize={'12px'} />
-          {name}
+          <FontAwesomeIcon icon={faFolder} color="#1d1c1d" fontSize={'18px'} />
+          <text>{name}</text>
         </Path>
       ))}
     </BreadCrumbLayout>

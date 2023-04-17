@@ -23,7 +23,6 @@ export const ConnectionInformation: React.FC = () => {
   return (
     <ConnectionInformationLayout>
       <Header text={information?.targetConnection?.deviceName}></Header>
-      Connection created on {information?.createdAt}
     </ConnectionInformationLayout>
   );
 };

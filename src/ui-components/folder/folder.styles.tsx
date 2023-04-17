@@ -4,11 +4,11 @@ import { Colors } from '../../config/colors';
 export const FolderLayout = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80px;
-  height: 80px;
+  width: 150px;
+  height: 120px;
   margin: 5px;
   align-items: center;
-  padding: 5px;
+  padding: 10px;
   cursor: pointer;
   border-radius: 5px;
   overflow: hidden;
@@ -25,7 +25,9 @@ export const FolderLayout = styled.div`
 export const FolderText = styled.p`
   color: ${Colors.appBlack};
   margin: 5px 0 0 0;
-  font-size: 12px;
+  padding: 0 10px;
+  text-align: center;
+  font-size: 14px;
   font-family: 'Lato', sans-serif;
   display: -webkit-box;
   text-overflow: ellipsis;

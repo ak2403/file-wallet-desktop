@@ -8,7 +8,7 @@ import { useUpdateFolderStructure } from '../../../hooks-action/connection';
 export const Options: React.FC = () => {
   const { selectedPath = [] } = useSelector((state: any) => state.folderStructure);
   const updateFolderStructure = useUpdateFolderStructure();
-  console.log('Options -------');
+
   const folderClick = (data: FolderStructure) => {
     const { id, name } = data;
 

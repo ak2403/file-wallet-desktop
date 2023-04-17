@@ -54,7 +54,7 @@ export const Folder: React.FC<FolderType> = (props) => {
 
   return (
     <FolderLayout onClick={onClick}>
-      <FontAwesomeIcon icon={icon} color={Colors.appBlack} fontSize="38px" />
+      <FontAwesomeIcon icon={icon} color={Colors.appBlack} fontSize="64px" />
       <FolderText>{name}</FolderText>
     </FolderLayout>
   );

@@ -3,7 +3,8 @@ import { Colors } from '../../config/colors';
 
 export const BreadCrumbLayout = styled.div`
   display: flex;
-  margin: 10px 0;
+  margin-top: 10px;
+  margin-bottom: 20px;
   align-items: center;
 `;
 
@@ -12,15 +13,22 @@ export const Path = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
-  font-size: 14px;
-  font-family: 'Lato', sans-serif;
-  color: ${Colors.appBlack};
 
   svg {
     margin: 0px 5px;
   }
 
+  text {
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    color: ${Colors.appBlack};
+    padding-left: 7px;
+  }
+
   &::before {
-    content: ' / ';
+    padding: 0 10px;
+    content: '>';
+    cursor: auto;
+    color: #86858a;
   }
 `;
