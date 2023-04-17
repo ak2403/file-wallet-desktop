@@ -1,12 +1,14 @@
 import React from 'react';
 
 import { BreadCrumb } from '../../../ui-components/breadcrumb';
-import { FolderStructure } from '../../../types/data';
-import { useSelector } from 'react-redux';
+
 import { useUpdateFolderStructure } from '../../../hooks-action/connection';
+import { useSelectedPath } from '../../../hooks-action/connection/selected-path';
+
+import { FolderStructure } from '../../../types/data';
 
 export const Options: React.FC = () => {
-  const { selectedPath = [] } = useSelector((state: any) => state.folderStructure);
+  const selectedPath = useSelectedPath();
   const updateFolderStructure = useUpdateFolderStructure();
 
   const folderClick = (data: FolderStructure) => {
