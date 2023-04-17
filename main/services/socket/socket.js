@@ -28,8 +28,4 @@ export const InitializeSocket = async (window) => {
   machineChannel.on('receive-information-from-server', function (data) {
     window.webContents.send('target-data-received', data);
   });
-
-  machineChannel.on('disconnect', (event, args) => {
-    console.log('The client been disconnected ', event, args);
-  });
 };

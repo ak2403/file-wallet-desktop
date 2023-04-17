@@ -1,8 +1,8 @@
 import io from 'socket.io-client';
 import path from 'path';
-import { app, BrowserWindow, screen, Tray, ipcMain, powerMonitor } from 'electron';
+import { app, BrowserWindow, screen, ipcMain, powerMonitor } from 'electron';
 
-import { InitializeSocket } from './services/socket';
+import { windowAllClosed, didFinishLoad, onSystemSuspend, onSystemResume } from './services/process';
 
 async function createWindow() {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
@@ -44,24 +44,13 @@ async function createWindow() {
     connectionChannel.emit('request-file-from-target', { requestType: 'read', path });
   });
 
-  app.on('window-all-closed', () => {
-    app.dock.hide();
+  app.on('window-all-closed', windowAllClosed);
 
-    new Tray(path.join(__dirname, 'assets/logo.png'));
-    // any other logic
-  });
+  mainWindow.webContents.on('did-finish-load', async () => didFinishLoad(mainWindow));
 
-  mainWindow.webContents.on('did-finish-load', async function () {
-    await InitializeSocket(mainWindow);
-  });
+  powerMonitor.on('suspend', onSystemSuspend);
 
-  powerMonitor.on('suspend', () => {
-    console.log('The system is going to sleep');
-  });
-
-  powerMonitor.on('resume', () => {
-    console.log('The system is going to resume');
-  });
+  powerMonitor.on('resume', onSystemResume);
 }
 
 app.whenReady().then(() => createWindow());
