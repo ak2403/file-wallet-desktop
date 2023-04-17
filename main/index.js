@@ -36,6 +36,21 @@ async function createWindow() {
     });
   });
 
+  ipcMain.handle('access-folders', async (event, data) => {
+    console.log(event, data);
+    const { connectionId, path } = data;
+
+    const connectionChannel = io(`http://10.0.0.18:3000/${connectionId}`, { transports: ['websocket'] });
+
+    const datum = new Promise((resolve) =>
+      connectionChannel.emit('request-file-from-target', { requestType: 'read', path }, (data) => resolve(data)),
+    );
+
+    console.log('datum : ', datum);
+
+    return datum;
+  });
+
   ipcMain.on('access-target-folder', (event, data) => {
     const { connectionId, path } = data;
 
