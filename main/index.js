@@ -10,6 +10,7 @@ async function createWindow() {
   const mainWindow = new BrowserWindow({
     width: Math.round(width / 1.3),
     height: Math.round(height / 1.25),
+    titleBarStyle: 'hidden',
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true,
