@@ -4,6 +4,7 @@
   },
   "testEnvironment": "jsdom",
   "setupFilesAfterEnv": ["<rootDir>/jest-setup.js"],
+  "collectCoverageFrom": ["**/*.{ts,tsx,js,jsx}", "!**/node_modules/**"],
   "coverageThreshold": {
     "global": {
       "statements": 80
