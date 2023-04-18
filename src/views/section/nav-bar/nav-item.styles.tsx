@@ -5,9 +5,9 @@ import { Colors } from '../../../config/colors';
 
 export const NavItemLayout = styled.div`
   display: flex;
-  width: 160px;
   height: 30px;
-  margin: 2px 0;
+  padding: 5px 0;
+  margin: 5px 0;
   align-items: center;
   border-radius: 5px;
   padding-left: 3px;
@@ -19,13 +19,13 @@ export const NavItemLayout = styled.div`
 `;
 
 export const NavItemLabel = styled.span`
-  font-size: 12px;
+  font-size: 16px;
   font-family: 'Lato', sans-serif;
   color: ${Colors.appWhite};
 `;
 
 export const NavItemIcon = styled(FontAwesomeIcon)`
-  width: 30px;
+  margin: 0 15px;
   color: ${(props) => props.color || '#ebeaeb'};
-  font-size: 14px;
+  font-size: 16px;
 `;

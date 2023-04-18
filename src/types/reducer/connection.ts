@@ -5,7 +5,7 @@ export type ConnectionAction = {
 
 export type ConnectionState = {
   pendingActions: object[];
-  activeConnections: object[];
+  activeConnections: any[];
 };
 
 export const ConnectionTypes = {

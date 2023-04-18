@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Colors } from '../../../config/colors';
 
 export const NavLayout = styled.div`
-  width: 200px;
+  width: 250px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -13,20 +13,15 @@ export const NavLayout = styled.div`
 export const Top = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  margin: 0 20px;
   flex: 1;
 `;
 
 export const Bottom = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   margin-bottom: 20px;
   margin-top: auto;
-`;
-
-export const LogoHeader = styled.h1`
-  font-family: 'Lato', sans-serif;
-  color: ${Colors.appWhite};
+  margin-left: 20px;
+  margin-right: 20px;
 `;
