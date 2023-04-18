@@ -1,53 +1,45 @@
 import axios from 'axios';
-import {API_URL} from '../config/api'
-import {getHeaders} from './header'
+import { ApiURL } from '../config/api';
+import { getHeaders } from './header';
 
 export const post = async (endpoint, inputData) => {
-  const headerParams = await getHeaders()
-  const postEndpoint = `${API_URL}${endpoint}`
+  const headerParams = await getHeaders();
+  const postEndpoint = `${ApiURL}${endpoint}`;
 
   try {
-    const {status, data} = await axios.post(
-      postEndpoint, 
-      inputData, 
-      headerParams)
-    
+    const { status, data } = await axios.post(postEndpoint, inputData, headerParams);
+
     return {
       status,
       data,
-    }
-  }
-  catch (err) {
-    const {response: {
-      status,
-      data
-    }} = err
+    };
+  } catch (err) {
+    const {
+      response: { status, data },
+    } = err;
 
     return {
       status: status || 500,
-      data: data || ''
-    }
+      data: data || '',
+    };
   }
-}
+};
 
 export const get = async (endpoint) => {
-  const headerParams = await getHeaders()
-  const getEndpoint = `${API_URL}${endpoint}`
+  const headerParams = await getHeaders();
+  const getEndpoint = `${ApiURL}${endpoint}`;
 
   try {
-    const {status, data} = await axios.get(
-      getEndpoint, 
-      headerParams)
-    
+    const { status, data } = await axios.get(getEndpoint, headerParams);
+
     return {
       status,
       data,
-    }
-  }
-  catch (err) {
+    };
+  } catch (err) {
     return {
       status: err.status || 500,
-      data: err.data || ''
-    }
+      data: err.data || '',
+    };
   }
-}
+};

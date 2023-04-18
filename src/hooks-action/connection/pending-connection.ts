@@ -1,17 +1,17 @@
 import { useDispatch } from 'react-redux';
 import { get } from '../../api';
-import { ENDPOINTS } from '../../config/api';
-import { Connection } from '../../type';
+import { Endpoints } from '../../config/api';
+import { ConnectionTypes } from '../../types/reducer';
 
 export const useFetchPendingConnections = () => {
   const dispatch = useDispatch();
 
   const fetchPendingConnections = async () => {
-    const { status, data } = await get(ENDPOINTS.PENDING_CONNECTIONS);
+    const { status, data } = await get(Endpoints.PendingConnections);
 
     if (status === 200) {
       dispatch({
-        type: Connection.PENDING_CONNECTION,
+        type: ConnectionTypes.PendingConnections,
         payload: data.pendingConnections,
       });
     }

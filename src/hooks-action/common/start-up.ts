@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { getItem, removeItem } from '../../utils/localStorage';
 
 import { post } from '../../api';
-import { ENDPOINTS } from '../../config/api';
+import { Endpoints } from '../../config/api';
 import { AuthenticationTypes } from '../../types/reducer';
 
 export function useStartUp() {
@@ -26,7 +26,7 @@ export function useStartUp() {
       return;
     }
 
-    const checkValidity = await post(ENDPOINTS.CHECK_DEVICE, {
+    const checkValidity = await post(Endpoints.CheckDevice, {
       connectionId,
     });
 
