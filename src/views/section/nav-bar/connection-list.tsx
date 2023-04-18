@@ -1,11 +1,9 @@
 import React from 'react';
-import { v4 as uuid } from 'uuid';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
-import { Icon } from '../../../ui-components/icon';
-
-import { ConnectionListLayout, Connection } from './connection-list.styles';
+import { ConnectionListLayout } from './connection-list.styles';
 import { useNavigate } from 'react-router-dom';
+import { NavItem } from './nav-item';
 
 type ConnectionListProps = {
   connections: object[];
@@ -23,13 +21,9 @@ export const ConnectionList: React.FC<ConnectionListProps> = (props) => {
 
   return (
     <ConnectionListLayout>
-      {connections.map((connection: any) => {
-        return (
-          <Connection key={uuid()}>
-            <Icon icon={faUser} onClick={() => onClick(connection)} />
-          </Connection>
-        );
-      })}
+      {connections.map((connection: any) => (
+        <NavItem icon={faUser} onClick={() => onClick(connection)} label={connection.targetConnection.deviceName} />
+      ))}
     </ConnectionListLayout>
   );
 };

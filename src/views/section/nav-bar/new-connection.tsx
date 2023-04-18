@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 
-import { Icon } from '../../../ui-components/icon';
 import { Modal } from '../../../ui-components/modal';
 import { Input } from '../../../ui-components/input';
 import { Button } from '../../../ui-components/button';
@@ -10,6 +9,7 @@ import { ConnectionForm } from './new-connection.styles';
 import { sendConnectionRequest } from '../../../hooks-action/connection';
 import { Card, NotificationCard } from '../../../ui-components/card';
 import { ErrorMessage } from '../../../types/hooks-action';
+import { NavItem } from './nav-item';
 
 export const NewConnection: React.FC = () => {
   const [displayModal, setDisplayModal] = useState<boolean>(false);
@@ -38,7 +38,7 @@ export const NewConnection: React.FC = () => {
 
   return (
     <>
-      <Icon icon={faAdd} onClick={() => setDisplayModal(!displayModal)} />
+      <NavItem icon={faAdd} onClick={() => setDisplayModal(!displayModal)} label="New connection request" />
 
       <Modal header="New Connection" show={displayModal} onClose={() => setDisplayModal(!displayModal)}>
         <ConnectionForm>

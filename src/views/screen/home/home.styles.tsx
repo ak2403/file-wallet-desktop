@@ -7,11 +7,12 @@ export const HomeLayout = styled.div`
 `;
 
 export const SideBarLayout = styled.div`
-  width: 60px;
+  width: 250px;
 `;
 
 export const ContentLayout = styled.div`
   display: flex;
   flex: 1;
-  margin: 10px;
+  margin: 30px 20px;
+  padding: 0 20px;
 `;

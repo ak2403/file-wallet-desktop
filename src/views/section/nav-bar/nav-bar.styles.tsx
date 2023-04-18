@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Colors } from '../../../config/colors';
 
 export const NavLayout = styled.div`
-  width: 60px;
+  width: 250px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -23,5 +23,4 @@ export const Bottom = styled.div`
   justify-content: center;
   margin-bottom: 20px;
   margin-top: auto;
-  width: 60px;
 `;

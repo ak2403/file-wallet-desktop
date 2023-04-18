@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { faHandshake } from '@fortawesome/free-regular-svg-icons';
-import { Icon } from '../../../ui-components/icon';
 
 import { NavLayout, Top, Bottom } from './nav-bar.styles';
 import { useGetConnections } from '../../../hooks-action/connection';
@@ -11,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { ConnectionList } from './connection-list';
 import { NewConnection } from './new-connection';
 import { Notification } from './notification';
+import { NavItem } from './nav-item';
 
 export const NavBar: React.FC = () => {
   const navigate = useNavigate();
@@ -31,8 +31,8 @@ export const NavBar: React.FC = () => {
         <NewConnection />
       </Top>
       <Bottom>
-        <Icon icon={faHandshake} onClick={() => navigate('pending-action')} />
-        <Icon icon={faBell} onClick={() => navigate('notification')} />
+        <NavItem icon={faHandshake} onClick={() => navigate('pending-action')} label="Connection Request" />
+        <NavItem icon={faBell} onClick={() => navigate('notification')} label="Notifications" />
       </Bottom>
       <Notification />
     </NavLayout>
