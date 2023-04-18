@@ -7,7 +7,7 @@ export const HomeLayout = styled.div`
 `;
 
 export const SideBarLayout = styled.div`
-  width: 250px;
+  width: 200px;
 `;
 
 export const ContentLayout = styled.div`

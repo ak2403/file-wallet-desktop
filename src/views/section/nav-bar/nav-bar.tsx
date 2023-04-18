@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { faBell } from '@fortawesome/free-solid-svg-icons';
-import { faHandshake } from '@fortawesome/free-regular-svg-icons';
+import { faBell, faComputer, faHome } from '@fortawesome/free-solid-svg-icons';
 
-import { NavLayout, Top, Bottom } from './nav-bar.styles';
+import { NavLayout, Top, Bottom, LogoHeader } from './nav-bar.styles';
 import { useGetConnections } from '../../../hooks-action/connection';
 import { useSelector } from 'react-redux';
 import { ConnectionList } from './connection-list';
@@ -26,12 +25,15 @@ export const NavBar: React.FC = () => {
   return (
     <NavLayout>
       <Top>
+        <LogoHeader>File Sync .</LogoHeader>
+        <NavItem icon={faHome} onClick={() => navigate('home')} label="Dashboard" />
+
         <ConnectionList connections={activeConnections} />
 
         <NewConnection />
       </Top>
       <Bottom>
-        <NavItem icon={faHandshake} onClick={() => navigate('pending-action')} label="Connection Request" />
+        <NavItem icon={faComputer} onClick={() => navigate('pending-action')} label="Connection Request" />
         <NavItem icon={faBell} onClick={() => navigate('notification')} label="Notifications" />
       </Bottom>
       <Notification />
