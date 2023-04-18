@@ -2,6 +2,8 @@
   "moduleNameMapper": {
     "\\.(avif|css|jpg|png|svg|webm|webp|woff|woff2)$": "<rootDir>/__mocks__/empty.js"
   },
+  "testEnvironment": "jsdom",
+  "setupFilesAfterEnv": ["<rootDir>/jest-setup.js"],
   "coverageThreshold": {
     "global": {
       "statements": 80
