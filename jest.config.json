@@ -5,6 +5,7 @@
   "testEnvironment": "jsdom",
   "setupFilesAfterEnv": ["<rootDir>/jest-setup.js"],
   "collectCoverageFrom": ["**/*.{ts,tsx,js,jsx}", "!**/node_modules/**"],
+  "coveragePathIgnorePatterns": ["<rootDir>/node_modules/**", "<rootDir>/src/types/**"],
   "coverageThreshold": {
     "global": {
       "statements": 0.5
