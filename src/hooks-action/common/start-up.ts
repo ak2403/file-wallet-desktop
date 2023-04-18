@@ -2,9 +2,9 @@ import { useDispatch } from 'react-redux';
 
 import { getItem, removeItem } from '../../utils/localStorage';
 
-import { Authentication } from '../../type';
 import { post } from '../../api';
 import { ENDPOINTS } from '../../config/api';
+import { AuthenticationTypes } from '../../types/reducer';
 
 export function useStartUp() {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export function useStartUp() {
       await removeItem('connection_id');
 
       dispatch({
-        type: Authentication.LOADED_APP,
+        type: AuthenticationTypes.LoadedApp,
         userLogged: accessToken ? true : false,
         connectionEstablished: connectionId ? true : false,
       });
@@ -32,7 +32,7 @@ export function useStartUp() {
 
     if (checkValidity.status === 200) {
       dispatch({
-        type: Authentication.LOADED_APP,
+        type: AuthenticationTypes.LoadedApp,
         userLogged: accessToken ? true : false,
         connectionEstablished: connectionId ? true : false,
       });
@@ -44,7 +44,7 @@ export function useStartUp() {
     await removeItem('connection_id');
 
     dispatch({
-      type: Authentication.LOADED_APP,
+      type: AuthenticationTypes.LoadedApp,
       userLogged: false,
       connectionEstablished: false,
     });

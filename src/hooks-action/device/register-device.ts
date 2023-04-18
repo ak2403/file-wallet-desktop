@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux';
-import { Authentication } from '../../type';
 import { ENDPOINTS } from '../../config/api';
 import { post } from '../../api';
 import { getItem, setItem } from '../../utils/localStorage';
 import { ApiDispatchResponse } from '../../types/hooks-action';
+import { AuthenticationTypes } from '../../types/reducer';
 
 export const useRegisterDevice = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ export const useRegisterDevice = () => {
       await setItem('connection_id', data?.id);
 
       dispatch({
-        type: Authentication.REGISTER_DEVICE,
+        type: AuthenticationTypes.DeviceRegister,
         payload: true,
       });
 
