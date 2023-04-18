@@ -1,5 +1,4 @@
-import { Authentication } from '../type';
-import { Authentications, AuthenticationAction } from '../types/reducer';
+import { Authentications, AuthenticationAction, AuthenticationTypes } from '../types/reducer';
 
 import { ToBool } from '../utils/common';
 
@@ -16,31 +15,31 @@ export const initialState: Authentications = {
 
 export function AuthenticationReducer(state = initialState, action: AuthenticationAction): Authentications {
   switch (action.type) {
-    case Authentication.LOADED_APP:
+    case AuthenticationTypes.LoadedApp:
       return {
         ...state,
         isAppLoaded: true,
         isUserLogged: ToBool(action?.userLogged) || false,
         connectionEstablished: ToBool(action?.connectionEstablished) || false,
       };
-    case Authentication.LOGGED_IN:
+    case AuthenticationTypes.UserLoggedIn:
       return {
         ...state,
         isUserLogged: ToBool(action?.payload) || false,
         isUserLoggedError: false,
       };
-    case Authentication.LOGGED_IN_ERROR:
+    case AuthenticationTypes.UserLoggedInError:
       return {
         ...state,
         isUserLogged: false,
         isUserLoggedError: true,
       };
-    case Authentication.REGISTER_DEVICE:
+    case AuthenticationTypes.DeviceRegister:
       return {
         ...state,
         connectionEstablished: ToBool(action?.payload) || false,
       };
-    case Authentication.LOGGED_OUT:
+    case AuthenticationTypes.UserLoggedOut:
       return {
         ...state,
         isUserLogout: true,
@@ -48,7 +47,7 @@ export function AuthenticationReducer(state = initialState, action: Authenticati
         isUserLogged: false,
         connectionEstablished: false,
       };
-    case Authentication.LOGGED_OUT_ERROR:
+    case AuthenticationTypes.UserLoggedOutError:
       return {
         ...state,
         isUserLogout: false,

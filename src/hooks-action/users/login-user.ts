@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux';
 
 import { post } from '../../api';
-import { Authentication } from '../../type';
 import { setItem } from '../../utils/localStorage';
 import { ApiDispatchResponse, UserLoginPayload } from '../../types/hooks-action';
+import { AuthenticationTypes } from '../../types/reducer';
 
 export function useLoginUser() {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export function useLoginUser() {
         await setItem('access_token', data.token);
 
         dispatch({
-          type: Authentication.LOGGED_IN,
+          type: AuthenticationTypes.UserLoggedIn,
           payload: true,
         });
 
@@ -33,7 +33,7 @@ export function useLoginUser() {
       console.log(error);
 
       dispatch({
-        type: Authentication.LOGGED_IN_ERROR,
+        type: AuthenticationTypes.UserLoggedInError,
       });
 
       return {

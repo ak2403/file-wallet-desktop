@@ -15,3 +15,14 @@ export type AuthenticationAction = {
   userLogged?: boolean;
   connectionEstablished?: boolean;
 };
+
+export const AuthenticationTypes = {
+  LoadedApp: 'LoadedApp',
+  UserLoggedIn: 'UserLoggedIn',
+  UserLoggedInError: 'UserLoggedInError',
+  DeviceRegister: 'DeviceRegister',
+  DeviceRegisterError: 'DeviceRegisterError',
+  UserLoggedOut: 'UserLoggedOut',
+  UserLoggedOutError: 'UserLoggedOutError',
+  FetchDeviceInfo: 'FetchDeviceInfo',
+};

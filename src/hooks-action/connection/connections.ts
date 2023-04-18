@@ -1,8 +1,9 @@
 import { useDispatch } from 'react-redux';
 import { get } from '../../api';
 import { ENDPOINTS } from '../../config/api';
-import { Connection } from '../../type';
+
 import { ApiDispatchResponse } from '../../types/hooks-action';
+import { ConnectionTypes } from '../../types/reducer';
 
 export const useGetConnections = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ export const useGetConnections = () => {
 
     if (status === 200) {
       dispatch({
-        type: Connection.FETCH_CONNECTION,
+        type: ConnectionTypes.FetchConnections,
         payload: data.connections,
       });
 

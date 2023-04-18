@@ -7,3 +7,8 @@ export type ConnectionState = {
   pendingActions: object[];
   activeConnections: object[];
 };
+
+export const ConnectionTypes = {
+  FetchConnections: 'FetchConnections',
+  PendingConnections: 'PendingConnections',
+};
