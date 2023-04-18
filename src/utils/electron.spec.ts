@@ -8,7 +8,9 @@ describe('headers()', () => {
     spyWindow = jest.spyOn(window, 'window', 'get');
   });
 
-  it('renders system information properly', async () => {
+  afterAll(() => jest.restoreAllMocks());
+
+  it('returns system information properly', async () => {
     spyWindow.mockImplementation(() => ({
       electron: {
         getSysInfo: () => 'mock data',
@@ -20,7 +22,7 @@ describe('headers()', () => {
     expect(systemInformation).toBe('mock data');
   });
 
-  it('renders null when error occurs', async () => {
+  it('returns null when error occurs', async () => {
     spyWindow.mockImplementation(() => ({
       electron: {
         getSysInfo: () => {

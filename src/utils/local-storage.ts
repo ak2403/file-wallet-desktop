@@ -1,7 +1,7 @@
-//@ts-ignore
-const { get, set, remove } = window.store;
-
 export const setItem = async (key: string, value: string | boolean): Promise<boolean> => {
+  //@ts-ignore
+  const { set } = window.store;
+
   try {
     await set(key, value);
 
@@ -14,6 +14,9 @@ export const setItem = async (key: string, value: string | boolean): Promise<boo
 };
 
 export const getItem = async (key: string): Promise<boolean | string> => {
+  //@ts-ignore
+  const { get } = window.store;
+
   try {
     return await get(key);
   } catch (err) {
@@ -24,6 +27,9 @@ export const getItem = async (key: string): Promise<boolean | string> => {
 };
 
 export const removeItem = async (key: string): Promise<boolean> => {
+  //@ts-ignore
+  const { get, remove } = window.store;
+
   try {
     const keyValue = get(key);
 
