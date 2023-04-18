@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { getItem, removeItem } from '../../utils/localStorage';
+import { getItem, removeItem } from '../../utils/local-storage';
 
 import { post } from '../../api';
 import { Endpoints } from '../../config/api';

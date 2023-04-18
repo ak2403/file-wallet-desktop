@@ -3,7 +3,7 @@ import { getItem } from './store';
 
 const ApiURL = 'http://10.0.0.18:3000';
 
-const getHeaders = async () => {
+const headers = async () => {
   try {
     const token = await getItem('access_token');
     const connectionId = await getItem('connection_id');
@@ -23,7 +23,7 @@ const getHeaders = async () => {
 };
 
 const get = async (endpoint) => {
-  const headerParams = await getHeaders();
+  const headerParams = await headers();
   const getEndpoint = `${ApiURL}${endpoint}`;
 
   try {
