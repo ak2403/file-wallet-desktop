@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { ApiURL } from '../config/api';
-import { getHeaders } from './header';
+import { headers } from './header';
 
 export const post = async (endpoint, inputData) => {
-  const headerParams = await getHeaders();
+  const headerParams = await headers();
   const postEndpoint = `${ApiURL}${endpoint}`;
 
   try {
@@ -26,7 +26,7 @@ export const post = async (endpoint, inputData) => {
 };
 
 export const get = async (endpoint) => {
-  const headerParams = await getHeaders();
+  const headerParams = await headers();
   const getEndpoint = `${ApiURL}${endpoint}`;
 
   try {

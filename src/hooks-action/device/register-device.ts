@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { Endpoints } from '../../config/api';
 import { post } from '../../api';
-import { getItem, setItem } from '../../utils/localStorage';
+import { getItem, setItem } from '../../utils/local-storage';
 import { ApiDispatchResponse } from '../../types/hooks-action';
 import { AuthenticationTypes } from '../../types/reducer';
 

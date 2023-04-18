@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 
 import { post } from '../../api';
-import { setItem } from '../../utils/localStorage';
+import { setItem } from '../../utils/local-storage';
 import { ApiDispatchResponse, UserLoginPayload } from '../../types/hooks-action';
 import { AuthenticationTypes } from '../../types/reducer';
 

@@ -8,7 +8,7 @@
   "coveragePathIgnorePatterns": ["node_modules", "<rootDir>/src/types"],
   "coverageThreshold": {
     "global": {
-      "statements": 0.5
+      "statements": 3.0
     }
   }
 }

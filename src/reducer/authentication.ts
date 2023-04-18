@@ -1,7 +1,5 @@
 import { Authentications, AuthenticationAction, AuthenticationTypes } from '../types/reducer';
 
-import { ToBool } from '../utils/common';
-
 export const initialState: Authentications = {
   isAppLoaded: false,
   isUserLogged: false,
@@ -19,13 +17,13 @@ export function AuthenticationReducer(state = initialState, action: Authenticati
       return {
         ...state,
         isAppLoaded: true,
-        isUserLogged: ToBool(action?.userLogged) || false,
-        connectionEstablished: ToBool(action?.connectionEstablished) || false,
+        isUserLogged: action?.userLogged || false,
+        connectionEstablished: action?.connectionEstablished || false,
       };
     case AuthenticationTypes.UserLoggedIn:
       return {
         ...state,
-        isUserLogged: ToBool(action?.payload) || false,
+        isUserLogged: action?.payload || false,
         isUserLoggedError: false,
       };
     case AuthenticationTypes.UserLoggedInError:
@@ -37,7 +35,7 @@ export function AuthenticationReducer(state = initialState, action: Authenticati
     case AuthenticationTypes.DeviceRegister:
       return {
         ...state,
-        connectionEstablished: ToBool(action?.payload) || false,
+        connectionEstablished: action?.payload || false,
       };
     case AuthenticationTypes.UserLoggedOut:
       return {
