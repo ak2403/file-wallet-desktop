@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { ENDPOINTS } from '../../config/api';
+import { Endpoints } from '../../config/api';
 import { post } from '../../api';
 import { getItem, setItem } from '../../utils/localStorage';
 import { ApiDispatchResponse } from '../../types/hooks-action';
@@ -14,7 +14,7 @@ export const useRegisterDevice = () => {
 
     const token = await getItem('access_token');
 
-    const { status, data } = await post(ENDPOINTS.REGISTER_DEVICE, {
+    const { status, data } = await post(Endpoints.RegisterDevice, {
       deviceId: deviceInfo.machineId,
       token,
     });

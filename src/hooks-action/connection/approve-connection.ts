@@ -1,13 +1,13 @@
 import { post } from '../../api';
-import { ENDPOINTS } from '../../config/api';
+import { Endpoints } from '../../config/api';
 
 import { useFetchPendingConnections } from './pending-connection';
 
 export const useApproveConnectionRequest = () => {
   const fetchPendingConnections = useFetchPendingConnections();
 
-  const approveConnection = async (requestId: string) => {
-    const response = await post(ENDPOINTS.APPROVE_CONNECTIONS, {
+  const approveConnection = async (requestId: string): Promise<boolean> => {
+    const response = await post(Endpoints.ApproveConnections, {
       requestId,
     });
 

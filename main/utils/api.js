@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getItem } from './store';
 
-const API_URL = 'http://10.0.0.18:3000';
+const ApiURL = 'http://10.0.0.18:3000';
 
 const getHeaders = async () => {
   try {
@@ -24,7 +24,7 @@ const getHeaders = async () => {
 
 const get = async (endpoint) => {
   const headerParams = await getHeaders();
-  const getEndpoint = `${API_URL}${endpoint}`;
+  const getEndpoint = `${ApiURL}${endpoint}`;
 
   try {
     const { data } = await axios.get(getEndpoint, headerParams);
