@@ -2,8 +2,7 @@ import React from 'react';
 
 import { BreadCrumb } from '../../../ui-components/breadcrumb';
 
-import { useUpdateFolderStructure } from '../../../hooks-action/connection';
-import { useSelectedPath } from '../../../hooks-action/connection/selected-path';
+import { useUpdateFolderStructure, useSelectedPath } from '../../../hooks-action/connection';
 
 import { FolderStructure } from '../../../types/data';
 
@@ -12,13 +11,19 @@ export const Options: React.FC = () => {
   const updateFolderStructure = useUpdateFolderStructure();
 
   const folderClick = (data: FolderStructure) => {
-    const { id, name } = data;
-
-    if (name === 'home') {
+    if (!data) {
       updateFolderStructure([]);
+
+      return;
     }
 
+    const { id } = data;
+
     const findIndex = selectedPath.findIndex(({ id: pathId }) => pathId === id);
+
+    if (findIndex === -1) {
+      return;
+    }
 
     const filterPath = selectedPath.slice(0, findIndex + 1);
 

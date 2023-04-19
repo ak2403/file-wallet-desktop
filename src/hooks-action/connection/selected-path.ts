@@ -1,7 +1,12 @@
 import { shallowEqual, useSelector } from 'react-redux';
 
-export const useSelectedPath = () => {
-  const selectedPath = useSelector((state: any) => state.folderStructure.selectedPath, shallowEqual);
+import { ReducerState, SelectedPathType } from '../../types/reducer';
+
+export const useSelectedPath = (): SelectedPathType[] => {
+  const selectedPath = useSelector<ReducerState>(
+    (state) => state.folderStructure.selectedPath,
+    shallowEqual,
+  ) as SelectedPathType[];
 
   return selectedPath;
 };
