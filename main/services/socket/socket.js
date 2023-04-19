@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 import { getSystemInfo } from '../../utils/system_information';
-import { readFile, readFolder } from '../../utils/file_system';
+import { readFile, readFolder, writeFile } from '../../utils/file_system';
 
 export const InitializeSocket = async (window) => {
   const { machineId } = await getSystemInfo();
@@ -48,8 +48,10 @@ export const InitializeSocket = async (window) => {
   });
 
   // triggered when server sends the requested file transfer
-  machineChannel.on('receive-file-transfer-from-server', function (data) {
-    window.webContents.send('target-file-data-received', data);
+  machineChannel.on('receive-file-transfer-from-server', async function (data) {
+    await writeFile(`${data.targetPath}/${data.path}`, data.response.buffer);
+
+    // window.webContents.send('target-file-data-received', data);
   });
 
   machineChannel.on('target-not-active', function (data) {

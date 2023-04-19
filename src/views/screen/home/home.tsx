@@ -3,20 +3,21 @@ import { useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { NavBar } from '../../../views/section/nav-bar';
+import { ReducerState } from '../../../types/reducer';
 
 import { HomeLayout, SideBarLayout, ContentLayout } from './home.styles';
 
 export const HomeComponent: React.FC = () => {
-  const authentication = useSelector((state: any) => state.authentication);
+  const connectionEstablished = useSelector<ReducerState>((state) => state.authentication.connectionEstablished);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!authentication.connectionEstablished) {
+    if (!connectionEstablished) {
       navigate('/');
     }
   }, []);
 
-  if (!authentication.connectionEstablished) {
+  if (!connectionEstablished) {
     return null;
   }
 

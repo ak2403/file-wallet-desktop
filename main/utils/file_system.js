@@ -117,13 +117,13 @@ const deleteFile = async (path) => {
 
 const writeFile = async (path, data) => {
   try {
-    const isPathExists = await fileExists(path);
+    // const isPathExists = await fileExists(path);
 
-    if (isPathExists) {
-      return false;
-    }
+    // if (isPathExists) {
+    //   return false;
+    // }
 
-    await fs.writeFileSync(`${ROOT_PATH}/${path}`, data, {
+    await fs.writeFileSync(`${path}`, data, {
       encoding: 'base64',
     });
 

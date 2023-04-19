@@ -39,7 +39,7 @@ const bridge = {
   doActionForNotification: (callback) => ipcRenderer.on('do-action-for-notification', callback),
   targetDataReceived: (callback) => ipcRenderer.on('target-data-received', callback),
   receivedTargetStatus: (callback) => ipcRenderer.on('received-target-status', callback),
-  receiveFileTransferFromServer: (callback) => ipcRenderer.on('receive-file-transfer-from-server', callback),
+  targetFileDataReceived: (callback) => ipcRenderer.on('target-file-data-received', callback),
   dialog: (method, params) => ipcRenderer.invoke('dialog', method, params),
 };
 
