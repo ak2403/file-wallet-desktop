@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 import { getSystemInfo } from '../../utils/system_information';
-import { readFolder } from '../../utils/file_system';
+import { readFile, readFolder } from '../../utils/file_system';
 
 export const InitializeSocket = async (window) => {
   const { machineId } = await getSystemInfo();
@@ -29,9 +29,27 @@ export const InitializeSocket = async (window) => {
     });
   });
 
+  // triggered when server request for folder transfer
+  machineChannel.on('request-transfer-from-server', async function (data) {
+    const { requestSource, path } = data;
+    console.log('downlaod path type : ', path);
+    const response = await readFile(path);
+
+    machineChannel.emit('transfer-file-to-server', {
+      requestSource,
+      response,
+      ...data,
+    });
+  });
+
   // triggered when server sends the requested folder informations
   machineChannel.on('receive-information-from-server', function (data) {
     window.webContents.send('target-data-received', data);
+  });
+
+  // triggered when server sends the requested file transfer
+  machineChannel.on('receive-file-transfer-from-server', function (data) {
+    window.webContents.send('target-file-data-received', data);
   });
 
   machineChannel.on('target-not-active', function (data) {

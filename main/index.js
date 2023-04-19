@@ -1,8 +1,8 @@
-import io from 'socket.io-client';
 import path from 'path';
-import { app, BrowserWindow, screen, ipcMain, powerMonitor } from 'electron';
+import { app, BrowserWindow, screen, ipcMain, powerMonitor, dialog } from 'electron';
 
 import { windowAllClosed, didFinishLoad, onSystemSuspend, onSystemResume } from './services/process';
+import { accessTargetFolder } from './services/ipc-main/access-target-folder';
 
 async function createWindow() {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
@@ -20,30 +20,14 @@ async function createWindow() {
   });
 
   mainWindow.loadURL('http://localhost:4005');
-  // mainWindow.loadFile(path.resolve(
-  //   __dirname,
-  //   '..',
-  //   'public',
-  //   'index.html'
-  //  ))
 
   app.setAsDefaultProtocolClient('com.sharespace.app');
 
   mainWindow.webContents.openDevTools();
 
-  app.on('open-url', function (event, data) {
-    mainWindow.webContents.send('login-success', {
-      data,
-    });
-  });
+  ipcMain.on('access-target-folder', accessTargetFolder);
 
-  ipcMain.on('access-target-folder', (event, data) => {
-    const { connectionId, path } = data;
-
-    const connectionChannel = io(`http://10.0.0.18:3000/${connectionId}`, { transports: ['websocket'] });
-
-    connectionChannel.emit('request-file-from-target', { requestType: 'read', path });
-  });
+  ipcMain.handle('dialog', (event, method, params) => dialog[method](params));
 
   app.on('window-all-closed', windowAllClosed);
 

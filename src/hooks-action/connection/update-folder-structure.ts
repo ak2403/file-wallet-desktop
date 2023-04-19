@@ -15,6 +15,6 @@ export const useUpdateFolderStructure = () => {
     const path = data.map(({ name }) => name).join('/');
 
     //@ts-ignore
-    window.electron.send('access-target-folder', { connectionId, path });
+    window.electron.send('access-target-folder', { connectionId, path, requestType: 'read' });
   };
 };

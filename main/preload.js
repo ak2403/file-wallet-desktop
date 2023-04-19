@@ -30,27 +30,17 @@ contextBridge.exposeInMainWorld('store', {
 });
 
 contextBridge.exposeInMainWorld('electron', {
-  on(eventName, callback) {
-    ipcRenderer.on(eventName, callback);
-  },
-
-  send(eventName, data) {
-    ipcRenderer.send(eventName, data);
-  },
-
-  async shellOpenExternal(url) {
-    await shell.openExternal(url);
-  },
-
-  async getSysInfo() {
-    return await getSystemInfo();
-  },
+  on: (eventName, callback) => ipcRenderer.on(eventName, callback),
+  send: (eventName, data) => ipcRenderer.send(eventName, data),
+  getSysInfo: async () => getSystemInfo(),
 });
 
 const bridge = {
   doActionForNotification: (callback) => ipcRenderer.on('do-action-for-notification', callback),
   targetDataReceived: (callback) => ipcRenderer.on('target-data-received', callback),
   receivedTargetStatus: (callback) => ipcRenderer.on('received-target-status', callback),
+  receiveFileTransferFromServer: (callback) => ipcRenderer.on('receive-file-transfer-from-server', callback),
+  dialog: (method, params) => ipcRenderer.invoke('dialog', method, params),
 };
 
 contextBridge.exposeInMainWorld('bridge', bridge);
