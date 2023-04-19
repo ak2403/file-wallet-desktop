@@ -10,7 +10,7 @@ export const Options: React.FC = () => {
   const selectedPath = useSelectedPath();
   const updateFolderStructure = useUpdateFolderStructure();
 
-  const folderClick = (data: FolderStructure) => {
+  const folderClick = (data?: FolderStructure) => {
     if (!data) {
       updateFolderStructure([]);
 
