@@ -1,17 +1,17 @@
 import React from 'react';
 import { v4 as uuid } from 'uuid';
-import { shallowEqual, useSelector } from 'react-redux';
 
 import { FolderViewLayout } from './folder-view.styles';
 import { Folder } from '../../../ui-components/folder';
 import { SelectedPathType } from '../../../types/reducer';
-import { useUpdateFolderStructure } from '../../../hooks-action/connection';
+import { useSelectedPath, useUpdateFolderStructure } from '../../../hooks-action/connection';
 import { useConnectionId } from '../../../hooks-action/common';
+import { useFolders } from '../../../hooks-action/folder-structure';
 
 export const FolderView: React.FC = () => {
   const connectionId = useConnectionId();
-  const selectedPath = useSelector((state: any) => state.folderStructure.selectedPath, shallowEqual);
-  const folders = useSelector((state: any) => state.folderStructure.folders, shallowEqual);
+  const selectedPath = useSelectedPath();
+  const folders = useFolders();
 
   const updateFolderStructure = useUpdateFolderStructure();
 

@@ -4,8 +4,10 @@ import { SetupLayout } from './setup.styles';
 import { useRegisterDevice } from '../../../hooks-action/device';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useConnectionEstablished } from '../../../hooks-action/users';
 
 export const SetupComponent: React.FC = () => {
+  const connectionEstablished = useConnectionEstablished();
   const authentication = useSelector((state: any) => state.authentication);
   const navigate = useNavigate();
   const registerDevice = useRegisterDevice();
@@ -17,7 +19,7 @@ export const SetupComponent: React.FC = () => {
       return;
     }
 
-    if (authentication.connectionEstablished) {
+    if (connectionEstablished) {
       navigate('/home');
 
       return;
