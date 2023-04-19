@@ -22,7 +22,7 @@ export const NavBar: React.FC = () => {
   }, []);
 
   return (
-    <NavLayout>
+    <NavLayout data-testid="nav-bar">
       <Top>
         <AppHeader />
 

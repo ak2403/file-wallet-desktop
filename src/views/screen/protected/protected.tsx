@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import { NavBar } from '../../../views/section/nav-bar';
-import { ReducerState } from '../../../types/reducer';
+import { NavBar } from '../../section/nav-bar';
 
-import { HomeLayout, SideBarLayout, ContentLayout } from './home.styles';
+import { HomeLayout, SideBarLayout, ContentLayout } from './protected.styles';
+import { useConnectionEstablished } from '../../../hooks-action/users';
 
-export const HomeComponent: React.FC = () => {
-  const connectionEstablished = useSelector<ReducerState>((state) => state.authentication.connectionEstablished);
+export const ProtectedComponent: React.FC = () => {
+  const connectionEstablished = useConnectionEstablished();
   const navigate = useNavigate();
 
   useEffect(() => {

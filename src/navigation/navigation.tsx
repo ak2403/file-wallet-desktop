@@ -1,7 +1,7 @@
 import React from 'react';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { HomeComponent } from '../views/screen/home';
+import { ProtectedComponent } from '../views/screen/protected';
 import { LoginComponent } from '../views/screen/login';
 import { SetupComponent } from '../views/screen/setup';
 import { DashboardComponent } from '../views/screen/dashboard';
@@ -23,7 +23,7 @@ export const Navigation: React.FC = () => {
 
         <Route path="setup" element={<SetupComponent />} />
 
-        <Route path="home" element={<HomeComponent />}>
+        <Route path="home" element={<ProtectedComponent />}>
           <Route index element={<DashboardComponent />} />
 
           <Route path="pending-action" element={<PendingActionComponent />} />
@@ -31,8 +31,6 @@ export const Navigation: React.FC = () => {
 
           <Route path="*" element={<DashboardComponent />} />
         </Route>
-
-        <Route path="*" element={<HomeComponent />} />
       </Routes>
     </Router>
   );
