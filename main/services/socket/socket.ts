@@ -3,8 +3,14 @@ import io from 'socket.io-client';
 import { systemInformation } from '../common';
 import { readFile, readFolder, writeFile } from '../file-system';
 
-export const InitializeSocket = async (window) => {
-  const { machineId } = await systemInformation();
+export const InitializeSocket = async (window): Promise<void> => {
+  const systemInfo = await systemInformation();
+
+  if (!systemInfo) {
+    return;
+  }
+
+  const { machineId } = systemInfo;
 
   const machineChannel = io(`http://10.0.0.18:3000/${machineId}`, { transports: ['websocket'] });
 
