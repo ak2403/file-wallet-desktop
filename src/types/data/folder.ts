@@ -3,4 +3,5 @@ export type FolderStructure = {
   name: string;
   type: string;
   ext: string;
+  size: string;
 };

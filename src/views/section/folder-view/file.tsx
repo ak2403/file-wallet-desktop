@@ -8,16 +8,17 @@ import { useConnectionId } from '../../../hooks-action/common';
 import { useBlockInteraction } from '../../../hooks-action/folder-structure';
 import { openDialogWindow } from '../../../utils/open-dialog';
 
-import { FolderLayout, FolderText, ViewIcon } from './folder.styles';
+import { FolderLayout, FolderText, ViewIcon, Size } from './folder.styles';
 
 type FileType = {
   id?: string;
   name: string;
   type: string;
+  size?: string;
 };
 
 export const File: React.FC<FileType> = (props) => {
-  const { name, type } = props;
+  const { name, type, size } = props;
   const blockInteraction = useBlockInteraction();
   const connectionId = useConnectionId();
   const selectedPath = useSelectedPath();
@@ -80,7 +81,10 @@ export const File: React.FC<FileType> = (props) => {
   return (
     <FolderLayout data-testid="file" onClick={onClick}>
       <ViewIcon icon={icon} />
+
       <FolderText>{name}</FolderText>
+
+      {size ? <Size>{size}</Size> : null}
     </FolderLayout>
   );
 };

@@ -6,8 +6,8 @@ import { Colors } from '../../../config/colors';
 export const FolderLayout = styled.div`
   display: flex;
   flex-direction: column;
-  width: 150px;
-  height: 120px;
+  width: 120px;
+  max-height: 120px;
   margin: 5px;
   align-items: center;
   padding: 10px;
@@ -42,4 +42,10 @@ export const FolderText = styled.p`
 export const ViewIcon = styled(FontAwesomeIcon)`
   color: ${Colors.appBlack};
   font-size: 64px;
+`;
+
+export const Size = styled.div`
+  font-size: 12px;
+  font-family: 'Lato', sans-serif;
+  color: ${Colors.appBg};
 `;
