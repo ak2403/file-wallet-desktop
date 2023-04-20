@@ -1,9 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const SRC_DIR = path.resolve(__dirname, 'src');
-
-const defaultInclude = [SRC_DIR];
+const SourceDirectory = path.resolve(__dirname, 'src');
+const defaultInclude = [SourceDirectory];
 
 module.exports = {
   mode: 'development',
