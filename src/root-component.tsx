@@ -14,7 +14,6 @@ export const RootComponent: React.FC = () => {
 
   //@ts-ignore
   window.bridge.targetDataReceived((_: any, data: any) => {
-    console.log(data);
     //TODO: The function here is triggered twice for which I cant find a reason why
     dispatch({
       type: FolderStructureTypes.UpdateFolders,

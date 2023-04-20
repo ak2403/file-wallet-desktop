@@ -5,6 +5,7 @@ import { File } from './file';
 
 import { useSelectedPath } from '../../../hooks-action/connection';
 import { useConnectionId } from '../../../hooks-action/common';
+import { useBlockInteraction } from '../../../hooks-action/folder-structure';
 import { openDialogWindow } from '../../../utils/open-dialog';
 
 jest.mock('../../../hooks-action/connection', () => ({
@@ -12,6 +13,9 @@ jest.mock('../../../hooks-action/connection', () => ({
 }));
 jest.mock('../../../hooks-action/common', () => ({
   useConnectionId: jest.fn(),
+}));
+jest.mock('../../../hooks-action/folder-structure', () => ({
+  useBlockInteraction: jest.fn(),
 }));
 jest.mock('../../../utils/open-dialog', () => ({
   openDialogWindow: jest.fn(),
@@ -26,6 +30,7 @@ jest.mock('../../../utils/open-dialog', () => ({
 
 const mockDialogWindow = jest.fn().mockReturnValue({ canceled: undefined });
 (openDialogWindow as jest.Mock).mockImplementation(mockDialogWindow);
+(useBlockInteraction as jest.Mock).mockReturnValue(false);
 
 describe('<File />', () => {
   afterAll(() => jest.restoreAllMocks());

@@ -5,18 +5,19 @@ export const initialState: FolderStructureState = {
   selectedPath: [],
   folders: [],
   status: ConnectionStatus.Initialize,
+  blockInteraction: false,
 };
 
 export function FolderStructureReducer(state = initialState, action: FolderStructureAction): FolderStructureState {
   switch (action.type) {
     case FolderStructureTypes.UpdateSelectedPath:
-      return { ...state, selectedPath: action.payload };
+      return { ...state, selectedPath: action.payload, blockInteraction: true };
     case FolderStructureTypes.UpdateConnectionId:
       return { ...state, connectionId: action.connectionId || '', selectedPath: [] };
     case FolderStructureTypes.UpdateFolders:
       const updatedFolders = action.folders || state.folders;
 
-      return { ...state, folders: updatedFolders, status: ConnectionStatus.Active };
+      return { ...state, folders: updatedFolders, status: ConnectionStatus.Active, blockInteraction: false };
     case FolderStructureTypes.UpdateConnectionStatus:
       const { connectionId } = state;
 
