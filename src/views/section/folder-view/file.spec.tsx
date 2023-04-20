@@ -47,7 +47,7 @@ describe('<File />', () => {
   });
 
   it('triggers dialog window when clicked', () => {
-    const mockDialogWindow = jest.fn();
+    const mockDialogWindow = jest.fn().mockReturnValue({ canceled: undefined });
 
     (openDialogWindow as jest.Mock).mockImplementation(mockDialogWindow);
 
