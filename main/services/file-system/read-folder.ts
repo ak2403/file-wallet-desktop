@@ -3,6 +3,8 @@ import { extname } from 'path';
 import { v4 as uuid } from 'uuid';
 
 import { RootUserName } from './config';
+import { byteConversion } from './utils';
+
 import { FolderStructure, StructureType } from '../../types/services';
 
 export const readFolder = async (path: string = ''): Promise<FolderStructure[]> => {
@@ -11,9 +13,7 @@ export const readFolder = async (path: string = ''): Promise<FolderStructure[]> 
     const folderDirectories: FolderStructure[] = [];
 
     for (const file of folderInformation) {
-      const fileStat = await fs.statSync(`${RootUserName}/${path}/${file}`, {
-        bigint: true,
-      });
+      const fileStat = await fs.statSync(`${RootUserName}/${path}/${file}`);
 
       if (file && file[0] !== '.') {
         folderDirectories.push({
@@ -21,6 +21,7 @@ export const readFolder = async (path: string = ''): Promise<FolderStructure[]> 
           name: file,
           ext: fileStat.isDirectory() ? 'folder' : extname(file),
           type: fileStat.isDirectory() ? StructureType.Folder : StructureType.File,
+          size: fileStat.isDirectory() ? '' : byteConversion(fileStat.size),
         });
       }
     }
