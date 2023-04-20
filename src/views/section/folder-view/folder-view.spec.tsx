@@ -16,6 +16,7 @@ jest.mock('../../../hooks-action/common', () => ({
 }));
 jest.mock('../../../hooks-action/folder-structure', () => ({
   useFolders: jest.fn(),
+  useBlockInteraction: jest.fn(),
 }));
 jest.mock('../../../utils/open-dialog', () => ({
   openDialogWindow: jest.fn(),

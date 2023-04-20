@@ -14,8 +14,6 @@ export const FolderView: React.FC = () => {
     return null;
   }
 
-  console.log('folders : ', folders);
-
   return (
     <FolderViewLayout data-testid="folder-view">
       {folders.map(({ name, ext, id }) => {

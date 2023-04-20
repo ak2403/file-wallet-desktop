@@ -5,6 +5,7 @@ import { faFileWord } from '@fortawesome/free-regular-svg-icons';
 
 import { useSelectedPath } from '../../../hooks-action/connection';
 import { useConnectionId } from '../../../hooks-action/common';
+import { useBlockInteraction } from '../../../hooks-action/folder-structure';
 import { openDialogWindow } from '../../../utils/open-dialog';
 
 import { FolderLayout, FolderText, ViewIcon } from './folder.styles';
@@ -17,6 +18,7 @@ type FileType = {
 
 export const File: React.FC<FileType> = (props) => {
   const { name, type } = props;
+  const blockInteraction = useBlockInteraction();
   const connectionId = useConnectionId();
   const selectedPath = useSelectedPath();
 
@@ -52,6 +54,10 @@ export const File: React.FC<FileType> = (props) => {
   })();
 
   const onClick = async () => {
+    if (blockInteraction) {
+      return;
+    }
+
     const { canceled, filePath: targetFilePath } = await openDialogWindow();
 
     if (canceled || !targetFilePath) {

@@ -18,7 +18,7 @@ export const Path = styled.div`
     margin: 0px 5px;
   }
 
-  text {
+  span {
     font-size: 16px;
     font-family: 'Lato', sans-serif;
     color: ${Colors.appBlack};

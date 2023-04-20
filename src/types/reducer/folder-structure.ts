@@ -18,6 +18,7 @@ export type FolderStructureState = {
   selectedPath: SelectedPathType[];
   folders: FolderStructure[];
   status: ConnectionStatus;
+  blockInteraction: boolean;
 };
 
 export type SelectedPathType = {

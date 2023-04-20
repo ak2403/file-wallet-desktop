@@ -1,33 +1,15 @@
 import { contextBridge, shell, ipcRenderer } from 'electron';
 
 import { systemInformation } from './services/common';
-import { removeItem, getItem, setItem } from './utils/store';
+import { getKey, setKey, removeKey } from './services/local-storage';
 
 contextBridge.exposeInMainWorld('shell', shell);
 contextBridge.exposeInMainWorld('ipcRenderer', ipcRenderer);
 
 contextBridge.exposeInMainWorld('store', {
-  set(key, value) {
-    try {
-      return setItem(key, value);
-    } catch (err) {
-      return false;
-    }
-  },
-  get(key) {
-    try {
-      return getItem(key);
-    } catch (err) {
-      return false;
-    }
-  },
-  remove(key) {
-    try {
-      return removeItem(key);
-    } catch (err) {
-      return false;
-    }
-  },
+  set: (key, value) => setKey(key, value),
+  get: (key) => getKey(key),
+  remove: (key) => removeKey(key),
 });
 
 contextBridge.exposeInMainWorld('electron', {
