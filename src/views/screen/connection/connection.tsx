@@ -21,7 +21,7 @@ export const ConnectionComponent: React.FC = () => {
     });
 
     //@ts-ignore
-    window.electron.send('access-target-folder', { connectionId, path: '', requestType: 'read' });
+    window.electron.send('access-target-folder', { connectionId, filePath: '', requestType: 'read' });
   }, []);
 
   return (

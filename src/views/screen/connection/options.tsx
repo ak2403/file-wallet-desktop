@@ -5,6 +5,7 @@ import { BreadCrumb } from '../../../ui-components/breadcrumb';
 import { useUpdateFolderStructure, useSelectedPath } from '../../../hooks-action/connection';
 
 import { FolderStructure } from '../../../types/data';
+import { OptionLayout, LeftLayout, RightLayout } from './options.styles';
 
 export const Options: React.FC = () => {
   const selectedPath = useSelectedPath();
@@ -31,8 +32,12 @@ export const Options: React.FC = () => {
   };
 
   return (
-    <>
-      <BreadCrumb path={selectedPath} onClick={folderClick} />
-    </>
+    <OptionLayout>
+      <LeftLayout>
+        <BreadCrumb path={selectedPath} onClick={folderClick} />
+      </LeftLayout>
+
+      <RightLayout></RightLayout>
+    </OptionLayout>
   );
 };

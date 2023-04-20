@@ -71,7 +71,7 @@ export const File: React.FC<FileType> = (props) => {
     // @ts-ignore
     window.electron.send('access-target-folder', {
       connectionId,
-      transferFilePath: newPath.join('/'),
+      filePath: newPath.join('/'),
       targetFileName: name,
       targetFilePath,
       requestType: 'download',

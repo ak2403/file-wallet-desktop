@@ -23,6 +23,12 @@ export const Path = styled.div`
     font-family: 'Lato', sans-serif;
     color: ${Colors.appBlack};
     padding-left: 7px;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow-wrap: anywhere;
   }
 
   &::before {
