@@ -1,7 +1,12 @@
 import React from 'react';
 
 import { MainLayout } from './dashboard.styles';
+import { Welcome } from './welcome';
 
 export const DashboardComponent: React.FC = () => {
-  return <MainLayout>Dashboard...</MainLayout>;
+  return (
+    <MainLayout>
+      <Welcome />
+    </MainLayout>
+  );
 };

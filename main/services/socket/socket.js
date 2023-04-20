@@ -1,9 +1,10 @@
 import io from 'socket.io-client';
-import { getSystemInfo } from '../../utils/system_information';
-import { readFile, readFolder, writeFile } from '../../utils/file_system';
+
+import { systemInformation } from '../common';
+import { readFile, readFolder, writeFile } from '../file-system';
 
 export const InitializeSocket = async (window) => {
-  const { machineId } = await getSystemInfo();
+  const { machineId } = await systemInformation();
 
   const machineChannel = io(`http://10.0.0.18:3000/${machineId}`, { transports: ['websocket'] });
 
@@ -31,9 +32,9 @@ export const InitializeSocket = async (window) => {
 
   // triggered when server request for folder transfer
   machineChannel.on('request-transfer-from-server', async function (data) {
-    const { requestSource, path } = data;
-    console.log('downlaod path type : ', path);
-    const response = await readFile(path);
+    const { requestSource, transferFilePath } = data;
+
+    const response = await readFile(transferFilePath);
 
     machineChannel.emit('transfer-file-to-server', {
       requestSource,
@@ -49,9 +50,12 @@ export const InitializeSocket = async (window) => {
 
   // triggered when server sends the requested file transfer
   machineChannel.on('receive-file-transfer-from-server', async function (data) {
-    await writeFile(`${data.targetPath}/${data.path}`, data.response.buffer);
+    const { targetFilePath, targetFileName, response } = data;
+
+    await writeFile(`${targetFilePath}/${targetFileName}`, response.buffer);
 
     // window.webContents.send('target-file-data-received', data);
+    console.log('hi');
   });
 
   machineChannel.on('target-not-active', function (data) {

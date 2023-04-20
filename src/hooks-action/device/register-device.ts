@@ -4,18 +4,22 @@ import { post } from '../../api';
 import { getItem, setItem } from '../../utils/local-storage';
 import { ApiDispatchResponse } from '../../types/hooks-action';
 import { AuthenticationTypes } from '../../types/reducer';
+import { SystemInformation } from '../../utils/electron';
 
 export const useRegisterDevice = () => {
   const dispatch = useDispatch();
 
   const registerDevice = async (): Promise<ApiDispatchResponse> => {
-    //@ts-ignore
-    const deviceInfo = await window.electron.getSysInfo();
+    const deviceInformation = await SystemInformation();
+
+    if (!deviceInformation) {
+      return { success: false };
+    }
 
     const token = await getItem('access_token');
 
     const { status, data } = await post(Endpoints.RegisterDevice, {
-      deviceId: deviceInfo.machineId,
+      deviceId: deviceInformation.machineId,
       token,
     });
 

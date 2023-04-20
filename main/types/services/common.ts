@@ -1,4 +1,4 @@
-export type SystemInformationType = {
+export type SystemInformation = {
   machineId: string;
   systemName: string;
 };
