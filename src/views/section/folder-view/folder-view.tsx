@@ -16,11 +16,11 @@ export const FolderView: React.FC = () => {
 
   return (
     <FolderViewLayout data-testid="folder-view">
-      {folders.map(({ name, ext, id }) => {
+      {folders.map(({ name, ext, id, size }) => {
         if (ext === 'folder') {
           return <Folder key={uuid()} id={id} name={name} />;
         }
-        return <File key={uuid()} id={id} name={name} type={ext} />;
+        return <File key={uuid()} id={id} name={name} type={ext} size={size} />;
       })}
     </FolderViewLayout>
   );

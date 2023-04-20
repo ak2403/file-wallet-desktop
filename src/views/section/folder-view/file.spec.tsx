@@ -46,6 +46,12 @@ describe('<File />', () => {
     ).toBeInTheDocument();
   });
 
+  it('renders size properly', () => {
+    render(<File type=".pdf" name="mock file" size="1 mb" />);
+
+    expect(screen.getByText('1 mb')).toBeInTheDocument();
+  });
+
   it('triggers dialog window when clicked', () => {
     const mockDialogWindow = jest.fn().mockReturnValue({ canceled: undefined });
 
