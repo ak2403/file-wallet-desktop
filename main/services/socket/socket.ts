@@ -1,12 +1,14 @@
 import io from 'socket.io-client';
 
 import { systemInformation } from '../common';
+import { getKey } from '../local-storage';
 import { readFile, readFolder, writeFile } from '../file-system';
 
 export const InitializeSocket = async (window): Promise<void> => {
   const systemInfo = await systemInformation();
+  const isDeviceRegistered = getKey('connection_id');
 
-  if (!systemInfo) {
+  if (!systemInfo || !isDeviceRegistered) {
     return;
   }
 
@@ -30,32 +32,51 @@ export const InitializeSocket = async (window): Promise<void> => {
 
   // triggered when server request for folder informations
   machineChannel.on('request-information-from-server', async function (data) {
-    const { requestSource, path } = data;
+    const { filePath } = data;
 
-    const response = await readFolder(path);
+    machineChannel.emit('update-activity', {
+      ...data,
+      activityStatus: 'request-received',
+    });
+
+    const response = await readFolder(filePath);
 
     machineChannel.emit('send-information-to-server', {
-      requestSource,
-      response,
-    });
-  });
-
-  // triggered when server request for folder transfer
-  machineChannel.on('request-transfer-from-server', async function (data) {
-    const { requestSource, transferFilePath } = data;
-
-    const response = await readFile(transferFilePath);
-
-    machineChannel.emit('transfer-file-to-server', {
-      requestSource,
       response,
       ...data,
     });
   });
 
+  // triggered when server request for folder transfer
+  machineChannel.on('request-transfer-from-server', async function (data) {
+    const { filePath } = data;
+
+    machineChannel.emit('update-activity', {
+      ...data,
+      activityStatus: 'request-received',
+    });
+
+    const response = await readFile(filePath);
+
+    machineChannel.emit('transfer-file-to-server', {
+      ...data,
+      response,
+    });
+  });
+
   // triggered when server sends the requested folder informations
   machineChannel.on('receive-information-from-server', function (data) {
+    machineChannel.emit('update-activity', {
+      ...data,
+      activityStatus: 'file-received',
+    });
+
     window.webContents.send('target-data-received', data);
+
+    machineChannel.emit('update-activity', {
+      ...data,
+      activityStatus: 'file-saved',
+    });
   });
 
   // triggered when server sends the requested file transfer

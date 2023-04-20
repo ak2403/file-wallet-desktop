@@ -12,9 +12,9 @@ export const useUpdateFolderStructure = () => {
       payload: data,
     });
 
-    const path = data.map(({ name }) => name).join('/');
+    const filePath = data.map(({ name }) => name).join('/');
 
     //@ts-ignore
-    window.electron.send('access-target-folder', { connectionId, path, requestType: 'read' });
+    window.electron.send('access-target-folder', { connectionId, filePath, requestType: 'read' });
   };
 };

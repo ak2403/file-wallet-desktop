@@ -1,14 +1,15 @@
 import React from 'react';
 import { v4 as uuid } from 'uuid';
 
-import { FolderViewLayout } from './folder-view.styles';
+import { FolderViewLayout, Wait } from './folder-view.styles';
 
-import { useFolders } from '../../../hooks-action/folder-structure';
+import { useBlockInteraction, useFolders } from '../../../hooks-action/folder-structure';
 import { Folder } from './folder';
 import { File } from './file';
 
 export const FolderView: React.FC = () => {
   const folders = useFolders();
+  const blockInteraction = useBlockInteraction();
 
   if (!folders.length) {
     return null;
@@ -22,6 +23,8 @@ export const FolderView: React.FC = () => {
         }
         return <File key={uuid()} id={id} name={name} type={ext} size={size} />;
       })}
+
+      {blockInteraction ? <Wait></Wait> : null}
     </FolderViewLayout>
   );
 };
