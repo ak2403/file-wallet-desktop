@@ -7,8 +7,8 @@ import { useSelectedPath, useUpdateFolderStructure } from '../../../hooks-action
 import { FolderLayout, FolderText, ViewIcon } from './folder.styles';
 
 type FolderType = {
-  name: string;
   id: string;
+  name: string;
 };
 
 export const Folder: React.FC<FolderType> = (props) => {
@@ -21,7 +21,7 @@ export const Folder: React.FC<FolderType> = (props) => {
   };
 
   return (
-    <FolderLayout onClick={onClick}>
+    <FolderLayout data-testid="folder" onClick={onClick}>
       <ViewIcon icon={faFolder} />
       <FolderText>{name}</FolderText>
     </FolderLayout>

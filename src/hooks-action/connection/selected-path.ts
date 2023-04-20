@@ -8,5 +8,5 @@ export const useSelectedPath = (): SelectedPathType[] => {
     shallowEqual,
   ) as SelectedPathType[];
 
-  return selectedPath;
+  return selectedPath || [];
 };

@@ -9,5 +9,5 @@ export const useFolders = (): FolderStructure[] => {
     shallowEqual,
   ) as FolderStructure[];
 
-  return folders;
+  return folders || [];
 };
