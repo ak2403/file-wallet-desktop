@@ -1,13 +1,12 @@
 const path = require('path');
 
-const SRC_DIR = path.resolve(__dirname, 'main');
-
-const defaultInclude = [SRC_DIR];
+const SourceDirectory = path.resolve(__dirname, 'main');
+const defaultInclude = [SourceDirectory];
 
 module.exports = [
   {
     mode: 'development',
-    entry: './main/index.js',
+    entry: './main/index.ts',
     output: {
       filename: '[name].js',
       path: path.resolve(__dirname, 'dist'),
@@ -34,7 +33,7 @@ module.exports = [
     },
   },
   {
-    entry: './main/preload.js',
+    entry: './main/preload.ts',
     target: 'electron-preload',
     output: {
       path: path.resolve(__dirname, 'dist'),
