@@ -24,6 +24,9 @@ jest.mock('../../../utils/open-dialog', () => ({
 ]);
 (useConnectionId as jest.Mock).mockReturnValue('12345');
 
+const mockDialogWindow = jest.fn().mockReturnValue({ canceled: undefined });
+(openDialogWindow as jest.Mock).mockImplementation(mockDialogWindow);
+
 describe('<File />', () => {
   afterAll(() => jest.restoreAllMocks());
 
@@ -45,7 +48,7 @@ describe('<File />', () => {
 
     render(<File type=".pdf" name="mock file" />);
 
-    fireEvent.click(screen.getByTestId('folder'));
+    fireEvent.click(screen.getByTestId('file'));
 
     expect(mockDialogWindow).toBeCalledTimes(1);
   });
@@ -65,7 +68,7 @@ describe('<File />', () => {
 
     render(<File type=".pdf" name="mock file" />);
 
-    fireEvent.click(screen.getByTestId('folder'));
+    fireEvent.click(screen.getByTestId('file'));
 
     expect(mockDialogWindow).toBeCalledTimes(1);
     expect(mockSend).toBeCalledTimes(0);
@@ -85,7 +88,7 @@ describe('<File />', () => {
 
     render(<File type=".pdf" name="mock file" />);
 
-    fireEvent.click(screen.getByTestId('folder'));
+    fireEvent.click(screen.getByTestId('file'));
 
     expect(mockDialogWindow).toBeCalledTimes(1);
     expect(mockSend).toBeCalledTimes(0);
