@@ -14,6 +14,10 @@ export const InitializeSocket = async (window): Promise<void> => {
 
   const machineChannel = io(`http://10.0.0.18:3000/${machineId}`, { transports: ['websocket'] });
 
+  machineChannel.on('connect', () => {
+    console.log('The machine communication is up and running with the server');
+  });
+
   // triggered when server send an notification action
   machineChannel.on('active', function (callback) {
     callback(true);
@@ -66,5 +70,30 @@ export const InitializeSocket = async (window): Promise<void> => {
 
   machineChannel.on('target-not-active', function (data) {
     window.webContents.send('received-target-status', data);
+  });
+
+  machineChannel.on('connect_error', function (err) {
+    console.log('-------Connection Error in machine socket communication-------');
+    console.log(err);
+    //do something
+  });
+
+  machineChannel.on('error', (error) => {
+    console.log('-------Error in machine socket communication-------');
+    console.log(error);
+  });
+
+  machineChannel.on('ping', () => {
+    console.log('-------ping in machine socket communication-------');
+  });
+
+  machineChannel.on('reconnect_error', (error) => {
+    console.log('-------reconnect error in machine socket communication-------');
+    console.log(error);
+  });
+
+  machineChannel.on('reconnect_failed', (error) => {
+    console.log('-------reconnect failed in machine socket communication-------');
+    console.log(error);
   });
 };
