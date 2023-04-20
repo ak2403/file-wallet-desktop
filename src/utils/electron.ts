@@ -1,9 +1,9 @@
-import { SystemInformation } from '../types/utils';
+import { SystemInformationType } from '../types/utils';
 
-export const getSystemInfo = async (): Promise<SystemInformation | null> => {
+export const SystemInformation = async (): Promise<SystemInformationType | null> => {
   try {
     //@ts-ignore
-    return await window.electron.getSysInfo();
+    return await window.electron.systemInformation();
   } catch (err) {
     console.log(err);
 

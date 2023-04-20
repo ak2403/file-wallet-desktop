@@ -2,43 +2,13 @@ import React from 'react';
 import { v4 as uuid } from 'uuid';
 
 import { FolderViewLayout } from './folder-view.styles';
-import { Folder } from '../../../ui-components/folder';
-import { SelectedPathType } from '../../../types/reducer';
-import { useSelectedPath, useUpdateFolderStructure } from '../../../hooks-action/connection';
-import { useConnectionId } from '../../../hooks-action/common';
+
 import { useFolders } from '../../../hooks-action/folder-structure';
+import { Folder } from './folder';
+import { File } from './file';
 
 export const FolderView: React.FC = () => {
-  const connectionId = useConnectionId();
-  const selectedPath = useSelectedPath();
   const folders = useFolders();
-
-  const updateFolderStructure = useUpdateFolderStructure();
-
-  const onFolderClick = (data: SelectedPathType) => {
-    updateFolderStructure([...selectedPath, data]);
-  };
-
-  const onFileClick = (data: SelectedPathType) => {
-    // @ts-ignore
-    window.bridge
-      .dialog('showOpenDialog', {
-        title: 'Select destination folder',
-        buttonLabel: 'select path',
-        properties: ['openDirectory'],
-      })
-      .then((response: any) => {
-        const newPath = [...selectedPath, data.name];
-
-        // @ts-ignore
-        window.electron.send('access-target-folder', {
-          connectionId,
-          path: newPath.join('/'),
-          targetPath: response.filePaths[0],
-          requestType: 'download',
-        });
-      });
-  };
 
   if (!folders.length) {
     return null;
@@ -48,20 +18,12 @@ export const FolderView: React.FC = () => {
 
   return (
     <FolderViewLayout>
-      {folders.map(({ name, ext, id }) => (
-        <Folder
-          key={uuid()}
-          name={name}
-          type={ext}
-          onClick={() => {
-            if (ext === 'folder') {
-              onFolderClick({ id, name });
-            } else {
-              onFileClick({ id, name });
-            }
-          }}
-        />
-      ))}
+      {folders.map(({ name, ext, id }) => {
+        if (ext === 'folder') {
+          return <Folder key={uuid()} id={id} name={name} />;
+        }
+        return <File key={uuid()} id={id} name={name} />;
+      })}
     </FolderViewLayout>
   );
 };

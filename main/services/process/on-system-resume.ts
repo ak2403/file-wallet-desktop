@@ -1,9 +1,15 @@
 import io from 'socket.io-client';
 
-import { getSystemInfo } from '../../utils/system_information';
+import { systemInformation } from '../common';
 
-export const onSystemResume = async () => {
-  const { machineId } = await getSystemInfo();
+export const onSystemResume = async (): Promise<void> => {
+  const systemInfo = await systemInformation();
+
+  if (!systemInfo) {
+    return;
+  }
+
+  const { machineId } = systemInfo;
 
   const commonChannel = io(`http://10.0.0.18:3000`, { transports: ['websocket'] });
 

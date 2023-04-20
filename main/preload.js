@@ -1,5 +1,6 @@
 import { contextBridge, shell, ipcRenderer } from 'electron';
-import { getSystemInfo } from './utils/system_information';
+
+import { systemInformation } from './services/common';
 import { removeItem, getItem, setItem } from './utils/store';
 
 contextBridge.exposeInMainWorld('shell', shell);
@@ -32,7 +33,7 @@ contextBridge.exposeInMainWorld('store', {
 contextBridge.exposeInMainWorld('electron', {
   on: (eventName, callback) => ipcRenderer.on(eventName, callback),
   send: (eventName, data) => ipcRenderer.send(eventName, data),
-  getSysInfo: async () => getSystemInfo(),
+  systemInformation: async () => systemInformation(),
 });
 
 const bridge = {

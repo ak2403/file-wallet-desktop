@@ -1,4 +1,4 @@
-import { getSystemInfo } from './electron';
+import { SystemInformation } from './electron';
 
 describe('headers()', () => {
   let spyWindow: jest.SpyInstance;
@@ -13,11 +13,11 @@ describe('headers()', () => {
   it('returns system information properly', async () => {
     spyWindow.mockImplementation(() => ({
       electron: {
-        getSysInfo: () => 'mock data',
+        systemInformation: () => 'mock data',
       },
     }));
 
-    const systemInformation = await getSystemInfo();
+    const systemInformation = await SystemInformation();
 
     expect(systemInformation).toBe('mock data');
   });
@@ -25,13 +25,13 @@ describe('headers()', () => {
   it('returns null when error occurs', async () => {
     spyWindow.mockImplementation(() => ({
       electron: {
-        getSysInfo: () => {
+        systemInformation: () => {
           throw new Error('Mock error');
         },
       },
     }));
 
-    const systemInformation = await getSystemInfo();
+    const systemInformation = await SystemInformation();
 
     expect(systemInformation).toBe(null);
   });
