@@ -10,3 +10,8 @@ export const SystemInformation = async (): Promise<SystemInformationType | null>
     return null;
   }
 };
+
+export const requestTargetFolder = (connectionId: string, filePath: string = '') => {
+  //@ts-ignore
+  window.electron.send('access-target-folder', { connectionId, filePath, requestType: 'read' });
+};

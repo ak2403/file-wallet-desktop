@@ -40,6 +40,7 @@ export const get = async (endpoint) => {
     return {
       status: err.status || 500,
       data: err.data || '',
+      errorMessage: err.message || 'Internal Error',
     };
   }
 };

@@ -8,6 +8,7 @@ import { FolderStructureTypes } from '../../../types/reducer';
 import { ConnectionLayout } from './connection.styles';
 import { Options } from './options';
 import { RenderConnection } from './render-connection';
+import { requestTargetFolder } from '../../../utils/electron';
 
 export const ConnectionComponent: React.FC = () => {
   const { state } = useLocation();
@@ -20,8 +21,7 @@ export const ConnectionComponent: React.FC = () => {
       connectionId,
     });
 
-    //@ts-ignore
-    window.electron.send('access-target-folder', { connectionId, filePath: '', requestType: 'read' });
+    requestTargetFolder(connectionId);
   }, []);
 
   return (
