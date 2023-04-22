@@ -3,6 +3,7 @@ import { ConnectionAction, ConnectionState, ConnectionTypes } from '../types/red
 export const initialState: ConnectionState = {
   pendingActions: [],
   activeConnections: [],
+  existingConnections: [],
 };
 
 export function ConnectionReducer(state = initialState, action: ConnectionAction): ConnectionState {
@@ -16,6 +17,11 @@ export function ConnectionReducer(state = initialState, action: ConnectionAction
       return {
         ...state,
         pendingActions: action.payload || [],
+      };
+    case ConnectionTypes.ExistingConnections:
+      return {
+        ...state,
+        existingConnections: action.payload,
       };
     default:
       return state;

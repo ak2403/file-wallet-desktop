@@ -6,4 +6,5 @@ export type ErrorMessage = {
 export type ApiDispatchResponse = {
   success: boolean;
   errors?: ErrorMessage[];
+  errorMessage?: string;
 };

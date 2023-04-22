@@ -7,4 +7,5 @@ export const Endpoints = {
   PendingConnections: '/connections/pending',
   ApproveConnections: '/connections/approve',
   ConnectionRequest: '/connections/request',
+  ExistingConnections: '/connections/by',
 };

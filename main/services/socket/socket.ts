@@ -66,12 +66,14 @@ export const InitializeSocket = async (window): Promise<void> => {
 
   // triggered when server sends the requested folder informations
   machineChannel.on('receive-information-from-server', function (data) {
+    const { response } = data;
+
     machineChannel.emit('update-activity', {
       ...data,
       activityStatus: 'file-received',
     });
 
-    window.webContents.send('target-data-received', data);
+    window.webContents.send('target-data-received', response);
 
     machineChannel.emit('update-activity', {
       ...data,
@@ -83,10 +85,25 @@ export const InitializeSocket = async (window): Promise<void> => {
   machineChannel.on('receive-file-transfer-from-server', async function (data) {
     const { targetFilePath, targetFileName, response } = data;
 
-    await writeFile(`${targetFilePath}/${targetFileName}`, response.buffer);
+    machineChannel.emit('update-activity', {
+      ...data,
+      activityStatus: 'file-received',
+    });
 
-    // window.webContents.send('target-file-data-received', data);
-    console.log('hi');
+    try {
+      await writeFile(`${targetFilePath}/${targetFileName}`, response.buffer);
+
+      machineChannel.emit('update-activity', {
+        ...data,
+        activityStatus: 'file-saved',
+      });
+    } catch (error) {
+      machineChannel.emit('update-activity', {
+        ...data,
+        activityStatus: 'error',
+        error: error.message || 'Internal Error',
+      });
+    }
   });
 
   machineChannel.on('target-not-active', function (data) {
