@@ -32,10 +32,6 @@ export function useLoginUser() {
     } catch (error) {
       console.log(error);
 
-      dispatch({
-        type: AuthenticationTypes.UserLoggedInError,
-      });
-
       return {
         success: false,
       };
