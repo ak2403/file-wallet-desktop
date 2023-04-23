@@ -4,11 +4,7 @@ export const initialState: Authentications = {
   isAppLoaded: false,
   isUserLogged: false,
   connectionEstablished: false,
-  connectionEstablishedError: false,
-  deviceAlreadyRegistered: false,
-  isUserLoggedError: false,
   isUserLogout: false,
-  isUserLogoutError: false,
 };
 
 export function AuthenticationReducer(state = initialState, action: AuthenticationAction): Authentications {
@@ -17,39 +13,25 @@ export function AuthenticationReducer(state = initialState, action: Authenticati
       return {
         ...state,
         isAppLoaded: true,
-        isUserLogged: action?.userLogged || false,
-        connectionEstablished: action?.connectionEstablished || false,
+        isUserLogged: action.userLogged ? true : false,
+        connectionEstablished: action.connectionEstablished ? true : false,
       };
     case AuthenticationTypes.UserLoggedIn:
       return {
         ...state,
-        isUserLogged: action?.payload || false,
-        isUserLoggedError: false,
-      };
-    case AuthenticationTypes.UserLoggedInError:
-      return {
-        ...state,
-        isUserLogged: false,
-        isUserLoggedError: true,
+        isUserLogged: action.payload ? true : false,
       };
     case AuthenticationTypes.DeviceRegister:
       return {
         ...state,
-        connectionEstablished: action?.payload || false,
+        connectionEstablished: action.payload ? true : false,
       };
     case AuthenticationTypes.UserLoggedOut:
       return {
         ...state,
         isUserLogout: true,
-        isUserLogoutError: false,
         isUserLogged: false,
         connectionEstablished: false,
-      };
-    case AuthenticationTypes.UserLoggedOutError:
-      return {
-        ...state,
-        isUserLogout: false,
-        isUserLogoutError: true,
       };
     default:
       return state;
