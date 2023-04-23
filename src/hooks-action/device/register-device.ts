@@ -36,6 +36,7 @@ export const useRegisterDevice = () => {
       };
     }
 
+    //TODO: maintain a standard error format
     return {
       success: false,
       errors: data?.errors || [
