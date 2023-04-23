@@ -21,7 +21,7 @@ export function ConnectionReducer(state = initialState, action: ConnectionAction
     case ConnectionTypes.ExistingConnections:
       return {
         ...state,
-        existingConnections: action.payload,
+        existingConnections: action.payload || [],
       };
     default:
       return state;

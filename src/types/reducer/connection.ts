@@ -1,6 +1,6 @@
 export type ConnectionAction = {
   type: string;
-  payload: object[];
+  payload?: any[];
 };
 
 export type ConnectionState = {
