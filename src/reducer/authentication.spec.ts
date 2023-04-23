@@ -9,9 +9,21 @@ describe('AuthenticationReducer()', () => {
       isAppLoaded: false,
       isUserLogged: false,
       connectionEstablished: false,
-      deviceAlreadyRegistered: false,
       isUserLogout: false,
     };
+  });
+
+  it('returns default value when no condition satisfied', () => {
+    const state = AuthenticationReducer(initialState, {
+      type: '',
+    });
+
+    expect(state).toStrictEqual({
+      isAppLoaded: false,
+      isUserLogged: false,
+      connectionEstablished: false,
+      isUserLogout: false,
+    });
   });
 
   describe('isAppLoaded', () => {
@@ -58,7 +70,6 @@ describe('AuthenticationReducer()', () => {
         isAppLoaded: true,
         isUserLogged: expected,
         connectionEstablished: false,
-        deviceAlreadyRegistered: false,
         isUserLogout: false,
       });
     });
@@ -84,6 +95,22 @@ describe('AuthenticationReducer()', () => {
         expect.objectContaining({
           isAppLoaded: true,
           connectionEstablished: expected,
+        }),
+      );
+    });
+  });
+
+  describe('isUserLogout', () => {
+    it('returns expected for isUserLogout when action called.', () => {
+      const state = AuthenticationReducer(initialState, {
+        type: AuthenticationTypes.UserLoggedOut,
+      });
+
+      expect(state).toStrictEqual(
+        expect.objectContaining({
+          isUserLogout: true,
+          isUserLogged: false,
+          connectionEstablished: false,
         }),
       );
     });

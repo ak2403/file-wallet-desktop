@@ -2,7 +2,6 @@ export type Authentications = {
   isAppLoaded: boolean;
   isUserLogged: boolean;
   connectionEstablished: boolean;
-  deviceAlreadyRegistered: boolean;
   isUserLogout: boolean;
 };
 

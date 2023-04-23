@@ -4,7 +4,6 @@ export const initialState: Authentications = {
   isAppLoaded: false,
   isUserLogged: false,
   connectionEstablished: false,
-  deviceAlreadyRegistered: false,
   isUserLogout: false,
 };
 
@@ -25,7 +24,7 @@ export function AuthenticationReducer(state = initialState, action: Authenticati
     case AuthenticationTypes.DeviceRegister:
       return {
         ...state,
-        connectionEstablished: action?.payload || false,
+        connectionEstablished: action.payload ? true : false,
       };
     case AuthenticationTypes.UserLoggedOut:
       return {
