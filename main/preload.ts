@@ -14,6 +14,7 @@ contextBridge.exposeInMainWorld('store', {
 
 contextBridge.exposeInMainWorld('electron', {
   on: (eventName, callback) => ipcRenderer.on(eventName, callback),
+  remove: (eventName) => ipcRenderer.removeAllListeners(eventName),
   send: (eventName, data) => ipcRenderer.send(eventName, data),
   systemInformation: async () => systemInformation(),
 });
