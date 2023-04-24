@@ -1,7 +1,8 @@
 import { shallowEqual, useSelector } from 'react-redux';
+import { ConnectionStatus, ReducerState } from '../../types/reducer';
 
-export const useConnectionStatus = () => {
-  const status = useSelector((state: any) => state.folderStructure.status, shallowEqual);
+export const useConnectionStatus = (): ConnectionStatus => {
+  const status = useSelector((state: ReducerState) => state.folderStructure.status, shallowEqual) as ConnectionStatus;
 
   return status;
 };
