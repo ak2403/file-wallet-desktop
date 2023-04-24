@@ -6,9 +6,10 @@ import { useFetchPendingConnections } from './pending-connection';
 export const useApproveConnectionRequest = () => {
   const fetchPendingConnections = useFetchPendingConnections();
 
-  const approveConnection = async (requestId: string): Promise<boolean> => {
+  const approveConnection = async (requestId: string, approve: boolean): Promise<boolean> => {
     const response = await post(Endpoints.ApproveConnections, {
       requestId,
+      approve,
     });
 
     if (response.status === 200) {
