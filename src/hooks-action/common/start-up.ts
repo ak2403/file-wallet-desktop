@@ -9,7 +9,7 @@ import { AuthenticationTypes } from '../../types/reducer';
 export function useStartUp() {
   const dispatch = useDispatch();
 
-  const startUp = async () => {
+  const startUp = async (): Promise<void> => {
     const accessToken = await getItem('access_token');
     const connectionId = await getItem('connection_id');
 
@@ -26,18 +26,18 @@ export function useStartUp() {
       return;
     }
 
-    const checkValidity = await post(Endpoints.CheckDevice, {
+    const { status } = await post(Endpoints.CheckDevice, {
       connectionId,
     });
 
-    if (checkValidity.status === 200) {
+    if (status === 200) {
       dispatch({
         type: AuthenticationTypes.LoadedApp,
         userLogged: accessToken ? true : false,
         connectionEstablished: connectionId ? true : false,
       });
 
-      return true;
+      return;
     }
 
     await removeItem('access_token');
@@ -49,7 +49,7 @@ export function useStartUp() {
       connectionEstablished: false,
     });
 
-    return true;
+    return;
   };
 
   return startUp;
