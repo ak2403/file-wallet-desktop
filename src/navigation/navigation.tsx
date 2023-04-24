@@ -5,7 +5,6 @@ import { ProtectedComponent } from '../views/screen/protected';
 import { LoginComponent } from '../views/screen/login';
 import { SetupComponent } from '../views/screen/setup';
 import { DashboardComponent } from '../views/screen/dashboard';
-import { PendingActionComponent } from '../views/screen/pending-action';
 import { ConnectionComponent } from '../views/screen/connection';
 
 /**
@@ -26,7 +25,6 @@ export const Navigation: React.FC = () => {
         <Route path="home" element={<ProtectedComponent />}>
           <Route index element={<DashboardComponent />} />
 
-          <Route path="pending-action" element={<PendingActionComponent />} />
           <Route path="connection" element={<ConnectionComponent />} />
 
           <Route path="*" element={<DashboardComponent />} />

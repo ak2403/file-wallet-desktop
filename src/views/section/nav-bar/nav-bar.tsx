@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { faComputer, faHome } from '@fortawesome/free-solid-svg-icons';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 import { NavLayout, Top, Bottom } from './nav-bar.styles';
 import { useGetConnections } from '../../../hooks-action/connection';
@@ -18,7 +18,7 @@ export const NavBar: React.FC = () => {
   const activeConnections: any = useSelector<ReducerState>((state) => state.connection.activeConnections);
 
   useEffect(() => {
-    (async () => await getConnections())();
+    getConnections();
   }, []);
 
   return (
@@ -31,9 +31,7 @@ export const NavBar: React.FC = () => {
         <ConnectionList connections={activeConnections} />
       </Top>
 
-      <Bottom>
-        <NavItem icon={faComputer} onClick={() => navigate('pending-action')} label="Connection Request" />
-      </Bottom>
+      <Bottom></Bottom>
       <Notification />
     </NavLayout>
   );

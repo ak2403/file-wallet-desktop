@@ -8,14 +8,6 @@ export const Notification: React.FC = () => {
   const [notification, setNotification] = useState<any>({});
   const fetchPendingConnections = useFetchPendingConnections();
 
-  //@ts-ignore
-  window.bridge.doActionForNotification(async (_: any, data: any) => {
-    await fetchPendingConnections();
-
-    setShowNotification(true);
-    setNotification(data);
-  });
-
   return showNotification ? (
     <PushNotification
       type="info"
