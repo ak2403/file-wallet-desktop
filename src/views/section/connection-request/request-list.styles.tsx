@@ -1,13 +1,7 @@
 import styled from 'styled-components';
-import { MenuItem as MainMenuItem } from '@szhsin/react-menu';
 
 import { Colors } from '../../../config/colors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-export const MenuItem = styled(MainMenuItem)`
-  font-family: 'Lato', sans-serif;
-  padding: 10px 5px;
-`;
 
 export const MenuContent = styled.div`
   font-family: 'Lato', sans-serif;

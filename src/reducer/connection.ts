@@ -1,7 +1,7 @@
 import { ConnectionAction, ConnectionState, ConnectionTypes } from '../types/reducer/connection';
 
 export const initialState: ConnectionState = {
-  pendingActions: [],
+  pendingConnections: [],
   activeConnections: [],
   existingConnections: [],
 };
@@ -16,7 +16,7 @@ export function ConnectionReducer(state = initialState, action: ConnectionAction
     case ConnectionTypes.PendingConnections:
       return {
         ...state,
-        pendingActions: action.payload || [],
+        pendingConnections: action.payload || [],
       };
     case ConnectionTypes.ExistingConnections:
       return {

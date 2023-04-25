@@ -2,7 +2,7 @@ import { ConnectionState, ConnectionTypes } from '../types/reducer';
 import { ConnectionReducer } from './connection';
 
 const initialState: ConnectionState = {
-  pendingActions: [],
+  pendingConnections: [],
   activeConnections: [],
   existingConnections: [],
 };
@@ -14,13 +14,13 @@ describe('ConnectionReducer()', () => {
     });
 
     expect(state).toStrictEqual({
-      pendingActions: [],
+      pendingConnections: [],
       activeConnections: [],
       existingConnections: [],
     });
   });
 
-  describe('pendingActions', () => {
+  describe('pendingConnections', () => {
     it('returns new array value passed', () => {
       const state = ConnectionReducer(initialState, {
         type: ConnectionTypes.PendingConnections,
@@ -31,7 +31,7 @@ describe('ConnectionReducer()', () => {
         ],
       });
 
-      expect(state.pendingActions).toStrictEqual([
+      expect(state.pendingConnections).toStrictEqual([
         {
           id: 123,
         },
@@ -41,9 +41,12 @@ describe('ConnectionReducer()', () => {
     it('returns new array value by replacing the old value', () => {
       const newState = {
         ...initialState,
-        pendingActions: [
+        pendingConnections: [
           {
-            id: 123,
+            id: 'mock id',
+            fromDevice: 'mock device',
+            requestedBy: 'mock request',
+            on: 'mock on',
           },
         ],
       };
@@ -56,7 +59,7 @@ describe('ConnectionReducer()', () => {
         ],
       });
 
-      expect(state.pendingActions).toStrictEqual([
+      expect(state.pendingConnections).toStrictEqual([
         {
           id: 456,
         },
@@ -69,7 +72,7 @@ describe('ConnectionReducer()', () => {
         payload: [],
       });
 
-      expect(state.pendingActions).toStrictEqual([]);
+      expect(state.pendingConnections).toStrictEqual([]);
     });
   });
 

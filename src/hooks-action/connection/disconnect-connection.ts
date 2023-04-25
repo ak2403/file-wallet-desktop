@@ -10,7 +10,7 @@ export const useDisconnectConnection = () => {
     const { status } = await get(`/connections/connection/${connectionId}/disconnect`);
 
     if (status === 200) {
-      getExistingConnections();
+      await getExistingConnections();
 
       return {
         success: true,

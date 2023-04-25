@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
-import { v4 as uuid } from 'uuid';
 
 import { useApproveConnectionRequest } from '../../../hooks-action/connection';
 
-import { MenuItem, MenuContent, MenuButton, ApproveIcon, DeclineIcon } from './request-list.styles';
+import { MenuContent, MenuButton, ApproveIcon, DeclineIcon } from './request-list.styles';
 import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 type RequestListType = {
-  requests: any[];
+  requestedBy: string;
+  fromDevice: string;
+  id: string;
 };
 
 export const RequestList: React.FC<RequestListType> = (props) => {
   const [disableIcon, setDisableIcon] = useState<boolean>(false);
   const approveConnectionRequest = useApproveConnectionRequest();
 
-  const { requests } = props;
+  const { id, requestedBy, fromDevice } = props;
 
   const onApproveClick = async (id: string, approve: boolean) => {
     if (disableIcon) {
@@ -32,16 +33,12 @@ export const RequestList: React.FC<RequestListType> = (props) => {
 
   return (
     <>
-      {requests.map(({ requestedBy, fromDevice, id }) => (
-        <MenuItem key={uuid()}>
-          <MenuContent>{`${requestedBy} has requested access from ${fromDevice}`}</MenuContent>
+      <MenuContent>{`${requestedBy} has requested access from ${fromDevice}`}</MenuContent>
 
-          <MenuButton>
-            <ApproveIcon icon={faCheck} onClick={() => onApproveClick(id, true)} />
-            <DeclineIcon icon={faXmark} onClick={() => onApproveClick(id, false)} />
-          </MenuButton>
-        </MenuItem>
-      ))}
+      <MenuButton>
+        <ApproveIcon data-testid="request-approve-icon" icon={faCheck} onClick={() => onApproveClick(id, true)} />
+        <DeclineIcon data-testid="request-decline-icon" icon={faXmark} onClick={() => onApproveClick(id, false)} />
+      </MenuButton>
     </>
   );
 };

@@ -9,12 +9,12 @@ export const useGetConnections = () => {
   const dispatch = useDispatch();
 
   const connections = async (): Promise<ApiDispatchResponse> => {
-    const { status, data } = await get(Endpoints.GetConnections);
+    const { status, data = {} } = await get(Endpoints.GetConnections);
 
     if (status === 200) {
       dispatch({
         type: ConnectionTypes.FetchConnections,
-        payload: data.connections,
+        payload: data.connections || [],
       });
 
       return {

@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { Menu } from '@szhsin/react-menu';
+import { v4 as uuid } from 'uuid';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { Menu, MenuItem } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 
-import { ConnectionRequestLayout, ConnectionRequestIcon } from './connection-request.styles';
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { RequestList } from './request-list';
-import { useFetchPendingConnections } from '../../../hooks-action/connection';
-import { ReducerState } from '../../../types/reducer';
+import { usePendingConnections, useFetchPendingConnections } from '../../../hooks-action/connection';
+
+import { ConnectionRequestLayout, ConnectionRequestIcon, NoList } from './connection-request.styles';
 
 export const ConnectionRequest = () => {
-  const pendingActions = useSelector((state: ReducerState) => state.connection.pendingActions);
+  const pendingConnections = usePendingConnections();
   const fetchPendingConnections = useFetchPendingConnections();
 
   useEffect(() => {
@@ -21,13 +21,21 @@ export const ConnectionRequest = () => {
   return (
     <Menu
       menuButton={
-        <ConnectionRequestLayout>
+        <ConnectionRequestLayout data-testid="connection-request-icon">
           <ConnectionRequestIcon icon={faUserPlus} />
         </ConnectionRequestLayout>
       }
       transition
     >
-      <RequestList requests={pendingActions} />
+      {pendingConnections.length ? (
+        pendingConnections.map((pending) => (
+          <MenuItem key={uuid()}>
+            <RequestList {...pending} />
+          </MenuItem>
+        ))
+      ) : (
+        <NoList>There isn't no pending connection.</NoList>
+      )}
     </Menu>
   );
 };
