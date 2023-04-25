@@ -1,24 +1,25 @@
 import { post } from '../../api';
 import { Endpoints } from '../../config/api';
+import { ApiDispatchResponse } from '../../types/hooks-action';
 
 import { useFetchPendingConnections } from './fetch-pending-connection';
 
 export const useApproveConnectionRequest = () => {
   const fetchPendingConnections = useFetchPendingConnections();
 
-  const approveConnection = async (requestId: string, approve: boolean): Promise<boolean> => {
-    const response = await post(Endpoints.ApproveConnections, {
+  const approveConnection = async (requestId: string, approve: boolean): Promise<ApiDispatchResponse> => {
+    const { status } = await post(Endpoints.ApproveConnections, {
       requestId,
       approve,
     });
 
-    if (response.status === 200) {
+    if (status === 200) {
       await fetchPendingConnections();
 
-      return true;
+      return { success: true };
     }
 
-    return false;
+    return { success: false };
   };
 
   return approveConnection;
