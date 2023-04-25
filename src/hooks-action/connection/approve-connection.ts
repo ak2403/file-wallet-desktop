@@ -1,7 +1,7 @@
 import { post } from '../../api';
 import { Endpoints } from '../../config/api';
 
-import { useFetchPendingConnections } from './pending-connection';
+import { useFetchPendingConnections } from './fetch-pending-connection';
 
 export const useApproveConnectionRequest = () => {
   const fetchPendingConnections = useFetchPendingConnections();
