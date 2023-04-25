@@ -39,14 +39,18 @@ export const ConnectionDisplay: React.FC<ConnectionDisplayType> = (props) => {
 
       <Menu
         menuButton={
-          <ConnectionDisplayOption>
+          <ConnectionDisplayOption data-testid="display-option-icon">
             <ConnectionDisplayIcon icon={faEllipsisVertical} />
           </ConnectionDisplayOption>
         }
         transition
       >
-        <MenuItem onClick={() => console.log('activity')}>Activity</MenuItem>
-        <MenuItem onClick={onDisconnect}>Disconnect</MenuItem>
+        <MenuItem data-testid="activity" onClick={() => console.log('activity')}>
+          Activity
+        </MenuItem>
+        <MenuItem data-testid="disconnect" onClick={onDisconnect}>
+          Disconnect
+        </MenuItem>
       </Menu>
     </ConnectionDisplayLayout>
   );
