@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
+import { v4 as uuid } from 'uuid';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { Menu } from '@szhsin/react-menu';
+import { Menu, MenuItem } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 
@@ -27,7 +28,11 @@ export const ConnectionRequest = () => {
       transition
     >
       {pendingConnections.length ? (
-        pendingConnections.map((pending) => <RequestList {...pending} />)
+        pendingConnections.map((pending) => (
+          <MenuItem key={uuid()}>
+            <RequestList {...pending} />
+          </MenuItem>
+        ))
       ) : (
         <NoList>There isn't no pending connection.</NoList>
       )}

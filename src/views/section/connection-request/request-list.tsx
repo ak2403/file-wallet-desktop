@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { v4 as uuid } from 'uuid';
 
 import { useApproveConnectionRequest } from '../../../hooks-action/connection';
 
-import { MenuItem, MenuContent, MenuButton, ApproveIcon, DeclineIcon } from './request-list.styles';
+import { MenuContent, MenuButton, ApproveIcon, DeclineIcon } from './request-list.styles';
 import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 type RequestListType = {
@@ -33,13 +32,13 @@ export const RequestList: React.FC<RequestListType> = (props) => {
   };
 
   return (
-    <MenuItem key={uuid()}>
+    <>
       <MenuContent>{`${requestedBy} has requested access from ${fromDevice}`}</MenuContent>
 
       <MenuButton>
-        <ApproveIcon icon={faCheck} onClick={() => onApproveClick(id, true)} />
-        <DeclineIcon icon={faXmark} onClick={() => onApproveClick(id, false)} />
+        <ApproveIcon data-testid="request-approve-icon" icon={faCheck} onClick={() => onApproveClick(id, true)} />
+        <DeclineIcon data-testid="request-decline-icon" icon={faXmark} onClick={() => onApproveClick(id, false)} />
       </MenuButton>
-    </MenuItem>
+    </>
   );
 };

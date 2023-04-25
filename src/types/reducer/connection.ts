@@ -3,8 +3,15 @@ export type ConnectionAction = {
   payload?: any[];
 };
 
+export type PendingConnection = {
+  id: string;
+  fromDevice: string;
+  requestedBy: string;
+  on: string;
+};
+
 export type ConnectionState = {
-  pendingActions: object[];
+  pendingConnections: PendingConnection[];
   activeConnections: any[];
   existingConnections: any[];
 };
