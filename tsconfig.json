@@ -2,8 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
-    "allowJs": true,
-    "checkJs": false,
+    "allowJs": false,
     "jsx": "react-jsx",
     "rootDir": "./src",
     "removeComments": true,
