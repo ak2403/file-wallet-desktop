@@ -15,7 +15,7 @@ const NetworkIndicator = () => {
       }
 
       setIsNetworkConnected(false);
-    }, 5000);
+    }, 50000);
 
     return () => clearInterval(checkNetworkStatus);
   }, []);
