@@ -1,23 +1,17 @@
 import io from 'socket.io-client';
 
-import { systemInformation } from '../common';
+import { DeviceService } from '../device';
 
 export const onSystemResume = async (): Promise<void> => {
-  const systemInfo = await systemInformation();
-
-  if (!systemInfo) {
-    return;
-  }
-
-  const { machineId } = systemInfo;
+  const deviceId = await DeviceService.deviceId();
 
   const commonChannel = io(`http://10.0.0.18:3000`, { transports: ['websocket'] });
 
   commonChannel.on('connect', () => {
-    commonChannel.emit('connected', machineId);
+    commonChannel.emit('connected', deviceId);
   });
 
-  const machineChannel = io(`http://10.0.0.18:3000/${machineId}`, { transports: ['websocket'] });
+  const machineChannel = io(`http://10.0.0.18:3000/${deviceId}`, { transports: ['websocket'] });
 
   machineChannel.connect();
 };

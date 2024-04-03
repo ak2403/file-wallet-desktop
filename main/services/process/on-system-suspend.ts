@@ -1,17 +1,11 @@
 import io from 'socket.io-client';
 
-import { systemInformation } from '../common';
+import { DeviceService } from '../device';
 
 export const onSystemSuspend = async (): Promise<void> => {
-  const systemInfo = await systemInformation();
-
-  if (!systemInfo) {
-    return;
-  }
-
-  const { machineId } = systemInfo;
+  const deviceId = await DeviceService.deviceId();
 
   const commonChannel = io(`http://10.0.0.18:3000`, { transports: ['websocket'] });
 
-  commonChannel.emit('force-disconnect', machineId);
+  commonChannel.emit('force-disconnect', deviceId);
 };
