@@ -12,7 +12,6 @@ async function createWindow() {
     height: Math.round(height / 1.25),
     titleBarStyle: 'hidden',
     webPreferences: {
-      enableRemoteModule: true,
       nodeIntegration: true,
       webSecurity: false,
       preload: path.join(__dirname, 'preload.js'),
@@ -21,7 +20,7 @@ async function createWindow() {
 
   mainWindow.loadURL('http://localhost:4005');
 
-  app.setAsDefaultProtocolClient('com.sharespace.app');
+  app.setAsDefaultProtocolClient('com.filewallet.app');
 
   mainWindow.webContents.openDevTools();
 

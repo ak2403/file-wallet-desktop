@@ -6,7 +6,7 @@ type PostResponse = {
   error?: string;
 };
 
-export const post = async (url: string, payload: object, headers: object = {}): Promise<PostResponse> => {
+export async function post<T>(url: string, payload: T, headers: object = {}): Promise<PostResponse> {
   try {
     const { status, data } = await fileWalletApi.post(url, payload, {
       headers,
@@ -22,4 +22,4 @@ export const post = async (url: string, payload: object, headers: object = {}): 
       error: 'error',
     };
   }
-};
+}

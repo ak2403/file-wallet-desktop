@@ -1,6 +1,6 @@
 import { post } from '../utils/api/post';
 
-type Payload = {
+type UserPayload = {
   email: string;
 };
 
@@ -9,8 +9,8 @@ type RegisterUser = {
   errorMessage?: string;
 };
 
-export const registerUser = async (payload: Payload): Promise<RegisterUser> => {
-  const { status, data } = await post('/user/create', payload);
+export const registerUser = async (payload: UserPayload): Promise<RegisterUser> => {
+  const { status, data } = await post<UserPayload>('/user/create', payload);
 
   if (status === 200) {
     const { data: userResponse } = data;

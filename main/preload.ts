@@ -1,5 +1,6 @@
 import { contextBridge, shell, ipcRenderer } from 'electron';
 
+import { DeviceService } from './services/device';
 import { systemInformation } from './services/common';
 import { getKey, setKey, removeKey } from './services/local-storage';
 
@@ -17,6 +18,8 @@ contextBridge.exposeInMainWorld('electron', {
   remove: (eventName) => ipcRenderer.removeAllListeners(eventName),
   send: (eventName, data) => ipcRenderer.send(eventName, data),
   systemInformation: async () => systemInformation(),
+  deviceId: async () => DeviceService.deviceId(),
+  deviceOs: async () => DeviceService.deviceOs(),
 });
 
 const bridge = {

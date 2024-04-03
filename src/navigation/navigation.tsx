@@ -2,6 +2,7 @@ import React from 'react';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import { LoginComponent } from '../views/login/login';
 import { HomeComponent } from '../views/home/home';
+import { SetupComponent } from '../views/setup';
 
 /**
  * HashRouter is used instead of BrowserRouter due to the refresh issue.
@@ -14,7 +15,8 @@ export const Navigation: React.FC = () => {
   const router = (
     <Router>
       <Routes>
-        <Route path="" element={<LoginComponent />} />
+        <Route path="" element={<SetupComponent />} />
+        <Route path="/setup" element={<SetupComponent />} />
         <Route path="/home" element={<HomeComponent />} />
       </Routes>
     </Router>

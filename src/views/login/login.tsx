@@ -15,7 +15,7 @@ const LoginComponent = (): React.ReactElement => {
   const onClick = () => {
     registerUser({ email }).then(({ isRegistered }) => {
       if (isRegistered) {
-        navigate('/home');
+        navigate('/setup');
 
         return;
       }
