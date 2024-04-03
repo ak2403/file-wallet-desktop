@@ -6,11 +6,13 @@ const SetupComponent = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    registerDevice().then(({ isDeviceRegistered }) => {
-      if (isDeviceRegistered) {
+    registerDevice()
+      .then(({ isDeviceRegistered }) => {
         navigate('/home');
-      }
-    });
+      })
+      .catch(() => {
+        //TODO: need to handle this later
+      });
   }, []);
   return <div>Setting up...</div>;
 };
