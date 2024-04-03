@@ -1,4 +1,5 @@
 import path from 'path';
+import Store from 'electron-store';
 import { app, BrowserWindow, screen, ipcMain, powerMonitor, dialog } from 'electron';
 
 import { windowAllClosed, didFinishLoad, onSystemSuspend, onSystemResume } from './services/process';
@@ -36,5 +37,6 @@ async function createWindow() {
 
   powerMonitor.on('resume', onSystemResume);
 }
+Store.initRenderer();
 
 app.whenReady().then(() => createWindow());

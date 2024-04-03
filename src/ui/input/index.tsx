@@ -1,12 +1,12 @@
 import { TextInput } from 'grommet';
-import { Dispatch, SetStateAction } from 'react';
 
 type InputType = {
   value: string;
   onChange: (value: string) => void;
+  placeholder?: string;
 };
 
-export const Input: React.FC<InputType> = ({ value, onChange }) => {
+export const Input: React.FC<InputType> = ({ value, onChange, placeholder }) => {
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
@@ -14,5 +14,5 @@ export const Input: React.FC<InputType> = ({ value, onChange }) => {
 
     onChange(value);
   };
-  return <TextInput placeholder="type here" value={value} onChange={onInputChange} />;
+  return <TextInput placeholder={placeholder} value={value} onChange={onInputChange} />;
 };

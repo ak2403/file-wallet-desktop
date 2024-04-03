@@ -15,7 +15,7 @@ export const Navigation: React.FC = () => {
   const router = (
     <Router>
       <Routes>
-        <Route path="" element={<SetupComponent />} />
+        <Route path="" element={<LoginComponent />} />
         <Route path="/setup" element={<SetupComponent />} />
         <Route path="/home" element={<HomeComponent />} />
       </Routes>

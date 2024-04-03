@@ -6,5 +6,5 @@ type ButtonType = {
 };
 
 export const Button: React.FC<ButtonType> = ({ label, onClick }) => {
-  return <GButton primary label={label} onClick={onClick} />;
+  return <GButton primary color={'#b2dfa8'} label={label} onClick={onClick} />;
 };
