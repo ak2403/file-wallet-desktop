@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RootComponent } from './root-component';
 
@@ -10,9 +9,4 @@ if (module.hot) {
   module.hot.accept();
 }
 
-root.render(
-  //@ts-ignore
-  // <Provider store={Store}>
-    <RootComponent />
-  // </Provider>,
-);
+root.render(<RootComponent />);

@@ -1,9 +1,6 @@
 import path from 'path';
 import Store from 'electron-store';
-import { app, BrowserWindow, screen, ipcMain, powerMonitor, dialog } from 'electron';
-
-import { windowAllClosed, didFinishLoad, onSystemSuspend, onSystemResume } from './services/process';
-import { accessTargetFolder } from './services/ipc-main/access-target-folder';
+import { app, BrowserWindow, screen } from 'electron';
 
 async function createWindow() {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
@@ -24,19 +21,8 @@ async function createWindow() {
   app.setAsDefaultProtocolClient('com.filewallet.app');
 
   mainWindow.webContents.openDevTools();
-
-  ipcMain.on('access-target-folder', accessTargetFolder);
-
-  ipcMain.handle('dialog', (event, method, params) => dialog[method](params));
-
-  app.on('window-all-closed', windowAllClosed);
-
-  mainWindow.webContents.on('did-finish-load', async () => didFinishLoad(mainWindow));
-
-  powerMonitor.on('suspend', onSystemSuspend);
-
-  powerMonitor.on('resume', onSystemResume);
 }
+
 Store.initRenderer();
 
 app.whenReady().then(() => createWindow());
