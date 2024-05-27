@@ -1,6 +1,6 @@
 import path from 'path';
 import Store from 'electron-store';
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, ipcMain } from 'electron';
 
 async function createWindow() {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
@@ -24,5 +24,19 @@ async function createWindow() {
 }
 
 Store.initRenderer();
+
+const store = new Store();
+
+ipcMain.handle('getItem', (e, key: string) => {
+  console.log("Getting the value for key: ", key)
+  return store.get(key);
+});
+
+ipcMain.on('setItem', (e, key: string, value: unknown) => {
+  console.log("Setting the value for key: ", key, value)
+  store.set(key, value);
+
+  return true
+});
 
 app.whenReady().then(() => createWindow());

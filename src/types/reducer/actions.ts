@@ -4,6 +4,11 @@ export enum AppActionType {
   UserLogout = 'UserLogout',
 }
 
+type AppPayload = {
+  userLogged: boolean;
+};
+
 export type AppAction = {
   type: AppActionType;
+  payload: AppPayload;
 };

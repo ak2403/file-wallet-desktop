@@ -1,8 +1,7 @@
-import { electronStore } from './config';
 
 export const setItem = <T>(key: string, value: T): boolean => {
   try {
-    electronStore.set(key, value);
+    window.electronAPI.store.setItem(key, value);
 
     return true;
   } catch (error) {
