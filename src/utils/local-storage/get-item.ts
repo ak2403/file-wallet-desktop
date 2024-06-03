@@ -1,6 +1,6 @@
-export const getItem = <T>(key: string): T => {
+export const getItem = async <T>(key: string): Promise<T> => {
   try {
-    return window.electronAPI.store.getItem(key) as T;
+    return (await window.electronAPI.store.getItem(key)) as T;
   } catch (error) {
     console.log('Error in getting value for key: ', key);
     throw error;

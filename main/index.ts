@@ -27,16 +27,14 @@ Store.initRenderer();
 
 const store = new Store();
 
-ipcMain.handle('getItem', (e, key: string) => {
-  console.log("Getting the value for key: ", key)
+ipcMain.handle('store:get', (e, key: string) => {
   return store.get(key);
 });
 
 ipcMain.on('setItem', (e, key: string, value: unknown) => {
-  console.log("Setting the value for key: ", key, value)
   store.set(key, value);
 
-  return true
+  return true;
 });
 
 app.whenReady().then(() => createWindow());
