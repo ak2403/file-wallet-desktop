@@ -31,6 +31,12 @@ ipcMain.handle('store:get', (e, key: string) => {
   return store.get(key);
 });
 
+ipcMain.handle('store:del', (e, key: string) => {
+  store.delete(key);
+
+  return true;
+});
+
 ipcMain.on('setItem', (e, key: string, value: unknown) => {
   store.set(key, value);
 
