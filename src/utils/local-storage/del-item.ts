@@ -1,6 +1,6 @@
-export const delItem = async (key: string): Promise<boolean> => {
+export const delItem = (key: string): boolean => {
   try {
-    return await window.electronAPI.store.delItem(key);
+    return window.electronAPI.store.delItem(key);
   } catch (error) {
     console.log('Error in deleting value for key: ', key);
     throw error;
