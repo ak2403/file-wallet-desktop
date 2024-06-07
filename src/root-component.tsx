@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useRunStartup } from './hooks/useRunStartup';
 import { useIsAppLoaded } from './hooks/useIsAppLoaded';
-import { StartupLoader } from './ui/loader';
+import { Loader } from './ui/loader';
+import { Navigation } from './navigation';
 
 const RootComponent = () => {
   const isAppLoaded = useIsAppLoaded();
@@ -12,10 +13,10 @@ const RootComponent = () => {
   }, []);
 
   if (!isAppLoaded) {
-    return <StartupLoader />;
+    return <Loader message="Starting the application..." />;
   }
 
-  return <div>Hello</div>;
+  return <Navigation />;
 };
 
 export { RootComponent };

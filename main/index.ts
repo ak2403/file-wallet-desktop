@@ -1,6 +1,9 @@
 import path from 'path';
 import Store from 'electron-store';
-import { app, BrowserWindow, screen, ipcMain } from 'electron';
+import { app, BrowserWindow, screen, ipcMain, dialog } from 'electron';
+import { ClientSocket } from './services/client-socket';
+
+const ioClient = new ClientSocket();
 
 async function createWindow() {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
@@ -20,12 +23,20 @@ async function createWindow() {
 
   app.setAsDefaultProtocolClient('com.filewallet.app');
 
-  mainWindow.webContents.openDevTools();
+  ioClient.connect();
+
+  mainWindow.on('ready-to-show', () => {
+    mainWindow.webContents.openDevTools();
+  });
 }
 
 Store.initRenderer();
 
 const store = new Store();
+
+ipcMain.handle('file:open', (e, key: string) => {
+  return dialog.showOpenDialog({ properties: ['openFile'] }).then((response) => response);
+});
 
 ipcMain.handle('store:get', (e, key: string) => {
   return store.get(key);

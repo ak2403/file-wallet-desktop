@@ -7,6 +7,9 @@ const electronHandler = {
     setItem: (key: string, value: unknown) => ipcRenderer.send('setItem', key, value),
     delItem: (key: string) => ipcRenderer.invoke('store:del', key),
   },
+  dialog: {
+    openFile: () => ipcRenderer.invoke('file:open'),
+  },
   identity: {
     getId: MachineIdenity.getMachineId,
   },
