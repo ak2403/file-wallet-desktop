@@ -13,5 +13,6 @@ export const OptionView = styled.div`
 `;
 
 export const DisplayView = styled.div`
+  display: flex;
   flex: 1;
 `;
