@@ -14,7 +14,7 @@ export const Setup: React.FC = () => {
   useEffect(() => {
     setupConnection(code)
       .then(() => {
-        navigate('/dashboard');
+        navigate('/transfer');
       })
       .catch((error) => {
         console.log(error);

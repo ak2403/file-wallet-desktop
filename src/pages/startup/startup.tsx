@@ -21,7 +21,7 @@ export const Startup = () => {
   }
 
   if (isUserLogged) {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/transfer" />;
   }
 
   return <Navigate to="/" />;

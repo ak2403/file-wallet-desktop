@@ -9,7 +9,7 @@ export const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
   const isUserLogged = useIsUserLogged();
 
   if (isUserLogged) {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/transfer" />;
   }
 
   return children;

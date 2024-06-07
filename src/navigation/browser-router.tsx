@@ -1,10 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { Login } from '../pages/login';
-import { Dashboard } from '../pages/dashboard';
 import { PublicRoute } from './public-route';
 import { PrivateRoute } from './private-route';
 import { Setup } from '../pages/setup';
 import { SideBarWrapper } from '../pages/_wrapper';
+import { TransferPage } from '../pages/transfer';
 
 export const router = createBrowserRouter([
   {
@@ -20,10 +20,10 @@ export const router = createBrowserRouter([
     element: <Setup />,
   },
   {
-    path: '/dashboard',
+    path: '/transfer',
     element: (
       <PrivateRoute>
-        <SideBarWrapper children={<Dashboard />} />
+        <SideBarWrapper children={<TransferPage />} />
       </PrivateRoute>
     ),
   },
