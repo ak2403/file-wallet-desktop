@@ -14,6 +14,12 @@ export function AppReducer(state: AppState = initialState, action: AppAction) {
         isAppLoaded: true,
         isUserLogged: action.payload.userLogged,
       };
+
+    case AppActionType.ConnectionSetup:
+      return {
+        ...state,
+        isUserLogged: true,
+      };
     default:
       return state;
   }
