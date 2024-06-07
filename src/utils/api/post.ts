@@ -1,8 +1,9 @@
+import { AxiosResponse } from 'axios';
 import { BaseAPI } from './config';
 
-export const post = async (url: string, payload: object) => {
+export const post = async <T>(url: string, payload: object): Promise<T> => {
   try {
-    const response = await BaseAPI.post(url, payload);
+    const response: AxiosResponse<T> = await BaseAPI.post(url, payload);
 
     return response.data;
   } catch (error) {
