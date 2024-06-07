@@ -1,1 +1,1 @@
-export * from './startup-loader';
+export * from './loader';
