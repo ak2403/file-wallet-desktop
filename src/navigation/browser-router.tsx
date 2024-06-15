@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
     path: '/transfer',
     element: (
       <PrivateRoute>
-        <SideBarWrapper children={<TransferPage />} />
+        <SideBarWrapper children={<TransferPage />} title="Transfer file" />
       </PrivateRoute>
     ),
   },
