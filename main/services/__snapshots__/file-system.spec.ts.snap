@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FileSystemService getFileInfo() returns file information for valid file path 1`] = `
+{
+  "exists": true,
+  "stats": {
+    "fileType": "video/mp2t",
+    "size": 622,
+  },
+}
+`;

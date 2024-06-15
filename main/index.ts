@@ -2,6 +2,8 @@ import path from 'path';
 import Store from 'electron-store';
 import { app, BrowserWindow, screen, ipcMain, dialog } from 'electron';
 import { ClientSocket } from './services/client-socket';
+import { FileSystemService } from './services/file-system';
+import { DialogFileInformation } from '../packages/types/src/services';
 
 const ioClient = new ClientSocket();
 
@@ -34,8 +36,20 @@ Store.initRenderer();
 
 const store = new Store();
 
-ipcMain.handle('file:open', (e, key: string) => {
-  return dialog.showOpenDialog({ properties: ['openFile'] }).then((response) => response);
+ipcMain.handle('file:open', (e): Promise<Partial<DialogFileInformation>> => {
+  return dialog.showOpenDialog({ properties: ['openFile'] }).then(({ filePaths, canceled }) => {
+    const output = { canceled };
+
+    if (canceled) {
+      return output;
+    }
+
+    try {
+      return { ...output, ...FileSystemService.getFileInfo(filePaths[0]) };
+    } catch (error) {
+      return { ...output, errored: true };
+    }
+  });
 });
 
 ipcMain.handle('store:get', (e, key: string) => {

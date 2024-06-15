@@ -1,4 +1,5 @@
 {
+  "verbose": true,
   "moduleNameMapper": {
     "\\.(avif|css|jpg|png|svg|webm|webp|woff|woff2)$": "<rootDir>/__mocks__/empty.js"
   },
@@ -6,6 +7,7 @@
   "setupFilesAfterEnv": ["<rootDir>/jest-setup.js"],
   "collectCoverageFrom": ["**/*.{ts,tsx,js,jsx}"],
   "coveragePathIgnorePatterns": ["node_modules", "<rootDir>/src/types"],
+  "transformIgnorePatterns": ["/node_modules/(?!mime)"],
   "coverageThreshold": {
     "global": {
       "statements": 21
