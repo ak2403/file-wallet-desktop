@@ -1,6 +1,7 @@
 export type FileInformation = {
   exists: boolean;
   stats?: {
+    filePath: string;
     fileType: string | null;
     size: number;
   };

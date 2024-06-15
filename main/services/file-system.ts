@@ -19,6 +19,7 @@ export class FileSystemService {
       return {
         exists: true,
         stats: {
+          filePath,
           fileType: mime.getType(filePath),
           size: fileStats.size,
         },

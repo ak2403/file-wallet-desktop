@@ -4,8 +4,9 @@ exports[`FileSystemService getFileInfo() returns file information for valid file
 {
   "exists": true,
   "stats": {
+    "filePath": "/home/sparta/Documents/github/file-wallet/main/services/file-system.ts",
     "fileType": "video/mp2t",
-    "size": 622,
+    "size": 642,
   },
 }
 `;
